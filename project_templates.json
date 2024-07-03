@@ -1,0 +1,592 @@
+[
+  {
+    "project_name": "MicroservicesArchitectureProject",
+    "description": "This project demonstrates the Microservices Architecture, where the application is divided into multiple small, loosely coupled, and independently deployable services. Each microservice has its own business logic and database.",
+    "components": [
+      {
+        "name": "UserService",
+        "type": "microservice",
+        "description": "Handles user-related operations.",
+        "path": "Microservices/UserService",
+        "services": [
+          {
+            "name": "UserAPI",
+            "type": "api_gateway",
+            "description": "API gateway for user-related operations.",
+            "path": "Microservices/UserService/API/UserAPI.js"
+          }
+        ],
+        "modules": [
+          {
+            "name": "UserRepository",
+            "type": "repository",
+            "description": "Handles user data operations.",
+            "path": "Microservices/UserService/Repository/UserRepository.js"
+          }
+        ]
+      },
+      {
+        "name": "OrderService",
+        "type": "microservice",
+        "description": "Handles order-related operations.",
+        "path": "Microservices/OrderService",
+        "services": [
+          {
+            "name": "OrderAPI",
+            "type": "api_gateway",
+            "description": "API gateway for order-related operations.",
+            "path": "Microservices/OrderService/API/OrderAPI.js"
+          }
+        ],
+        "modules": [
+          {
+            "name": "OrderRepository",
+            "type": "repository",
+            "description": "Handles order data operations.",
+            "path": "Microservices/OrderService/Repository/OrderRepository.js"
+          }
+        ]
+      },
+      {
+        "name": "ServiceDiscovery",
+        "type": "service_discovery",
+        "description": "Service discovery component for registering and discovering microservices.",
+        "path": "ServiceDiscovery/ServiceDiscovery.js"
+      },
+      {
+        "name": "CircuitBreaker",
+        "type": "circuit_breaker",
+        "description": "Circuit breaker component to handle fault tolerance in microservices.",
+        "path": "CircuitBreaker/CircuitBreaker.js"
+      }
+    ]
+  },
+  {
+    "project_name": "EventDrivenArchitectureProject",
+    "description": "This project demonstrates Event-Driven Architecture, where the application is designed around the production, detection, and reaction to events. Components communicate through events, enabling asynchronous and decoupled communication.",
+    "components": [
+      {
+        "name": "EventProducer",
+        "type": "event_producer",
+        "description": "Produces events for various actions.",
+        "path": "EventDriven/EventProducer.js"
+      },
+      {
+        "name": "EventConsumer",
+        "type": "event_consumer",
+        "description": "Consumes events and performs actions.",
+        "path": "EventDriven/EventConsumer.js"
+      },
+      {
+        "name": "EventPublisher",
+        "type": "publisher",
+        "description": "Publishes events to subscribers.",
+        "path": "EventDriven/EventPublisher.js"
+      },
+      {
+        "name": "EventSubscriber",
+        "type": "subscriber",
+        "description": "Subscribes to events and processes them.",
+        "path": "EventDriven/EventSubscriber.js"
+      },
+      {
+        "name": "EventStore",
+        "type": "event_store",
+        "description": "Stores events for event sourcing.",
+        "path": "EventDriven/EventStore.js"
+      }
+    ]
+  },
+  {
+    "project_name": "RepositoryPatternProject",
+    "description": "This project demonstrates the Repository Pattern, which is used to create an abstraction layer between the data access layer and the business logic layer of an application. The Repository pattern is often used in conjunction with the Unit of Work pattern to manage transactions.",
+    "components": [
+      {
+        "name": "UserRepository",
+        "type": "repository",
+        "description": "Handles user data operations.",
+        "path": "Repository/UserRepository.js"
+      },
+      {
+        "name": "OrderRepository",
+        "type": "repository",
+        "description": "Handles order data operations.",
+        "path": "Repository/OrderRepository.js"
+      },
+      {
+        "name": "UnitOfWork",
+        "type": "unit_of_work",
+        "description": "Manages transactions and coordinates the work of multiple repositories.",
+        "path": "Repository/UnitOfWork.js"
+      }
+    ]
+  },
+  {
+    "project_name": "CQRSProject",
+    "description": "This project demonstrates CQRS, a pattern that separates read and write operations into different models. It is often used with Event Sourcing to provide a clear audit trail of changes.",
+    "components": [
+      {
+        "name": "CommandHandler",
+        "type": "command_handler",
+        "description": "Handles command operations for write model.",
+        "path": "CQRS/CommandHandler.js"
+      },
+      {
+        "name": "QueryHandler",
+        "type": "query_handler",
+        "description": "Handles query operations for read model.",
+        "path": "CQRS/QueryHandler.js"
+      },
+      {
+        "name": "EventStore",
+        "type": "event_store",
+        "description": "Stores events for event sourcing.",
+        "path": "CQRS/EventStore.js"
+      }
+    ]
+  },
+  {
+    "project_name": "ClientServerProject",
+    "description": "ClientServerProject is a sample project demonstrating the Client-Server pattern. The project includes client and server components that interact via API calls.",
+    "components": [
+      {
+        "name": "ClientComponent",
+        "type": "component",
+        "description": "Main component handling client-side functionalities.",
+        "path": "ClientComponent",
+        "services": [
+          {
+            "name": "ClientRequestService",
+            "type": "service",
+            "description": "A background service that periodically sends requests to ServerComponent using API provided by ServerRequestHandlerModule. Invokes RequestEvent after receiving a response, or ErrorEvent on error.",
+            "path": "ClientComponent/Services/ClientRequestService.py"
+          }
+        ],
+        "modules": [
+          {
+            "name": "ClientRequestHandlerModule",
+            "type": "module",
+            "description": "Module handling API requests for ClientComponent. Contains DataManager for managing data operations.",
+            "path": "ClientComponent/Modules/ClientRequestHandlerModule.js",
+            "classes": [
+              {
+                "name": "DataManager",
+                "type": "class",
+                "description": "Class for managing data operations. Exposes public method process_data that performs a specific operation.",
+                "path": "ClientComponent/Modules/ClientRequestHandlerModule/DataManager.js",
+                "methods": [
+                  {
+                    "name": "process_data",
+                    "type": "method",
+                    "description": "A public method that performs a specific data operation using helper method validate_data.",
+                    "path": "ClientComponent/Modules/ClientRequestHandlerModule/DataManager.js"
+                  },
+                  {
+                    "name": "validate_data",
+                    "type": "method",
+                    "description": "A private helper method encapsulating data validation logic.",
+                    "path": "ClientComponent/Modules/ClientRequestHandlerModule/DataManager.js"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "ClientErrorHandlerModule",
+            "type": "module",
+            "description": "This module is responsible for handling errors or timeouts of asynchronous operations started by ClientRequestHandlerModule. Registers for ErrorEvent.",
+            "path": "ClientComponent/Modules/ClientErrorHandlerModule.js"
+          }
+        ]
+      },
+      {
+        "name": "ServerComponent",
+        "type": "component",
+        "description": "API provider component.",
+        "path": "ServerComponent",
+        "services": [
+          {
+            "name": "ServerRequestReaderService",
+            "type": "service",
+            "description": "Request reader service that listens for requests from ClientComponent, identifies request type, dispatches the request to one of the modules based on request type, and sends back response using ServerResponseSenderService.",
+            "path": "ServerComponent/Services/ServerRequestReaderService.py"
+          },
+          {
+            "name": "ServerResponseSenderService",
+            "type": "service",
+            "description": "Response sender service that sends responses to ClientComponent with data in specific format.",
+            "path": "ServerComponent/Services/ServerResponseSenderService.py"
+          }
+        ],
+        "modules": [
+          {
+            "name": "ServerRequestHandlerModule",
+            "type": "module",
+            "description": "Processes requests of specific type based on the attached data.",
+            "path": "ServerComponent/Modules/ServerRequestHandlerModule.js",
+            "classes": [
+              {
+                "name": "RequestProcessor",
+                "type": "class",
+                "description": "Class for handling request processing. Exposes public methods for processing different request types.",
+                "path": "ServerComponent/Modules/ServerRequestHandlerModule/RequestProcessor.js",
+                "methods": [
+                  {
+                    "name": "process_type1_request",
+                    "type": "method",
+                    "description": "Processes requests of type 1.",
+                    "path": "ServerComponent/Modules/ServerRequestHandlerModule/RequestProcessor.js"
+                  },
+                  {
+                    "name": "process_type2_request",
+                    "type": "method",
+                    "description": "Processes requests of type 2.",
+                    "path": "ServerComponent/Modules/ServerRequestHandlerModule/RequestProcessor.js"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "ServerDataHandlerModule",
+            "type": "module",
+            "description": "Processes data requests of specific type based on the attached data.",
+            "path": "ServerComponent/Modules/ServerDataHandlerModule.js",
+            "classes": [
+              {
+                "name": "DataProcessor",
+                "type": "class",
+                "description": "Class for handling data processing. Exposes public methods for processing different data types.",
+                "path": "ServerComponent/Modules/ServerDataHandlerModule/DataProcessor.js",
+                "methods": [
+                  {
+                    "name": "process_data_type1",
+                    "type": "method",
+                    "description": "Processes data of type 1.",
+                    "path": "ServerComponent/Modules/ServerDataHandlerModule/DataProcessor.js"
+                  },
+                  {
+                    "name": "process_data_type2",
+                    "type": "method",
+                    "description": "Processes data of type 2.",
+                    "path": "ServerComponent/Modules/ServerDataHandlerModule/DataProcessor.js"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "project_name": "ClientServerProject",
+    "description": "ClientServerProject is a sample project demonstrating the Client-Server pattern. The project includes client and server components that interact via API calls.",
+    "components": [
+      {
+        "name": "ClientComponent",
+        "type": "component",
+        "description": "Main component handling client-side functionalities.",
+        "path": "ClientComponent",
+        "services": [
+          {
+            "name": "ClientRequestService",
+            "type": "service",
+            "description": "A background service that periodically sends requests to ServerComponent using API provided by ServerRequestHandlerModule. Invokes RequestEvent after receiving a response, or ErrorEvent on error.",
+            "path": "ClientComponent/Services/ClientRequestService.py"
+          }
+        ],
+        "modules": [
+          {
+            "name": "ClientRequestHandlerModule",
+            "type": "module",
+            "description": "Module handling API requests for ClientComponent. Contains DataManager for managing data operations.",
+            "path": "ClientComponent/Modules/ClientRequestHandlerModule.js",
+            "classes": [
+              {
+                "name": "DataManager",
+                "type": "class",
+                "description": "Class for managing data operations. Exposes public method process_data that performs a specific operation.",
+                "path": "ClientComponent/Modules/ClientRequestHandlerModule/DataManager.js",
+                "methods": [
+                  {
+                    "name": "process_data",
+                    "type": "method",
+                    "description": "A public method that performs a specific data operation using helper method validate_data.",
+                    "path": "ClientComponent/Modules/ClientRequestHandlerModule/DataManager.js"
+                  },
+                  {
+                    "name": "validate_data",
+                    "type": "method",
+                    "description": "A private helper method encapsulating data validation logic.",
+                    "path": "ClientComponent/Modules/ClientRequestHandlerModule/DataManager.js"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "ClientErrorHandlerModule",
+            "type": "module",
+            "description": "This module is responsible for handling errors or timeouts of asynchronous operations started by ClientRequestHandlerModule. Registers for ErrorEvent.",
+            "path": "ClientComponent/Modules/ClientErrorHandlerModule.js"
+          }
+        ]
+      },
+      {
+        "name": "ServerComponent",
+        "type": "component",
+        "description": "API provider component.",
+        "path": "ServerComponent",
+        "services": [
+          {
+            "name": "ServerRequestReaderService",
+            "type": "service",
+            "description": "Request reader service that listens for requests from ClientComponent, identifies request type, dispatches the request to one of the modules based on request type, and sends back response using ServerResponseSenderService.",
+            "path": "ServerComponent/Services/ServerRequestReaderService.py"
+          },
+          {
+            "name": "ServerResponseSenderService",
+            "type": "service",
+            "description": "Response sender service that sends responses to ClientComponent with data in specific format.",
+            "path": "ServerComponent/Services/ServerResponseSenderService.py"
+          }
+        ],
+        "modules": [
+          {
+            "name": "ServerRequestHandlerModule",
+            "type": "module",
+            "description": "Processes requests of specific type based on the attached data.",
+            "path": "ServerComponent/Modules/ServerRequestHandlerModule.js",
+            "classes": [
+              {
+                "name": "RequestProcessor",
+                "type": "class",
+                "description": "Class for handling request processing. Exposes public methods for processing different request types.",
+                "path": "ServerComponent/Modules/ServerRequestHandlerModule/RequestProcessor.js",
+                "methods": [
+                  {
+                    "name": "process_type1_request",
+                    "type": "method",
+                    "description": "Processes requests of type 1.",
+                    "path": "ServerComponent/Modules/ServerRequestHandlerModule/RequestProcessor.js"
+                  },
+                  {
+                    "name": "process_type2_request",
+                    "type": "method",
+                    "description": "Processes requests of type 2.",
+                    "path": "ServerComponent/Modules/ServerRequestHandlerModule/RequestProcessor.js"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "ServerDataHandlerModule",
+            "type": "module",
+            "description": "Processes data requests of specific type based on the attached data.",
+            "path": "ServerComponent/Modules/ServerDataHandlerModule.js",
+            "classes": [
+              {
+                "name": "DataProcessor",
+                "type": "class",
+                "description": "Class for handling data processing. Exposes public methods for processing different data types.",
+                "path": "ServerComponent/Modules/ServerDataHandlerModule/DataProcessor.js",
+                "methods": [
+                  {
+                    "name": "process_data_type1",
+                    "type": "method",
+                    "description": "Processes data of type 1.",
+                    "path": "ServerComponent/Modules/ServerDataHandlerModule/DataProcessor.js"
+                  },
+                  {
+                    "name": "process_data_type2",
+                    "type": "method",
+                    "description": "Processes data of type 2.",
+                    "path": "ServerComponent/Modules/ServerDataHandlerModule/DataProcessor.js"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "project_name": "MyMVCProject",
+    "description": "MyMVCProject is a sample project demonstrating the Model-View-Controller (MVC) pattern. The project separates concerns into three interconnected components: Model, View, and Controller, facilitating modularity and ease of maintenance.",
+    "components": [
+      {
+        "name": "ModelComponent",
+        "type": "component",
+        "description": "Handles data and business logic.",
+        "path": "Model",
+        "modules": [
+          {
+            "name": "DatabaseModule",
+            "type": "module",
+            "description": "Interacts with the database to perform CRUD operations.",
+            "path": "Model/DatabaseModule.js",
+            "classes": [
+              {
+                "name": "DatabaseManager",
+                "type": "class",
+                "description": "Manages database connections and queries.",
+                "path": "Model/DatabaseModule/DatabaseManager.js",
+                "methods": [
+                  {
+                    "name": "connect",
+                    "type": "method",
+                    "description": "Connects to the database.",
+                    "path": "Model/DatabaseModule/DatabaseManager.js"
+                  },
+                  {
+                    "name": "query",
+                    "type": "method",
+                    "description": "Executes a database query.",
+                    "path": "Model/DatabaseModule/DatabaseManager.js"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "ViewComponent",
+        "type": "component",
+        "description": "Handles user interface and presentation logic.",
+        "path": "View",
+        "modules": [
+          {
+            "name": "TemplateModule",
+            "type": "module",
+            "description": "Renders HTML templates.",
+            "path": "View/TemplateModule.html"
+          },
+          {
+            "name": "CSSModule",
+            "type": "module",
+            "description": "Contains styles for the application.",
+            "path": "View/CSSModule.css"
+          }
+        ]
+      },
+      {
+        "name": "ControllerComponent",
+        "type": "component",
+        "description": "Handles input and updates the model and view.",
+        "path": "Controller",
+        "modules": [
+          {
+            "name": "RequestHandlerModule",
+            "type": "module",
+            "description": "Handles HTTP requests and routes them to the appropriate controller methods.",
+            "path": "Controller/RequestHandlerModule.js",
+            "classes": [
+              {
+                "name": "RequestController",
+                "type": "class",
+                "description": "Controller for managing requests.",
+                "path": "Controller/RequestHandlerModule/RequestController.js",
+                "methods": [
+                  {
+                    "name": "handleGetRequest",
+                    "type": "method",
+                    "description": "Handles GET requests.",
+                    "path": "Controller/RequestHandlerModule/RequestController.js"
+                  },
+                  {
+                    "name": "handlePostRequest",
+                    "type": "method",
+                    "description": "Handles POST requests.",
+                    "path": "Controller/RequestHandlerModule/RequestController.js"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "project_name": "MyObserverProject",
+    "description": "MyObserverProject is a sample project demonstrating the Observer pattern. The project includes subjects that notify observers about changes in their state. This pattern is useful for implementing distributed event handling systems.",
+    "components": [
+      {
+        "name": "SubjectComponent",
+        "type": "component",
+        "description": "Defines the subject that maintains a list of observers.",
+        "path": "Subject",
+        "modules": [
+          {
+            "name": "StateModule",
+            "type": "module",
+            "description": "Handles the state of the subject and notifies observers of changes.",
+            "path": "Subject/StateModule.js",
+            "classes": [
+              {
+                "name": "Subject",
+                "type": "class",
+                "description": "Maintains a list of observers and notifies them of any state changes.",
+                "path": "Subject/StateModule/Subject.js",
+                "methods": [
+                  {
+                    "name": "attach",
+                    "type": "method",
+                    "description": "Attaches an observer to the subject.",
+                    "path": "Subject/StateModule/Subject.js"
+                  },
+                  {
+                    "name": "detach",
+                    "type": "method",
+                    "description": "Detaches an observer from the subject.",
+                    "path": "Subject/StateModule/Subject.js"
+                  },
+                  {
+                    "name": "notify",
+                    "type": "method",
+                    "description": "Notifies all observers about a state change.",
+                    "path": "Subject/StateModule/Subject.js"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "ObserverComponent",
+        "type": "component",
+        "description": "Defines observers that receive updates from subjects.",
+        "path": "Observer",
+        "modules": [
+          {
+            "name": "UpdateModule",
+            "type": "module",
+            "description": "Receives updates from subjects.",
+            "path": "Observer/UpdateModule.js",
+            "classes": [
+              {
+                "name": "Observer",
+                "type": "class",
+                "description": "Defines the interface for objects that should be notified of changes in a subject.",
+                "path": "Observer/UpdateModule/Observer.js",
+                "methods": [
+                  {
+                    "name": "update",
+                    "type": "method",
+                    "description": "Gets called when the subject's state changes.",
+                    "path": "Observer/UpdateModule/Observer.js"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
