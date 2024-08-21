@@ -17,6 +17,31 @@ from crewai_tools import (
 import os
 import json
 
+def read_blackboard():
+    task_read_blackboard = Task(
+        description='Read the Blackboard and perform necessary actions.',
+        expected_output='Content read and processed from Blackboard.md',
+        agent=Agent(
+            role='Blackboard Reader',
+            goal='Read the content of Blackboard.md.',
+            backstory='Reader of ../workspace/Blackboard.md and provider of there stored contents.',
+            llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.5),
+            tools=[FileReadTool(file_path='../workspace/Blackboard.md')]
+        ),
+        verbose=True,
+        async_execution=False,
+        #callback=lambda output: append_to_blackboard('Updates', output)
+    )
+    crew = Crew(
+        agents=[task_read_blackboard.agent],
+        tasks=[task_read_blackboard],
+        verbose=True
+    )
+    result = crew.kickoff()
+    print(result)
+    return task_read_blackboard
+
+task_read_blackboard = read_blackboard()
 
 # Combined task: Define problem, select pattern, and create coding tasks
 def combined_developer_task_callback(output):
@@ -64,6 +89,7 @@ combined_developer_task = Task(
     ),
     verbose=True,
     async_execution=False,
+    context=[task_read_blackboard],
     callback=combined_developer_task_callback,
 )
 
@@ -122,30 +148,6 @@ combined_code_and_readme_task = Task(
     callback=combined_code_and_readme_callback,
 )
 
-def read_blackboard():
-    task_read_blackboard = Task(
-        description='Read the Blackboard and perform necessary actions.',
-        expected_output='Content read and processed from Blackboard.md',
-        agent=Agent(
-            role='Blackboard Reader',
-            goal='Read the content of Blackboard.md.',
-            backstory='Reader of ../workspace/Blackboard.md and provider of there stored contents.',
-            llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.5),
-            tools=[FileReadTool(file_path='../workspace/Blackboard.md')]
-        ),
-        verbose=True,
-        async_execution=False,
-        #callback=lambda output: append_to_blackboard('Updates', output)
-    )
-    crew = Crew(
-        agents=[task_read_blackboard.agent],
-        tasks=[task_read_blackboard],
-        verbose=True
-    )
-    result = crew.kickoff()
-    print(result)
-
-read_blackboard()
 
 # Assemble the Developers' Crew
 developers_crew = Crew(
