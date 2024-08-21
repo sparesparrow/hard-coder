@@ -1,5 +1,8 @@
 import os
+from crewai import Agent, Task, Crew, Process
 import json
+from crewai_tools import (FileReadTool)
+readBlackBoard = FileReadTool(file_path='../workspace/Blackboard.md')
 
 def append_to_blackboard(section_title, content):
     blackboard_path = '../workspace/Blackboard.md'
@@ -17,8 +20,9 @@ def append_to_blackboard(section_title, content):
 
 
 def safe_json_parse(json_string):
+    print("DEBUG: Received in safe_json_parse:", json_string)
     try:
-        if json_string.strip():  # Check if JSON string is not empty
+        if isinstance(json_string, str) and json_string.strip():  # Check if JSON string is not empty
             return json.loads(json_string)
         else:
             raise ValueError("Empty JSON string")

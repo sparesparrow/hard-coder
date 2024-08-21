@@ -1,7 +1,7 @@
 from crewai import Agent, Task, Crew, Process
 from langchain_openai import ChatOpenAI
 from utils import append_to_blackboard
-from utils import safe_json_parse
+from utils import safe_json_parse, readBlackBoard
 
 
 from crewai_tools import (
@@ -17,11 +17,17 @@ from crewai_tools import (
 import os
 import json
 
-readBlackBoard = FileReadTool(file_path='../workspace/Blackboard.md')
 
 # Combined task: Define problem, select pattern, and create coding tasks
 def combined_developer_task_callback(output):
-    output_data = safe_json_parse(output)
+    print("DEBUG: Received output from agent:", output)
+    
+    try:
+        output_data = safe_json_parse(output)
+    
+    except Exception as e:
+        print(f"Error in combined_developer_task_callback: {e}")
+
     if output_data and isinstance(output_data, list):
         files_and_tasks = output_data  # Assuming output_data is a list of dictionaries
 
@@ -39,7 +45,7 @@ def combined_developer_task_callback(output):
                 print(f"Created file: {file_path}")
 
                 # Update the Blackboard with the coding task
-                append_to_blackboard("3. Developer Tasks", f"### {filename}\n\n{coding_task}")
+                #append_to_blackboard("3. Developer Tasks", f"### {filename}\n\n{coding_task}")
                 print(f"Updated Blackboard with coding task for: {filename}")
     else:
         print("Invalid output format received in combined_developer_task_callback.")
@@ -54,7 +60,7 @@ combined_developer_task = Task(
         goal='Read User Request from the Blackboard (accessible with FileReadTool) in order to define the problem, select design pattern and create detailed coding tasks for software developers to implement. Output as json dictionary, each node being a pair of 1. filename (to create dummy files now and the implementation will be placed there later), and 2. Extensive detailed Coding Task for the developer to implement later. The dictionary should contain complete structured information for the developers to implement the whole problem solution with no more data required from the user.',
         backstory='This agent handles the entire process from problem definition to coding task creation to reduce the number of tasks and streamline the workflow.',
         llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.7),
-        tools=[readBlackBoard],
+        #tools=[readBlackBoard],
     ),
     verbose=True,
     async_execution=False,
@@ -63,7 +69,15 @@ combined_developer_task = Task(
 
 # Combined task: Write source code and generate README
 def combined_code_and_readme_callback(output):
-    output_data = safe_json_parse(output)
+    print("DEBUG: Received output from agent:", output)
+
+    try:
+        output_data = safe_json_parse(output)
+    
+    except Exception as e:
+        print(f"Error in combined_code_and_readme_callback: {e}")
+
+    
     if output_data and isinstance(output_data, dict):
         source_files = output_data.get('source_files', {})
         readme_content = output_data.get('readme_content', '')
@@ -102,24 +116,47 @@ combined_code_and_readme_task = Task(
         goal='Write the source code for given coding tasks to resolve, and generate project documentation & design decisions based on the information on the shared blackboard in the workspace.',
         backstory='This agent handles both code writing and documentation generation in a single task to streamline the development process. Outputs both the code and docs in a single markdown codeblock, updating the shared workspace\'s blackboard with it.',
         llm=ChatOpenAI(model_name="gpt-4o", temperature=0.5),
-        tools=[readBlackBoard],
+        #tools=[readBlackBoard],
     ),
     verbose=True,
     async_execution=False,
-    context=[combined_developer_task],
     callback=combined_code_and_readme_callback,
 )
+
+def read_blackboard():
+    task_read_blackboard = Task(
+        description='Read the Blackboard and perform necessary actions.',
+        expected_output='Content read and processed from Blackboard.md',
+        agent=Agent(
+            role='Blackboard Reader',
+            goal='Read the content of Blackboard.md.',
+            llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.5),
+            tools=[readBlackBoard]
+        ),
+        verbose=True,
+        async_execution=False,
+        #callback=lambda output: append_to_blackboard('Updates', output)
+    )
+    crew = Crew(
+        agents=[task_read_blackboard.agent],
+        tasks=[task_read_blackboard],
+        verbose=True
+    )
+    result = crew.kickoff()
+    print(result)
+
+read_blackboard()
 
 # Assemble the Developers' Crew
 developers_crew = Crew(
     agents=[combined_developer_task.agent, combined_code_and_readme_task.agent],
     tasks=[combined_developer_task, combined_code_and_readme_task],
     verbose=True,
-    planning=True,
+    #planning=True,
     full_output=True,
-    parallel=True,
+    #parallel=True,
     process=Process.sequential,
-    cache=True,
+    #cache=True,
     output_log_file='crew_log_devs.md'
 )
 
@@ -127,3 +164,5 @@ result = developers_crew.kickoff()
 
 print(result)
 print(developers_crew.usage_metrics)
+
+
