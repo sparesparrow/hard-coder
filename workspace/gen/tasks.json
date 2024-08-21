@@ -1,1 +1,45 @@
-[{"filename":"README.md","guide":"# Blackboard Database Handler\n\nThis project implements a C++ database handler that uses `std::string` keys for record identification. Each record consists of an integer ID and multiple rows of name-value pairs. The handler supports operations to add, remove, and modify records, while logging operation names and timestamps for audit purposes.\n\n## High-Level Architecture\n- **Data Structures**:\n  - `Record`: Represents a single record with an ID and rows of name-value pairs.\n  - `std::unordered_map<std::string, Record>`: Used to efficiently store and retrieve records by their string keys.\n\n## Design Patterns Used\n- **Command Pattern**: Encapsulates operations as objects, enabling logging and undo functionality.\n- **Factory Method**: Used for creating `Record` instances, separating creation logic from handling logic.\n\n## Implementation Details\n- Use `std::vector<std::pair<std::string, std::string>>` for storing name-value pairs within `Record`.\n- Implement basic operations in a way that avoids recursion and minimizes string copying.\n\n## Basic Operations\n- **Add Record**: Adds a new record with the given key and initializes it with an ID and rows.\n- **Remove Record**: Deletes a record identified by the key.\n- **Modify Record**: Updates an existing record's rows.\n- **Log Operations**: Each operation should log its name and a Unix-like timestamp.\n\n## Querying\n- Implement a method to retrieve all rows where values start with '||'.","guide":""},{"filename":"DatabaseHandler.cpp","guide":"# DatabaseHandler Implementation\n\n## Overview\n- This file will implement the `DatabaseHandler` class that manages all records.\n\n## Key Responsibilities\n- Add, remove, and modify records in the `std::unordered_map`.\n- Maintain a log of operations, storing operation names and timestamps.\n\n## Implementation Steps\n1. Define the `DatabaseHandler` class with methods for each operation.\n2. Implement the internal storage using `std::unordered_map<std::string, Record>`.\n3. For each operation, ensure to log the operation name and timestamp.\n4. Implement the query function to return rows starting with '||'.\n5. Ensure that all operations are efficient and do not involve unnecessary string copying."},{"filename":"Record.h","guide":"# Record Class Definition\n\n## Overview\n- This header file defines the `Record` class used within the DatabaseHandler.\n\n## Fields\n- `int id`: The unique identifier for the record.\n- `std::vector<std::pair<std::string, std::string>> rows`: Stores name-value pairs.\n\n## Methods\n- Constructor for initializing the record with an ID.\n- Methods for adding, removing, and modifying rows."},{"filename":"LogManager.h","guide":"# LogManager Class Definition\n\n## Overview\n- This header file defines the `LogManager` class responsible for logging operations.\n\n## Methods\n- `void logOperation(const std::string& operationName)`: Logs the operation with a timestamp."}]
+Problem defined, pattern selected, and coding tasks created.
+
+**Problem Definition:**
+1. **Database Handler Requirements:**
+   - Each record is identified by a `std::string` key.
+   - Each record contains:
+     - An integer ID.
+     - Zero or more rows, each containing a `(string) name` and `(string) value`.
+   - Each operation (add, remove, modify) must have a Unix-like timestamp.
+   - Operations and their timestamps must be stored and retrievable.
+   - The handler should support basic operations (add, remove, modify) and provide all rows with values beginning with "||".
+
+**Design Pattern Selection:**
+- **Command Pattern**
+
+**Refined Coding Tasks:**
+1. **Title: Define Data Structures**
+   - **Feature to implement:** Define the `Record`, `Row`, `Operation`, and `DatabaseHandler` classes.
+   - **Acceptance Criteria:** Classes should be defined with appropriate member variables and methods.
+   - **Filename for new file:** `database_handler.h`
+
+2. **Title: Implement Add Operation**
+   - **Feature to implement:** Implement the add operation in the `DatabaseHandler` class.
+   - **Acceptance Criteria:** Should be able to add a record and store the operation with a timestamp.
+   - **Filename for new file:** `database_handler.cpp`
+
+3. **Title: Implement Remove Operation**
+   - **Feature to implement:** Implement the remove operation in the `DatabaseHandler` class.
+   - **Acceptance Criteria:** Should be able to remove a record and store the operation with a timestamp.
+   - **Filename for new file:** `database_handler.cpp`
+
+4. **Title: Implement Modify Operation**
+   - **Feature to implement:** Implement the modify operation in the `DatabaseHandler` class.
+   - **Acceptance Criteria:** Should be able to modify a record and store the operation with a timestamp.
+   - **Filename for new file:** `database_handler.cpp`
+
+5. **Title: Retrieve Rows with Specific Values**
+   - **Feature to implement:** Implement functionality to retrieve rows with values beginning with "||".
+   - **Acceptance Criteria:** Should be able to retrieve and return the appropriate rows.
+   - **Filename for new file:** `database_handler.cpp`
+
+6. **Title: Store and Retrieve Operations**
+   - **Feature to implement:** Implement functionality to store and retrieve operations and their timestamps.
+   - **Acceptance Criteria:** Should be able to store each operation with its timestamp and retrieve them when needed.
+   - **Filename for new file:** `database_handler.cpp`

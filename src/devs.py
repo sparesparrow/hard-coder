@@ -1,7 +1,7 @@
 from crewai import Agent, Task, Crew, Process
 from langchain_openai import ChatOpenAI
 from utils import append_to_blackboard
-from utils import safe_json_parse
+from utils import safe_json_parse, FileTools
 
 
 from crewai_tools import (
@@ -17,149 +17,121 @@ from crewai_tools import (
 import os
 import json
 
-task_read_blackboard = Task(
-    description='Read the Blackboard and perform necessary actions.',
-    expected_output='Content read and processed from Blackboard.md',
-    agent=Agent(
-        role='Blackboard Reader',
-        goal='Read the content of Blackboard.md.',
-        backstory='Reader of ../workspace/Blackboard.md and provider of there stored contents.',
-        llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.5),
-        tools=[FileReadTool(file_path='../workspace/Blackboard.md')]
-    ),
+from langchain.tools import tool
+from langchain_openai import ChatOpenAI
+
+manager_llm = ChatOpenAI(model_name="gpt-4o", temperature=0.3)  # A more capable model for planning and management
+
+function_calling_llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.7)  # Used for specific function calls
+
+file_tools = FileTools()
+
+manager_agent = Agent(
+    verbose=True,
+    role='Project Manager',
+    goal='Oversee the project, delegate tasks to other agents, and ensure all components work together seamlessly.',
+    backstory='This agent manages the overall workflow and delegates specific tasks to specialized agents.',
+    llm=manager_llm,
+    function_calling_llm=function_calling_llm,
+    allow_delegation=True,
+)
+
+function_agent = Agent(
+    verbose=True,
+    role='Function Specialist',
+    goal='Execute precise tasks such as generating code, running calculations, or processing data.',
+    backstory='This agent is specialized in executing specific functions as directed by the manager agent.',
+    llm=function_calling_llm,
+    allow_code_execution=True,
+    max_iter=5,
+)
+
+# Task to manage the overall project
+manage_project_task = Task(
+    description='Manage the project, delegate tasks to other agents, and ensure everything is running smoothly.',
+    expected_output='Project managed successfully, with all tasks completed by the appropriate agents.',
+    agent=manager_agent,
     verbose=True,
     async_execution=False,
-    #callback=lambda output: append_to_blackboard('Updates', output)
 )
-def read_blackboard():
-    crew = Crew(
-        agents=[task_read_blackboard.agent],
-        tasks=[task_read_blackboard],
-        verbose=True
-    )
-    result = crew.kickoff()
-    print(result)
 
+# Task to execute a specific function
+execute_function_task = Task(
+    description='Generate the required C++ code for the DatabaseHandler class.',
+    expected_output='C++ code generated successfully.',
+    agent=function_agent,
+    verbose=True,
+    async_execution=False,
+)
 
-# Combined task: Define problem, select pattern, and create coding tasks
-def combined_developer_task_callback(output):
-    #print("DEBUG: Received output from agent:", output)
-    
-    try:
-        output_data = safe_json_parse(output)
-
-        if output_data and isinstance(output_data, list):
-            files_and_tasks = output_data  # Assuming output_data is a list of dictionaries
-
-            for file_task_pair in files_and_tasks:
-                filename = file_task_pair.get('filename')
-                coding_task = file_task_pair.get('coding_task')
-
-                if filename and coding_task:
-                    # Create an empty file
-                    file_path = os.path.join('../workspace/gen/', filename)
-                    os.makedirs(os.path.dirname(file_path), exist_ok=True)
-                    with open(file_path, 'w') as f:
-                        f.write('// TODO: Implement this file \n' + filename)
-                        f.write('/*    \n' + coding_task + '    \n*/')
-                    print(f"Created file: {file_path}")
-
-                    # Update the Blackboard with the coding task
-                    #append_to_blackboard("3. Developer Tasks", f"### {filename}\n\n{coding_task}")
-                    print(f"Updated Blackboard with coding task for: {filename}")
-        else:
-            print("Invalid output format received in combined_developer_task_callback.")
-    
-    except Exception as e:
-        print(f"Error in combined_developer_task_callback: {e}")
-
-
-combined_developer_task = Task(
+prepare_empty_files_with_tasks = Task(
     description='Define problem, select pattern, and create coding tasks.',
     expected_output='Problem defined, pattern selected, and coding tasks created.',
     agent=Agent(
         verbose=True,
-        role='Tech linquist Software architect',
-        goal='Read User Request from the Blackboard in order to define the problem, select design pattern and create detailed coding tasks for software developers to implement. Output as JSON array of objects (a dictionary), each node consisting of two string fields: 1. filename (e.g. filename.cpp), and 2. Guide on implementing code in that file. Extensive detailed Coding Task for the developer to implement later. The dictionary should contain complete structured information for the developers to implement the tasks described like this, with no more data required from the user. First item in the array should be always with field filename=README.md where the guide field contains text to write in the project README.md with documentation for the high-level sotware architecture but also covering low-level valuable details to help the developer implement quickly (i.e. which stdlib containers/algorithms to use, which design pattern fits great into the proposed solution, and so on). Please provide the JSON output without any Markdown formatting or code block delimiters.',
-        backstory='This agent handles the entire process from problem definition to coding task creation to reduce the number of tasks and streamline the workflow. The response should be a plain JSON string.',
-        llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.7),
-        #tools=[readBlackBoard],
+        role='Tech Linguist Software Architect',
+        goal='Translate user requests into a clear problem statement, select an appropriate design pattern, and generate coding tasks.',
+        backstory='Handles the entire process from problem definition to coding task creation.',
+        llm=manager_llm,  
+        function_calling_llm=function_calling_llm,  
+        allow_code_execution=True,
+        allow_delegation=True,
+        max_iter=10,
+        cache=True,
     ),
     verbose=True,
     async_execution=False,
-   # context=[task_read_blackboard],
-    callback=combined_developer_task_callback,
     output_file='../workspace/gen/tasks.json',
+    callback=lambda output: file_tools.create_initial_files_callback('../workspace/gen/tasks.json'),
 )
 
-# Combined task: Write source code and generate README
-def combined_code_and_readme_callback(output):
-    #print("DEBUG: Received output from agent:", output)
 
-    try:
-        output_data = safe_json_parse(output)
-    
-        if output_data and isinstance(output_data, dict):
-            source_files = output_data.get('source_files', {})
-            readme_content = output_data.get('readme_content', '')
-
-            # Write source files
-            for filename, file_content in source_files.items():
-                file_path = os.path.join('../workspace/gen/', filename)
-                os.makedirs(os.path.dirname(file_path), exist_ok=True)
-                with open(file_path, 'w') as f:
-                    f.write(file_content)
-                print(f"Written source code to file: {file_path}")
-
-            # Generate README.md
-            readme_path = os.path.join('../workspace/gen/', 'README.md')
-            os.makedirs(os.path.dirname(readme_path), exist_ok=True)
-            with open(readme_path, 'w') as readme_file:
-                readme_file.write(readme_content)
-            print("README.md generated and saved.")
-
-            # Update the Blackboard with the code and README link
-            source_code_block = '\n\n'.join([f"```cpp\n{content}\n```" for content in source_files.values()])
-            readme_link = f"[README.md](gen/README.md)"
-
-            append_to_blackboard("1. Unlocked Section", f"### Source Code:\n\n{source_code_block}\n\n### Documentation:\n\n{readme_content}\n\n{readme_link}")
-            print("Blackboard updated with source code and README link.")
-        else:
-            print("Invalid output format received in combined_code_and_readme_callback.")
-
-    except Exception as e:
-        print(f"Error in combined_code_and_readme_callback: {e}")
-
-
-combined_code_and_readme_task = Task(
+write_code_from_task = Task(
     description='Write source code and generate README.',
     expected_output='Source code written and README generated.',
     agent=Agent(
         verbose=True,
         role='Source Code and Technical Writer',
-        goal='Write the source code for given coding tasks to resolve, and generate project documentation & design decisions based on the information on the shared blackboard in the workspace.',
-        backstory='This agent handles code writing. Outputs all the code as a single C++ codeblock, where commented-out filenames (e.g. // filename.h ) are present at the beginning of each respective block of code to which the filename refers to. No markdown output formatting.',
-        llm=ChatOpenAI(model_name="gpt-4o", temperature=0.5),
-        #tools=[readBlackBoard],
+        goal='To generate C++ files with appropriate content based on input data and the information on the shared blackboard in the workspace.',
+        backstory='This agent handles code writing. Outputs all C++ code into files where filenames are given from the coding tasks as well. No markdown output formatting, only valid C++ code, writing to .h or .cpp files - with the files can help you colleague prepare_empty_files_with_tasks.',
+        llm=manager_llm,
+        allow_code_execution=True,
+        max_execution_time=300,  # 5 minutes max
+        allow_delegation=True,
+        max_iter=5,
+    ),   
+    verbose=True,
+    async_execution=False,
+    context=[prepare_empty_files_with_tasks],
+)
+
+task_read_blackboard = Task(
+    description='Read the Blackboard and structure its content.',
+    expected_output='Content read and processed from Blackboard.md',
+    agent=Agent(
+        role='Blackboard Reader',
+        goal='Read the content of Blackboard.md.',
+        backstory='Reader of ../workspace/Blackboard.md and provider of there stored contents.',
+        llm=ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.5),
+        tools=[FileReadTool(file_path='../workspace/Blackboard.md')],
+        allow_code_execution=True,
+        cache=True
     ),
     verbose=True,
     async_execution=False,
-    #context=[task_read_blackboard],
-    callback=combined_code_and_readme_callback,
-    output_file='../workspace/gen/code.cpp',
+    #callback=lambda output: append_to_blackboard('Updates', output)
 )
 
-
-# Assemble the Developers' Crew
 developers_crew = Crew(
-    agents=[task_read_blackboard.agent, combined_developer_task.agent, combined_code_and_readme_task.agent],
-    tasks=[task_read_blackboard, combined_developer_task, combined_code_and_readme_task],
+    agents=[task_read_blackboard.agent, prepare_empty_files_with_tasks.agent, write_code_from_task.agent],
+    tasks=[task_read_blackboard, prepare_empty_files_with_tasks, write_code_from_task],
     verbose=True,
-    #planning=True,
+    planning=True,
+    planning_llm=ChatOpenAI(model="gpt-4o"),
     full_output=True,
     #parallel=True,
     process=Process.sequential,
-    #cache=True,
+    cache=True,
     output_log_file='crew_log_devs.md'
 )
 
