@@ -43,7 +43,7 @@ def read_blackboard():
 
 # Combined task: Define problem, select pattern, and create coding tasks
 def combined_developer_task_callback(output):
-    print("DEBUG: Received output from agent:", output)
+    #print("DEBUG: Received output from agent:", output)
     
     try:
         output_data = safe_json_parse(output)
@@ -80,8 +80,8 @@ combined_developer_task = Task(
     agent=Agent(
         verbose=True,
         role='Tech linquist Software architect',
-        goal='Read User Request from the Blackboard in order to define the problem, select design pattern and create detailed coding tasks for software developers to implement. Output as json dictionary, each node being a pair of 1. filename (to create dummy files now and the implementation will be placed there later), and 2. Extensive detailed Coding Task for the developer to implement later. The dictionary should contain complete structured information for the developers to implement the whole problem solution with no more data required from the user.',
-        backstory='This agent handles the entire process from problem definition to coding task creation to reduce the number of tasks and streamline the workflow.',
+        goal='Read User Request from the Blackboard in order to define the problem, select design pattern and create detailed coding tasks for software developers to implement. Output as JSON array of objects (a dictionary), each node consisting of two string fields: 1. filename (e.g. filename.cpp), and 2. Guide on implementing code in that file. Extensive detailed Coding Task for the developer to implement later. The dictionary should contain complete structured information for the developers to implement the tasks described like this, with no more data required from the user. First item in the array should be always with field filename=README.md where the guide field contains text to write in the project README.md with documentation for the high-level sotware architecture but also covering low-level valuable details to help the developer implement quickly (i.e. which stdlib containers/algorithms to use, which design pattern fits great into the proposed solution, and so on). Please provide the JSON output without any Markdown formatting or code block delimiters.',
+        backstory='This agent handles the entire process from problem definition to coding task creation to reduce the number of tasks and streamline the workflow. The response should be a plain JSON string.',
         llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.7),
         #tools=[readBlackBoard],
     ),
@@ -89,11 +89,12 @@ combined_developer_task = Task(
     async_execution=False,
    # context=[task_read_blackboard],
     callback=combined_developer_task_callback,
+    output_file='../workspace/gen/tasks.json',
 )
 
 # Combined task: Write source code and generate README
 def combined_code_and_readme_callback(output):
-    print("DEBUG: Received output from agent:", output)
+    #print("DEBUG: Received output from agent:", output)
 
     try:
         output_data = safe_json_parse(output)
@@ -137,7 +138,7 @@ combined_code_and_readme_task = Task(
         verbose=True,
         role='Source Code and Technical Writer',
         goal='Write the source code for given coding tasks to resolve, and generate project documentation & design decisions based on the information on the shared blackboard in the workspace.',
-        backstory='This agent handles both code writing and documentation generation in a single task to streamline the development process. Outputs both the code and docs in a single markdown codeblock, updating the shared workspace\'s blackboard with it.',
+        backstory='This agent handles code writing. Outputs all the code as a single C++ codeblock, where commented-out filenames (e.g. // filename.h ) are present at the beginning of each respective block of code to which the filename refers to. No markdown output formatting.',
         llm=ChatOpenAI(model_name="gpt-4o", temperature=0.5),
         #tools=[readBlackBoard],
     ),
@@ -145,6 +146,7 @@ combined_code_and_readme_task = Task(
     async_execution=False,
     #context=[task_read_blackboard],
     callback=combined_code_and_readme_callback,
+    output_file='../workspace/gen/code.cpp',
 )
 
 
