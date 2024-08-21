@@ -74,37 +74,36 @@ def combined_code_and_readme_callback(output):
     try:
         output_data = safe_json_parse(output)
     
+        if output_data and isinstance(output_data, dict):
+            source_files = output_data.get('source_files', {})
+            readme_content = output_data.get('readme_content', '')
+
+            # Write source files
+            for filename, file_content in source_files.items():
+                file_path = os.path.join('../workspace/gen/', filename)
+                os.makedirs(os.path.dirname(file_path), exist_ok=True)
+                with open(file_path, 'w') as f:
+                    f.write(file_content)
+                print(f"Written source code to file: {file_path}")
+
+            # Generate README.md
+            readme_path = os.path.join('../workspace/gen/', 'README.md')
+            os.makedirs(os.path.dirname(readme_path), exist_ok=True)
+            with open(readme_path, 'w') as readme_file:
+                readme_file.write(readme_content)
+            print("README.md generated and saved.")
+
+            # Update the Blackboard with the code and README link
+            source_code_block = '\n\n'.join([f"```cpp\n{content}\n```" for content in source_files.values()])
+            readme_link = f"[README.md](gen/README.md)"
+
+            append_to_blackboard("1. Unlocked Section", f"### Source Code:\n\n{source_code_block}\n\n### Documentation:\n\n{readme_content}\n\n{readme_link}")
+            print("Blackboard updated with source code and README link.")
+        else:
+            print("Invalid output format received in combined_code_and_readme_callback.")
+
     except Exception as e:
         print(f"Error in combined_code_and_readme_callback: {e}")
-
-    
-    if output_data and isinstance(output_data, dict):
-        source_files = output_data.get('source_files', {})
-        readme_content = output_data.get('readme_content', '')
-
-        # Write source files
-        for filename, file_content in source_files.items():
-            file_path = os.path.join('../workspace/gen/', filename)
-            os.makedirs(os.path.dirname(file_path), exist_ok=True)
-            with open(file_path, 'w') as f:
-                f.write(file_content)
-            print(f"Written source code to file: {file_path}")
-
-        # Generate README.md
-        readme_path = os.path.join('../workspace/gen/', 'README.md')
-        os.makedirs(os.path.dirname(readme_path), exist_ok=True)
-        with open(readme_path, 'w') as readme_file:
-            readme_file.write(readme_content)
-        print("README.md generated and saved.")
-
-        # Update the Blackboard with the code and README link
-        source_code_block = '\n\n'.join([f"```cpp\n{content}\n```" for content in source_files.values()])
-        readme_link = f"[README.md](gen/README.md)"
-
-        append_to_blackboard("1. Unlocked Section", f"### Source Code:\n\n{source_code_block}\n\n### Documentation:\n\n{readme_content}\n\n{readme_link}")
-        print("Blackboard updated with source code and README link.")
-    else:
-        print("Invalid output format received in combined_code_and_readme_callback.")
 
 
 combined_code_and_readme_task = Task(
