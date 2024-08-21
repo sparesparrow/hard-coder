@@ -17,21 +17,21 @@ from crewai_tools import (
 import os
 import json
 
+task_read_blackboard = Task(
+    description='Read the Blackboard and perform necessary actions.',
+    expected_output='Content read and processed from Blackboard.md',
+    agent=Agent(
+        role='Blackboard Reader',
+        goal='Read the content of Blackboard.md.',
+        backstory='Reader of ../workspace/Blackboard.md and provider of there stored contents.',
+        llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.5),
+        tools=[FileReadTool(file_path='../workspace/Blackboard.md')]
+    ),
+    verbose=True,
+    async_execution=False,
+    #callback=lambda output: append_to_blackboard('Updates', output)
+)
 def read_blackboard():
-    task_read_blackboard = Task(
-        description='Read the Blackboard and perform necessary actions.',
-        expected_output='Content read and processed from Blackboard.md',
-        agent=Agent(
-            role='Blackboard Reader',
-            goal='Read the content of Blackboard.md.',
-            backstory='Reader of ../workspace/Blackboard.md and provider of there stored contents.',
-            llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.5),
-            tools=[FileReadTool(file_path='../workspace/Blackboard.md')]
-        ),
-        verbose=True,
-        async_execution=False,
-        #callback=lambda output: append_to_blackboard('Updates', output)
-    )
     crew = Crew(
         agents=[task_read_blackboard.agent],
         tasks=[task_read_blackboard],
@@ -39,9 +39,7 @@ def read_blackboard():
     )
     result = crew.kickoff()
     print(result)
-    return task_read_blackboard
 
-task_read_blackboard = read_blackboard()
 
 # Combined task: Define problem, select pattern, and create coding tasks
 def combined_developer_task_callback(output):
@@ -49,31 +47,31 @@ def combined_developer_task_callback(output):
     
     try:
         output_data = safe_json_parse(output)
+
+        if output_data and isinstance(output_data, list):
+            files_and_tasks = output_data  # Assuming output_data is a list of dictionaries
+
+            for file_task_pair in files_and_tasks:
+                filename = file_task_pair.get('filename')
+                coding_task = file_task_pair.get('coding_task')
+
+                if filename and coding_task:
+                    # Create an empty file
+                    file_path = os.path.join('../workspace/gen/', filename)
+                    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+                    with open(file_path, 'w') as f:
+                        f.write('// TODO: Implement this file \n' + filename)
+                        f.write('/*    \n' + coding_task + '    \n*/')
+                    print(f"Created file: {file_path}")
+
+                    # Update the Blackboard with the coding task
+                    #append_to_blackboard("3. Developer Tasks", f"### {filename}\n\n{coding_task}")
+                    print(f"Updated Blackboard with coding task for: {filename}")
+        else:
+            print("Invalid output format received in combined_developer_task_callback.")
     
     except Exception as e:
         print(f"Error in combined_developer_task_callback: {e}")
-
-    if output_data and isinstance(output_data, list):
-        files_and_tasks = output_data  # Assuming output_data is a list of dictionaries
-
-        for file_task_pair in files_and_tasks:
-            filename = file_task_pair.get('filename')
-            coding_task = file_task_pair.get('coding_task')
-
-            if filename and coding_task:
-                # Create an empty file
-                file_path = os.path.join('../workspace/gen/', filename)
-                os.makedirs(os.path.dirname(file_path), exist_ok=True)
-                with open(file_path, 'w') as f:
-                    f.write('// TODO: Implement this file \n' + filename)
-                    f.write('/*    \n' + coding_task + '    \n*/')
-                print(f"Created file: {file_path}")
-
-                # Update the Blackboard with the coding task
-                #append_to_blackboard("3. Developer Tasks", f"### {filename}\n\n{coding_task}")
-                print(f"Updated Blackboard with coding task for: {filename}")
-    else:
-        print("Invalid output format received in combined_developer_task_callback.")
 
 
 combined_developer_task = Task(
@@ -82,14 +80,14 @@ combined_developer_task = Task(
     agent=Agent(
         verbose=True,
         role='Tech linquist Software architect',
-        goal='Read User Request from the Blackboard (accessible with FileReadTool) in order to define the problem, select design pattern and create detailed coding tasks for software developers to implement. Output as json dictionary, each node being a pair of 1. filename (to create dummy files now and the implementation will be placed there later), and 2. Extensive detailed Coding Task for the developer to implement later. The dictionary should contain complete structured information for the developers to implement the whole problem solution with no more data required from the user.',
+        goal='Read User Request from the Blackboard in order to define the problem, select design pattern and create detailed coding tasks for software developers to implement. Output as json dictionary, each node being a pair of 1. filename (to create dummy files now and the implementation will be placed there later), and 2. Extensive detailed Coding Task for the developer to implement later. The dictionary should contain complete structured information for the developers to implement the whole problem solution with no more data required from the user.',
         backstory='This agent handles the entire process from problem definition to coding task creation to reduce the number of tasks and streamline the workflow.',
         llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.7),
         #tools=[readBlackBoard],
     ),
     verbose=True,
     async_execution=False,
-    context=[task_read_blackboard],
+   # context=[task_read_blackboard],
     callback=combined_developer_task_callback,
 )
 
@@ -145,14 +143,15 @@ combined_code_and_readme_task = Task(
     ),
     verbose=True,
     async_execution=False,
+    #context=[task_read_blackboard],
     callback=combined_code_and_readme_callback,
 )
 
 
 # Assemble the Developers' Crew
 developers_crew = Crew(
-    agents=[combined_developer_task.agent, combined_code_and_readme_task.agent],
-    tasks=[combined_developer_task, combined_code_and_readme_task],
+    agents=[task_read_blackboard.agent, combined_developer_task.agent, combined_code_and_readme_task.agent],
+    tasks=[task_read_blackboard, combined_developer_task, combined_code_and_readme_task],
     verbose=True,
     #planning=True,
     full_output=True,
