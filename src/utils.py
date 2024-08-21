@@ -5,9 +5,8 @@ from crewai_tools import (FileReadTool)
 
 from langchain.tools import tool
 class FileTools:
-    
     @tool("WriteFileWithContent")
-    def write_file(self, data):
+    def write_file(data):
         """
         Writes the provided data to a file.
 
@@ -35,29 +34,6 @@ class FileTools:
         
         except Exception as e:
             return f"An error occurred while writing the file: {e}"
-
-    def create_initial_files_callback(self, json_file_path):
-        try:
-            with open(json_file_path, 'r') as json_file:
-                tasks = json.load(json_file)
-        except Exception as e:
-            print(f"Failed to read JSON file: {e}")
-            return
-
-        for task in tasks:
-            filename = task.get('filename')
-            guide = task.get('guide')
-
-            # Check if filename or guide is missing, None, or empty
-            if not filename or not guide or not guide.strip():
-                print(f"Skipping task due to invalid format: {task}")
-                continue
-
-            # Proceed with writing the file
-            try:
-                self.write_file.invoke({"filename": filename, "content": guide})
-            except Exception as e:
-                print(f"Failed to write file {filename}: {e}")
 
 def append_to_blackboard(section_title, content):
     blackboard_path = '../workspace/Blackboard.md'

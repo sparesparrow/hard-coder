@@ -1,7 +1,7 @@
 from crewai import Agent, Task, Crew, Process
 from langchain_openai import ChatOpenAI
 from utils import append_to_blackboard
-from utils import safe_json_parse, FileTools
+from utils import safe_json_parse#, FileTools
 
 
 from crewai_tools import (
@@ -20,11 +20,67 @@ import json
 from langchain.tools import tool
 from langchain_openai import ChatOpenAI
 
+#file_tools = FileTools()
+
+
+@tool("WriteFileWithContent")
+def write_file(data):
+    """
+    Writes the provided data to a file.
+
+    Parameters:
+    data (dict): A dictionary containing 'filename' and 'content' keys.
+
+    Example of data format:
+    {
+        "filename": "example.txt",
+        "content": "This is the content of the file."
+    }
+    """
+    try:
+        filename = data.get('filename')
+        content = data.get('content')
+        
+        if not filename or not content:
+            raise ValueError("Both 'filename' and 'content' must be provided in the data dictionary.")
+        
+        # Write the content to the specified file
+        with open(filename, 'w') as file:
+            file.write(content)
+        
+        return f"File '{filename}' has been written successfully."
+    
+    except Exception as e:
+        return f"An error occurred while writing the file: {e}"
+
+
+def create_initial_files_callback(json_file_path):
+    try:
+        with open(json_file_path, 'r') as json_file:
+            tasks = json.load(json_file)
+    except Exception as e:
+        print(f"Failed to read JSON file: {e}")
+        return
+
+    for task in tasks:
+        filename = task.get('filename')
+        guide = task.get('guide')
+
+        # Validate and process task
+        if not filename or not guide or not guide.strip():
+            print(f"Skipping task due to invalid format: {task}")
+            continue
+
+        try:
+            write_file.invoke({"filename": filename, "content": guide})
+        except Exception as e:
+            print(f"Failed to write file {filename}: {e}")
+
+
 manager_llm = ChatOpenAI(model_name="gpt-4o", temperature=0.3)  # A more capable model for planning and management
 
 function_calling_llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.7)  # Used for specific function calls
 
-file_tools = FileTools()
 
 manager_agent = Agent(
     verbose=True,
@@ -72,6 +128,7 @@ prepare_empty_files_with_tasks = Task(
         role='Tech Linguist Software Architect',
         goal='Translate user requests into a clear problem statement, select an appropriate design pattern, and generate coding tasks.',
         backstory='Handles the entire process from problem definition to coding task creation.',
+        tools=[CodeInterpreterTool()],
         llm=manager_llm,  
         function_calling_llm=function_calling_llm,  
         allow_code_execution=True,
@@ -82,7 +139,7 @@ prepare_empty_files_with_tasks = Task(
     verbose=True,
     async_execution=False,
     output_file='../workspace/gen/tasks.json',
-    callback=lambda output: file_tools.create_initial_files_callback('../workspace/gen/tasks.json'),
+    callback=lambda output: create_initial_files_callback(json_file_path='../workspace/gen/tasks.json'),
 )
 
 
@@ -123,21 +180,25 @@ task_read_blackboard = Task(
 )
 
 developers_crew = Crew(
-    agents=[task_read_blackboard.agent, prepare_empty_files_with_tasks.agent, write_code_from_task.agent],
+    agents=[task_read_blackboard.agent, prepare_empty_files_with_tasks.agent, write_code_from_task.agent, function_agent],
     tasks=[task_read_blackboard, prepare_empty_files_with_tasks, write_code_from_task],
     verbose=True,
     planning=True,
     planning_llm=ChatOpenAI(model="gpt-4o"),
+    manager_agent=manager_agent,
+    function_calling_llm=function_calling_llm,
     full_output=True,
-    #parallel=True,
-    process=Process.sequential,
+    parallel=True,
+    process=Process.hierarchical,
     cache=True,
     output_log_file='crew_log_devs.md'
 )
 
-result = developers_crew.kickoff()
-
-print(result)
+try:
+    result = developers_crew.kickoff()
+    print(result)
+except Exception as e:
+    print(f"Failed to read JSON file: {e}")
 print(developers_crew.usage_metrics)
 
 
