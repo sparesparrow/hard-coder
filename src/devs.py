@@ -1,6 +1,7 @@
 from crewai import Agent, Task, Crew, Process
 from langchain_openai import ChatOpenAI
 from utils import append_to_blackboard
+from utils import safe_json_parse
 
 
 from crewai_tools import (
@@ -16,10 +17,33 @@ from crewai_tools import (
 import os
 import json
 
+readBlackBoard = FileReadTool(file_path='../workspace/Blackboard.md')
+
 # Combined task: Define problem, select pattern, and create coding tasks
 def combined_developer_task_callback(output):
-    # create empty files as per output.data[0] and update blackboard with coding tasks as in output.data[1] 
-    pass
+    output_data = safe_json_parse(output)
+    if output_data and isinstance(output_data, list):
+        files_and_tasks = output_data  # Assuming output_data is a list of dictionaries
+
+        for file_task_pair in files_and_tasks:
+            filename = file_task_pair.get('filename')
+            coding_task = file_task_pair.get('coding_task')
+
+            if filename and coding_task:
+                # Create an empty file
+                file_path = os.path.join('../workspace/gen/', filename)
+                os.makedirs(os.path.dirname(file_path), exist_ok=True)
+                with open(file_path, 'w') as f:
+                    f.write('// TODO: Implement this file \n' + filename)
+                    f.write('/*    \n' + coding_task + '    \n*/')
+                print(f"Created file: {file_path}")
+
+                # Update the Blackboard with the coding task
+                append_to_blackboard("3. Developer Tasks", f"### {filename}\n\n{coding_task}")
+                print(f"Updated Blackboard with coding task for: {filename}")
+    else:
+        print("Invalid output format received in combined_developer_task_callback.")
+
 
 combined_developer_task = Task(
     description='Define problem, select pattern, and create coding tasks.',
@@ -30,7 +54,7 @@ combined_developer_task = Task(
         goal='Read User Request from the Blackboard (accessible with FileReadTool) in order to define the problem, select design pattern and create detailed coding tasks for software developers to implement. Output as json dictionary, each node being a pair of 1. filename (to create dummy files now and the implementation will be placed there later), and 2. Extensive detailed Coding Task for the developer to implement later. The dictionary should contain complete structured information for the developers to implement the whole problem solution with no more data required from the user.',
         backstory='This agent handles the entire process from problem definition to coding task creation to reduce the number of tasks and streamline the workflow.',
         llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.7),
-        tools=[FileReadTool(file_path='workspace/Blackboard.md')],
+        tools=[readBlackBoard],
     ),
     verbose=True,
     async_execution=False,
@@ -39,8 +63,35 @@ combined_developer_task = Task(
 
 # Combined task: Write source code and generate README
 def combined_code_and_readme_callback(output):
-    # Implement combined code writing and README generation logic
-    pass
+    output_data = safe_json_parse(output)
+    if output_data and isinstance(output_data, dict):
+        source_files = output_data.get('source_files', {})
+        readme_content = output_data.get('readme_content', '')
+
+        # Write source files
+        for filename, file_content in source_files.items():
+            file_path = os.path.join('../workspace/gen/', filename)
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, 'w') as f:
+                f.write(file_content)
+            print(f"Written source code to file: {file_path}")
+
+        # Generate README.md
+        readme_path = os.path.join('../workspace/gen/', 'README.md')
+        os.makedirs(os.path.dirname(readme_path), exist_ok=True)
+        with open(readme_path, 'w') as readme_file:
+            readme_file.write(readme_content)
+        print("README.md generated and saved.")
+
+        # Update the Blackboard with the code and README link
+        source_code_block = '\n\n'.join([f"```cpp\n{content}\n```" for content in source_files.values()])
+        readme_link = f"[README.md](gen/README.md)"
+
+        append_to_blackboard("1. Unlocked Section", f"### Source Code:\n\n{source_code_block}\n\n### Documentation:\n\n{readme_content}\n\n{readme_link}")
+        print("Blackboard updated with source code and README link.")
+    else:
+        print("Invalid output format received in combined_code_and_readme_callback.")
+
 
 combined_code_and_readme_task = Task(
     description='Write source code and generate README.',
@@ -48,13 +99,14 @@ combined_code_and_readme_task = Task(
     agent=Agent(
         verbose=True,
         role='Source Code and Technical Writer',
-        goal='Write the source code for given coding tasks to resolve, and generate project documentation & design decisions onto the shared blackboard within the Shared Section.',
-        backstory='This agent handles both code writing and documentation generation in a single task to streamline the development process.',
+        goal='Write the source code for given coding tasks to resolve, and generate project documentation & design decisions based on the information on the shared blackboard in the workspace.',
+        backstory='This agent handles both code writing and documentation generation in a single task to streamline the development process. Outputs both the code and docs in a single markdown codeblock, updating the shared workspace\'s blackboard with it.',
         llm=ChatOpenAI(model_name="gpt-4o", temperature=0.5),
-        tools=[FileReadTool(file_path='workspace/Blackboard.md')],
+        tools=[readBlackBoard],
     ),
     verbose=True,
     async_execution=False,
+    context=[combined_developer_task],
     callback=combined_code_and_readme_callback,
 )
 

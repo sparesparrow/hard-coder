@@ -1,4 +1,5 @@
 import os
+import json
 
 def append_to_blackboard(section_title, content):
     blackboard_path = '../workspace/Blackboard.md'
@@ -13,3 +14,15 @@ def append_to_blackboard(section_title, content):
 
     with open(blackboard_path, 'w') as file:
         file.writelines(lines)
+
+
+def safe_json_parse(json_string):
+    try:
+        if json_string.strip():  # Check if JSON string is not empty
+            return json.loads(json_string)
+        else:
+            raise ValueError("Empty JSON string")
+    except json.JSONDecodeError as e:
+        print(f"Failed to parse JSON: {e}")
+        return None
+    

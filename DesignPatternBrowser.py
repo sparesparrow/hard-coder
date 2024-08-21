@@ -12,20 +12,9 @@ from crewai_tools import (
     WebsiteSearchTool
 )
 import os
+from src.utils import safe_json_parse
 
 from langchain_openai import ChatOpenAI
-import json
-
-def safe_json_parse(json_string):
-    try:
-        if json_string.strip():  # Check if JSON string is not empty
-            return json.loads(json_string)
-        else:
-            raise ValueError("Empty JSON string")
-    except json.JSONDecodeError as e:
-        print(f"Failed to parse JSON: {e}")
-        return None
-    
 
 def callback_filewrite(output, task_description=None):
     try:
@@ -175,7 +164,7 @@ writeCppFile = Task(
     #output_file='gen/main.cpp',
     #verbose=True,
     async_execution=True,
-    callback=lambda output: callback_filewrite(output, expected_output),
+    callback=lambda output: callback_filewrite(output),
 )
 
 queryTask = Task(
