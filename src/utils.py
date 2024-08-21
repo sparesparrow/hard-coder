@@ -2,7 +2,7 @@ import os
 from crewai import Agent, Task, Crew, Process
 import json
 from crewai_tools import (FileReadTool)
-readBlackBoard = FileReadTool(file_path='../workspace/Blackboard.md')
+#readBlackBoard = FileReadTool(file_path='../workspace/Blackboard.md')
 
 def append_to_blackboard(section_title, content):
     blackboard_path = '../workspace/Blackboard.md'

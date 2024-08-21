@@ -1,7 +1,7 @@
 from crewai import Agent, Task, Crew, Process
 from langchain_openai import ChatOpenAI
 from utils import append_to_blackboard
-from utils import safe_json_parse, readBlackBoard
+from utils import safe_json_parse
 
 
 from crewai_tools import (
@@ -130,8 +130,9 @@ def read_blackboard():
         agent=Agent(
             role='Blackboard Reader',
             goal='Read the content of Blackboard.md.',
+            backstory='Reader of ../workspace/Blackboard.md and provider of there stored contents.',
             llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.5),
-            tools=[readBlackBoard]
+            tools=[FileReadTool(file_path='../workspace/Blackboard.md')]
         ),
         verbose=True,
         async_execution=False,
