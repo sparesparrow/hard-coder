@@ -1,0 +1,16 @@
+{
+    "name": "generate_diagram",
+    "description": "Generate a mermaid diagram source code to include in README.md when writing it's contents, covering software architecture design for the project.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "diagram_planning": {
+          "type": "string",
+          "description": "Planned strategy for the diagram implementation."
+        }
+      },
+      "required": [
+        "diagram_planning"
+      ]
+    }
+}
