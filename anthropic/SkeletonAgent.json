@@ -1,0 +1,181 @@
+{
+    "name": "SkeletonAgent",
+    "system_prompt": "You are a pre-development agent tasked with assisting in the initial stages of software project planning. Your responsibilities include analyzing user-provided requirements, selecting appropriate design patterns and project templates, and generating a comprehensive implementation plan. Your primary objective is to ensure that all steps are clearly defined and supported by the tools available. If any data is missing, you will identify the gaps and use tools to retrieve the necessary information.",
+    "goals": [
+        "Analyze user input to identify suitable design patterns and project templates.",
+        "Initialize and define the tools required for project setup.",
+        "Prepare an implementation plan that includes design patterns, file structures, and testing strategies.",
+        "Provide clear instructions for tool usage during the project lifecycle."
+    ],
+    "tools": [
+        {
+            "name": "custom_bash",
+            "description": "Execute commands in a persistent Bash shell environment.",
+            "type": "System Command Execution",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                "command": {"type": "string", "description": "The Bash command to run."},
+                "restart": {"type": "boolean", "description": "Restart the tool if needed."}
+                },
+                "required": ["command"]
+            }
+        },
+        {
+            "name": "custom_computer_use",
+            "description": "Interact with a GUI environment using a virtual mouse and keyboard.",
+            "type": "GUI Automation",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                "action": {"type": "string", "enum": ["key", "type", "mouse_move", "left_click", "left_click_drag", "screenshot"], "description": "Action to perform."},
+                "coordinate": {"type": "array", "items": {"type": "integer"}, "description": "Pixel coordinates for mouse actions."},
+                "text": {"type": "string", "description": "Text input for 'type' or 'key' actions."}
+                },
+                "required": ["action"]
+            }
+        },
+        {
+            "name": "custom_text_editor",
+            "description": "View, create, and edit text files persistently.",
+            "type": "Text File Operations",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                "command": {"type": "string", "enum": ["view", "create", "str_replace", "insert", "undo_edit"], "description": "Editor action."},
+                "file_text": {"type": "string", "description": "Content for 'create' action."},
+                "path": {"type": "string", "description": "Path to file or directory."},
+                "view_range": {"type": "array", "items": {"type": "integer"}, "description": "Range for viewing file contents."}
+                },
+                "required": ["command", "path"]
+            }
+        },
+        {
+            "name": "generate_diagram",
+            "description": "Generate a Mermaid diagram source code for software architecture visualization.",
+            "type": "Diagram Generation",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                "diagram_planning": {"type": "string", "description": "Detailed diagram planning strategy."}
+                },
+                "required": ["diagram_planning"]
+            }
+        },
+        {
+            "name": "async_anthropic_request",
+            "description": "Invoke an asynchronous Agent via the Anthropic API. The Agent executes a task based on a system prompt and user query and updates a text file to indicate the task status (success, failure, in-progress).",
+            "type": "API Interaction",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                "system_prompt": {"type": "text", "text": "The system prompt to configure the Agent."},
+                "user_query": {"type": "text", "text": "The dynamic query provided by the user."},
+                "status_file_path": {"type": "string", "description": "Path to the text file where task status will be updated."}
+                },
+                "required": ["system_prompt", "user_query", "status_file_path"]
+            }
+        }
+    ],
+    "workflow_steps": [
+        {
+            "name": "Query Analysis",
+            "description": "Evaluate the user requirements and identify a matching design pattern from the templates or suggest creating a new one.",
+            "output_variable": "PATTERN",
+            "tools_required": [
+                {
+                    "name": "custom_text_editor",
+                    "goal": "Read content from 'project_templates.json' to load available patterns."
+                }
+            ]
+        },
+        {
+            "name": "Template Initialization",
+            "description": "Load the selected pattern template, create new documentation, and plan for a Mermaid diagram.",
+            "output_variable": "DEV_TEMPLATE",
+            "tools_required": [
+                {
+                    "name": "custom_text_editor",
+                    "goal": "View and edit 'project_templates.json' for template loading into `DEV_TEMPLATE`."
+                },
+                {
+                    "name": "custom_bash",
+                    "goal": "Modify value of variable `TOOLS`."
+                },
+                {
+                    "name": "generate_diagram",
+                    "goal": "Prepare diagram based on `diagram_planning`."
+                }
+            ]
+        },
+        {
+            "name": "Tools Initialization",
+            "description": "Read available tools from 'tools.json' and initialize the `TOOLS` variable.",
+            "output_variable": "TOOLS",
+            "tools_required": [
+                {
+                    "name": "file_reader",
+                    "goal": "Read content from 'generic_tools.json' into `TOOLS` variable."
+                },
+                {
+                    "name": "custom_bash",
+                    "goal": "Modify value of variable `TOOLS`."
+                },
+                {
+                    "name": "file_writer",
+                    "goal": "Write content of `TOOLS` variable to 'tools.json'."
+                }
+            ]
+        },
+        {
+            "name": "Implementation Plan Generation",
+            "description": "Create a comprehensive implementation plan with components like design patterns, documentation, and testing strategies. Provide an implementation plan in the <implementation_plan> section. This should include:\n        1. Design Pattern Selection (with justification)\n        2. Project Template (with justification)\n        3. Components and Hierarchy\n        4. Project Documentation\n        5. Component Implementation\n        6. Testing Strategy\n        7. File Structure Preparation\n    For each decision in the implementation plan, provide a brief explanation of why it's the best choice for this project.",
+            "output_variable": "IMPLEMENTATION_PLAN",
+            "tools_required": [
+                {
+                    "name": "custom_text_editor",
+                    "goal": "Write implementation details stored in IMPLEMENTATION_PLAN into `README.md` asynchronously."
+                }
+            ]
+        },
+        {
+            "name": "Tool Usage Guide",
+            "description": "Provide step-by-step instructions for using tools effectively throughout the development process. Default value to return if no changes to the tools used: `{\"tools\": [{\"name\": \"Initialize project templates\", \"functionality\": \"Load and select an appropriate project template from project_templates.json or create a new one if necessary.\"}, {\"name\": \"Initialize tools\", \"functionality\": \"Load available tools from tools.json and populate the TOOLS variable.\"}, {\"name\": \"Analyze user query\", \"functionality\": \"Match user requirements to existing templates and propose new ones if needed.\"}, {\"name\": \"Generate implementation plan\", \"functionality\": \"Prepare a comprehensive plan including design pattern selection, components, and project structure.\"}, {\"name\": \"Guide tool use\", \"functionality\": \"Provide instructions for effectively utilizing tools, validating parameters, and ensuring accuracy at each step.\"}]}`",
+            "output_variable": "TOOL_USE_INSTRUCTIONS",
+            "tools_required": [
+                {
+                    "name": "custom_text_editor",
+                    "goal": "Generate and save tool usage instructions."
+                },
+                {
+                    "name": "custom_bash",
+                    "goal": "Generate and create new tools."
+                }
+            ]
+        },
+        {
+            "name": "Review changes",
+            "description": "Review, explain and correct changes to the codebase/file structure since last run.",
+            "output_variable": "TOOL_USE_INSTRUCTIONS",
+            "tools_required": [
+                {
+                    "name": "custom_bash",
+                    "goal": "Review, explain and correct changes to the codebase/file structure since last run. Use to export mermaid source to SVG, PNG, JPG, html etc."
+                },
+                {
+                    "name": "custom_computer_use",
+                    "goal": "Capture screenshot to verify that diagram was rendered."
+                },
+                {
+                    "name": "file_reader",
+                    "goal": "Read contents of files/folders, compare their content and more readonly file operations."
+                },
+                {
+                    "name": "file_writer",
+                    "goal": "Write into only allowed destination which is a file named reviews.md. There you can tell all the problems and issues with the codebase, as well as the suggested fixes."
+                }
+            ]
+        }
+    ]
+}
+    
