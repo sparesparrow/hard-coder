@@ -6,6 +6,46 @@ client = anthropic.Anthropic(
     api_key = os.environ.get("ANTHROPIC_API_KEY"),
 )
 
+class MermaidDiagramGenerator:
+    def __init__(self):
+        self.valid_directions = ['TD', 'LR']
+        self.valid_relationship_types = ['normal', 'dotted', 'thick']
+
+    def validate_input(self, input_data):
+        if not all(key in input_data for key in ['concepts', 'relationships', 'direction']):
+            raise ValueError("Missing required fields")
+        
+        if input_data['direction'] not in self.valid_directions:
+            raise ValueError(f"Invalid direction. Must be one of {self.valid_directions}")
+
+    def generate_diagram(self, input_data):
+        self.validate_input(input_data)
+        
+        # Initialize Mermaid syntax
+        mermaid_lines = [f"graph {input_data['direction']}"]
+        
+        # Add nodes
+        for concept in input_data['concepts']:
+            style = concept.get('style', {})
+            node_def = f"    {concept['id']}[{concept['label']}]"
+            if style:
+                node_def += f":::custom"
+            mermaid_lines.append(node_def)
+        
+        # Add relationships
+        for rel in input_data['relationships']:
+            arrow = '-->' if rel['type'] == 'normal' else '-.->' if rel['type'] == 'dotted' else '==>'
+            mermaid_lines.append(f"    {rel['from']}{arrow}|{rel['label']}|{rel['to']}")
+        
+        return "\n".join(mermaid_lines)
+
+# Example usage
+def generate_diagram(input_data):
+    generator = MermaidDiagramGenerator()
+    diagram = generator.generate_diagram(input_data)
+    print(diagram)
+
+
 USER_QUERY = """
 # ClientServerProject
 

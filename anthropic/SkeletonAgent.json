@@ -15,8 +15,8 @@
             "input_schema": {
                 "type": "object",
                 "properties": {
-                "command": {"type": "string", "description": "The Bash command to run."},
-                "restart": {"type": "boolean", "description": "Restart the tool if needed."}
+                    "command": {"type": "string", "description": "The Bash command to run."},
+                    "restart": {"type": "boolean", "description": "Restart the tool if needed."}
                 },
                 "required": ["command"]
             }
@@ -28,9 +28,9 @@
             "input_schema": {
                 "type": "object",
                 "properties": {
-                "action": {"type": "string", "enum": ["key", "type", "mouse_move", "left_click", "left_click_drag", "screenshot"], "description": "Action to perform."},
-                "coordinate": {"type": "array", "items": {"type": "integer"}, "description": "Pixel coordinates for mouse actions."},
-                "text": {"type": "string", "description": "Text input for 'type' or 'key' actions."}
+                    "action": {"type": "string", "enum": ["key", "type", "mouse_move", "left_click", "left_click_drag", "screenshot"], "description": "Action to perform."},
+                    "coordinate": {"type": "array", "items": {"type": "integer"}, "description": "Pixel coordinates for mouse actions."},
+                    "text": {"type": "string", "description": "Text input for 'type' or 'key' actions."}
                 },
                 "required": ["action"]
             }
@@ -42,22 +42,34 @@
             "input_schema": {
                 "type": "object",
                 "properties": {
-                "command": {"type": "string", "enum": ["view", "create", "str_replace", "insert", "undo_edit"], "description": "Editor action."},
-                "file_text": {"type": "string", "description": "Content for 'create' action."},
-                "path": {"type": "string", "description": "Path to file or directory."},
-                "view_range": {"type": "array", "items": {"type": "integer"}, "description": "Range for viewing file contents."}
+                    "command": {"type": "string", "enum": ["view", "create", "str_replace", "insert", "undo_edit"], "description": "Editor action."},
+                    "file_text": {"type": "string", "description": "Content for 'create' action."},
+                    "path": {"type": "string", "description": "Path to file or directory."},
+                    "view_range": {"type": "array", "items": {"type": "integer"}, "description": "Range for viewing file contents."}
                 },
                 "required": ["command", "path"]
             }
         },
         {
-            "name": "generate_diagram",
-            "description": "Generate a Mermaid diagram source code for software architecture visualization.",
-            "type": "Diagram Generation",
+            "name": "diagram_planner",
+            "description": "Plan to generate a Mermaid diagram, providing component, direction, concepts and relationships information as a JSON stored in `diagram_planning`. Example output value: `{\n    \"concepts\": [\n        {\"id\": \"A\", \"label\": \"Start\"},\n        {\"id\": \"B\", \"label\": \"Process\"},\n        {\"id\": \"C\", \"label\": \"End\"}\n    ],\n    \"relationships\": [\n        {\"from\": \"A\", \"to\": \"B\", \"label\": \"Initiates\", \"type\": \"normal\"},\n        {\"from\": \"B\", \"to\": \"C\", \"label\": \"Completes\", \"type\": \"thick\"}\n    ],\n    \"direction\": \"TD\"\n}`",
+            "type": "tool_use",
             "input_schema": {
                 "type": "object",
                 "properties": {
-                "diagram_planning": {"type": "string", "description": "Detailed diagram planning strategy."}
+                    "diagram_planning": {"type": "string", "description": "Detailed diagram planning strategy."},
+                    "": {"type": "string", "description": "Detailed diagram planning strategy."}
+                }
+            }
+        },
+        {
+            "name": "generate_diagram",
+            "description": "Generate a Mermaid diagram source code for software architecture visualization.",
+            "type": "tool_use",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "diagram_planning": {"type": "string", "description": "Detailed diagram planning strategy."}
                 },
                 "required": ["diagram_planning"]
             }
@@ -69,9 +81,9 @@
             "input_schema": {
                 "type": "object",
                 "properties": {
-                "system_prompt": {"type": "text", "text": "The system prompt to configure the Agent."},
-                "user_query": {"type": "text", "text": "The dynamic query provided by the user."},
-                "status_file_path": {"type": "string", "description": "Path to the text file where task status will be updated."}
+                    "system_prompt": {"type": "text", "text": "The system prompt to configure the Agent."},
+                    "user_query": {"type": "text", "text": "The dynamic query provided by the user."},
+                    "status_file_path": {"type": "string", "description": "Path to the text file where task status will be updated."}
                 },
                 "required": ["system_prompt", "user_query", "status_file_path"]
             }
