@@ -1,81 +1,21 @@
-# Project **`Blackboard`**
 
-*This blackboard serves as the central knowledge hub for the project. It contains all relevant information, updates, and links to the actual files within the project directory.*
-The blackboard is organized into several sections which are always being updated separately from each other.
-
-## **`1. Shared Section`**
-
-### User Request: *HumanInput*
-    - write me a database handler in C++ with records bound to a std::string key as identifier. each record has an integer ID and 0 or more rows containing (string) name and (string) value. each operation with record has a unix-like timestamp and the operation names and timestamps must be stored and retrievable. implement basic operations for adding, removing and modifying records, but also design the DB handler robust enough so that it is capable of providing all the rows with values beginning with "||"
-
-### Architectonical Design - Data Structures *DevBoard*
-- class Record, std::unordered_map, std::string_view
-
-### Algorythmic challenges identified *DevBoard*
-- no recursion, avoid string copy in operations
-
-### Design Patterns - suggested implementation approach *DevBoard*
+## Suggested development workflow:
+- clone this repo
+- `cd workspace`
+- `git clone` your existing project
+- install dependencies
+- `python3 -m venv .venv` && `source .venv/bin/activate`
+- Integrate [Projects](Projects/Projects.md)
 - 
 
-### `Refined Coding Tasks` *DevBoard*
+## File/Folder Structure
 
-* Title: PlaceholderTitle
+- Important folders include a markdown file named as `FOLDER_NAME.md` containing information about the files and folders located in that folder. Alternatively, like in case of many Projects, this file could be named `README.md`
+- There might be a `TODO.txt` file in any folder, containing TODOs for the files/folders within this folder. The file should be removed once issues are solved.
 
-  - Feature to implement
-  - Acceptance Criteria
-  - Filename for new file
+## Documents
 
+- Basically every markdown file is supposed to be readable by both humans and machines.
+- [AssistantInstructions](docs/AssistantInstructions.md) contains original instructions formerly used for an aggregated Assistant. This project aims to modularize and decentralize the instructions with a more agentic approach
+- [Applicable Tools for Agents and Tasks](docs/tools.md) 
 
-
-### `Source Code - **In Review**` *DevBoard*
-- [main.cpp](./gen/main.cpp)
-```cpp
-#include <string>
-
-```
-
-### `Docs & Diagrams - **In Review**` *DevBoard*
-
-- [Suggested Improved Class](./diagrams/class_diagram.md)
-- Class could be improved ...
-
-- [Design Pattern suggestion diagram](./diagrams/release_class_diagram.png)
-- Design Pattern selected ...
-
-
-### Logs, Drafts & Temporary files *TestersCrew*
-
-- This section is dedicated to the tasks that are currently being tested or are pending testing.
-- Any issues found during testing will be reported here, and the development team will be notified for necessary fixes.
-
-### Pending Tests *TestersCrew*
-- 
-
-### Test Results *TestersCrew*
-- 
-
-
-### Brainstorming Diagrams *BlackBoard*
-```mermaid
-
-```
-
-## **`2. Released - ReadOnly Section`**
-
-- This section contains code and information that has been tested and delivered into codebase. Developers should take this content as granted when working on their tasks. 
-
-### **`Release` Code**
-
----- *Release Code* ----
-
-### **`Release` Docs & Diagrams**
-
-The following documentation has been locked and should be used as the reference for the project.
-
-- [README.md](./gen/README.md)
-
-- **[Diagram reflecting the code:](./diagrams/release_class_diagram.png):** ![Class diagram:](./diagrams/release_class_diagram.png)
-```mermaid
-
-```
----- *Release Docs & Diagrams* ----

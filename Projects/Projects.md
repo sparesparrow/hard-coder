@@ -1,0 +1,2 @@
+- Projects are meant to be independently working as standalone as well as integrating with other projects.
+- The projects should not be dependent on each other, although there are exceptions i.e. for 3rdParty wrappers, such as AnthropicClient, CrewAI-Agency etc., or various single-purposed tools such as MermaidGenerator

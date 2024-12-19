@@ -1,0 +1,14 @@
+- "Attention Is All You Need" (Vaswanowski et al., 2017) 
+- "RETRO: Improving Language Models by Retrieving from Trillions of Tokens" (Borgeaud et al., 2022).
+- "Language Models as Knowledge Graphs" (Wang et al., 2023) 
+- "Graph-augmented Learning to Rank for LLMs" (Chen et al., 2023).
+- "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models" (Wei et al., 2022) 
+- "Self-Consistency Improves Chain of Thought Reasoning in Language Models" (Wang et al., 2022).
+- "Calibrating Language Models to Output Uncertainties" (Zhao et al., 2023) 
+- "Known Unknowns: Uncertainty Estimation in Large Language Models" (Smith et al., 2023).
+- "PaLM-E: An Embodied Multimodal Language Model" (Google, 2023) 
+- "Visual ChatGPT: Talking, Drawing and Editing with Visual Foundation Models" (Microsoft, 2023).
+- "Learning to Learn from Human Feedback" (OpenAI, 2023) 
+- "Interactive Language Learning by Question Answering" (Li et al., 2022).
+- "Not what you've signed up for: Safeguarding against Prompt Injection" (Salesforce, 2023) 
+- "Prompt Injection Attacks and Defenses in LLM-Integrated Applications" (Microsoft, 2023).

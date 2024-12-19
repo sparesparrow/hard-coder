@@ -1,0 +1,3 @@
+- more categories like DataManagement etc.
+- convert markdown files containg to README.md templates
+- move Diagram section in md files to MermaidGenerator, reference it
