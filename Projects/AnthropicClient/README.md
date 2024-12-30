@@ -39,9 +39,8 @@ graph TD
 ```
 
 ## Data Flow Process
-
 ```mermaid
-%%{init: {'theme': 'forest'}}%%
+%%{init: {'theme': 'forest' }}%%
 sequenceDiagram
     participant User
     participant CM as ClipboardManager
