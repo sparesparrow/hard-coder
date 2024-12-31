@@ -1,22 +1,44 @@
 [{
-    "name": "bash",
-    "description": "Run commands in a bash shell\n* When invoking this tool, the contents of the \"command\" parameter does NOT need to be XML-escaped.\n* You have access to a mirror of common linux and python packages via apt and pip.\n* State is \npersistent across command calls and discussions with the user.\n* To inspect a particular line range of a file, e.g. lines 10-25, try 'sed -n 10,25p /path/to/the/file'.\n* Please avoid commands that may produce a very large amount of output.\n* Please run long lived commands in the background, e.g. 'sleep 10 &' or start a server in the background.",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "command": {
-            "description": "The bash command to run. Required unless the tool is being restarted.",
-            "type": "string"
+    "jsonrpc": "2.0",
+    "method": "tools/custom_bash",
+    "params": {
+        "name": "custom_bash",
+        "description": "Run commands in a bash shell\n* When invoking this tool, the contents of the \"command\" parameter does NOT need to be XML-escaped.\n* You have access to a mirror of common linux and python packages via apt and pip.\n* State is persistent across command calls and discussions with the user.\n* To inspect a particular line range of a file, e.g. lines 10-25, try 'sed -n 10,25p /path/to/the/file'.\n* Please avoid commands that may produce a very large amount of output.\n* Please run long lived commands in the background, e.g. 'sleep 10 &' or start a server in the background.",
+        "inputSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "properties": {
+                "command": {
+                    "description": "The bash command to run. Required unless the tool is being restarted.",
+                    "type": "string"
+                },
+                "restart": {
+                    "description": "Specifying true will restart this tool. Otherwise, leave this unspecified.",
+                    "type": "boolean"
+                }
+            },
+            "required": ["command"]
         },
-        "restart": {
-            "description": "Specifying true will restart this tool. Otherwise, leave this unspecified.",
-            "type": "boolean"
+        "outputSchema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "properties": {
+                "stdout": {
+                    "type": "string",
+                    "description": "Standard output of the command."
+                },
+                "stderr": {
+                    "type": "string",
+                    "description": "Standard error of the command."
+                },
+                "exit_code": {
+                    "type": "integer",
+                    "description": "Exit code of the command."
+                }
+            },
+            "required": ["stdout", "stderr", "exit_code"]
         }
-      },
-      "required": [
-        "command"
-      ]
-  }
+    }
 },
 {
     "name": "computer_use",

@@ -9,6 +9,30 @@ import json
 from jinja2 import Template, Environment, FileSystemLoader
 import logging
 from enum import Enum
+from mcp.client import MCPClient
+
+class ToolManager:
+    def __init__(self, mcp_client: MCPClient):
+        self.mcp_client = mcp_client
+        self.tools: Dict[str, Dict[str, Any]] = {}
+        
+    async def load_tools(self, tools_dir: str):
+        """Load tool definitions from directory"""
+        tools_path = Path(tools_dir)
+        if not tools_path.exists():
+            return
+            
+        for file in tools_path.glob("*.yaml"):
+            try:
+                with file.open() as f:
+                    data = yaml.safe_load(f)
+                    self.tools[file.stem] = data
+            except Exception as e:
+                logging.error(f"Error loading tool {file}: {str(e)}")
+                
+    async def get_tool(self, name: str) -> Optional[Dict[str, Any]]:
+        """Get tool definition by name"""
+        return self.tools.get(name)
 
 class MessageRole(str, Enum):
     USER = "user"
@@ -47,6 +71,12 @@ class MessageConfig:
     system: Optional[str] = None
     tools: Optional[List[Tool]] = None
     metadata: Optional[Dict[str, Any]] = None
+    
+    def __post_init__(self):
+        if self.max_tokens < 0:
+            raise ValueError("max_tokens must be positive")
+        if not 0 <= self.temperature <= 1:
+            raise ValueError("temperature must be between 0 and 1")
 
 class AnthropicClient:
     """
@@ -89,13 +119,17 @@ class AnthropicClient:
         
         # Load resources
         self._load_resources()
-        
+
     def _load_resources(self) -> None:
         """Load all resource configurations."""
-        self.templates = self._load_templates()
-        self.system_prompts = self._load_system_prompts()
-        self.examples = self._load_examples()
-        self.tools = self._load_tools()
+        try:
+            self.templates = self._load_templates()
+            self.system_prompts = self._load_system_prompts()
+            self.examples = self._load_examples()
+            self.tools = self._load_tools()
+        except Exception as e:
+            self.logger.error(f"Error loading resources: {str(e)}")
+            raise RuntimeError("Failed to initialize client resources") from e
 
     def _load_templates(self) -> Dict[str, Template]:
         """Load template files."""
@@ -301,7 +335,31 @@ class AnthropicClient:
             for ex in examples 
             if any(tag in ex.tags for tag in tags)
         ]
+    
 
+class AnthropicMCPClient:
+    def __init__(self, api_key: str, mcp_client: MCPClient):
+        self.api_key = api_key
+        self.mcp_client = mcp_client
+        
+    async def create_message(self, 
+                           content: str,
+                           tools: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+        message_params = {
+            "model": "claude-3-5-sonnet-20241022",
+            "max_tokens": 8192,
+            "temperature": 0,
+            "content": content,
+            "tools": tools
+        }
+        
+        response = await self.mcp_client.call_tool(
+            "anthropic/messages/create",
+            **message_params
+        )
+        
+        return response.result
+    
 def main():
     """Example usage of the AnthropicClient."""
     import asyncio
@@ -331,3 +389,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+    

@@ -4,6 +4,9 @@ import json
 from pathlib import Path
 import anthropic
 from dataclasses import dataclass
+from mcp.client import MCPClient
+from tools.manager import ToolManager
+from typing import Optional, Dict, Any
 
 @dataclass
 class ProjectTemplate:
@@ -35,15 +38,12 @@ class TemplateManager:
         return self.templates.get(pattern)
 
 class ProjectImplementor:
-    def __init__(self, 
-                 api_key: Optional[str] = None, 
-                 model: str = "claude-3-5-sonnet-20241022"):
-        self.client = anthropic.Anthropic(
-            api_key=api_key or os.getenv("ANTHROPIC_API_KEY")
-        )
-        self.model = model
-        self.template_manager = TemplateManager()
     
+    def __init__(self, mcp_client: MCPClient, tool_manager: ToolManager):
+        self.mcp_client = mcp_client
+        self.tool_manager = tool_manager
+        self.template_manager = TemplateManager()
+        
     def _create_prompt(self, 
                       query: str, 
                       template: ProjectTemplate, 
@@ -69,6 +69,27 @@ class ProjectImplementor:
         
         Ensure consistent naming conventions and proper documentation.
         """
+    
+        
+    async def implement_project(self, 
+                              query: str,
+                              pattern: Optional[str] = None) -> Dict[str, Any]:
+        # Get available tools
+        tools = await self.tool_manager.get_available_tools()
+        
+        # Create implementation request
+        request_params = {
+            "query": query,
+            "pattern": pattern,
+            "tools": tools
+        }
+        
+        response = await self.mcp_client.call_tool(
+            "project/implement",
+            **request_params
+        )
+        
+        return response.result
     
     def implement_project(self,
                         query: str,

@@ -19,6 +19,15 @@
                     "restart": {"type": "boolean", "description": "Restart the tool if needed."}
                 },
                 "required": ["command"]
+            },
+            "output_schema": {
+                "type": "object",
+                "properties": {
+                    "stdout": {"type": "string", "description": "Standard output of the command."},
+                    "stderr": {"type": "string", "description": "Standard error of the command."},
+                    "exit_code": {"type": "integer", "description": "Exit code of the command."}
+                },
+                "required": ["stdout", "stderr", "exit_code"]
             }
         },
         {
@@ -33,6 +42,13 @@
                     "text": {"type": "string", "description": "Text input for 'type' or 'key' actions."}
                 },
                 "required": ["action"]
+            },
+            "output_schema": {
+                "type": "object",
+                "properties": {
+                    "screenshot_data": {"type": "string", "description": "Base64 encoded screenshot data."}
+                },
+                "required": ["screenshot_data"]
             }
         },
         {
@@ -43,80 +59,159 @@
                 "type": "object",
                 "properties": {
                     "command": {"type": "string", "enum": ["view", "create", "str_replace", "insert", "undo_edit"], "description": "Editor action."},
-                    "file_text": {"type": "string", "description": "Content for 'create' action."},
-                    "path": {"type": "string", "description": "Path to file or directory."},
-                    "view_range": {"type": "array", "items": {"type": "integer"}, "description": "Range for viewing file contents."}
+                    "path": {"type": "string", "description": "Path to the file or directory."},
+                    "text": {"type": "string", "description": "Text to insert or replace."},
+                    "str_to_replace": {"type": "string", "description": "String to replace."},
+                    "view_range": {"type": "array", "items": {"type": "integer"}, "description": "Line range to view."}
                 },
                 "required": ["command", "path"]
+            },
+            "output_schema": {
+                "type": "object",
+                "properties": {
+                    "content": {"type": "string", "description": "Content of the file or directory."},
+                    "status": {"type": "string", "description": "Status of the operation."}
+                },
+                "required": ["status"]
             }
         },
         {
-            "name": "diagram_planner",
-            "description": "Plan to generate a Mermaid diagram, providing component, direction, concepts and relationships information as a JSON stored in `diagram_planning`. Example output value: `{\n    \"concepts\": [\n        {\"id\": \"A\", \"label\": \"Start\"},\n        {\"id\": \"B\", \"label\": \"Process\"},\n        {\"id\": \"C\", \"label\": \"End\"}\n    ],\n    \"relationships\": [\n        {\"from\": \"A\", \"to\": \"B\", \"label\": \"Initiates\", \"type\": \"normal\"},\n        {\"from\": \"B\", \"to\": \"C\", \"label\": \"Completes\", \"type\": \"thick\"}\n    ],\n    \"direction\": \"TD\"\n}`",
-            "type": "tool_use",
+            "name": "file_reader",
+            "description": "Read contents of files/folders, compare their content and more readonly file operations.",
+            "type": "File System Operations",
             "input_schema": {
                 "type": "object",
                 "properties": {
-                    "diagram_planning": {"type": "string", "description": "Detailed diagram planning strategy."},
-                    "": {"type": "string", "description": "Detailed diagram planning strategy."}
-                }
+                    "path": {"type": "string", "description": "Path to the file or directory."},
+                    "view_range": {"type": "array", "items": {"type": "integer"}, "description": "Line range to view."}
+                },
+                "required": ["path"]
+            },
+            "output_schema": {
+                "type": "object",
+                "properties": {
+                    "content": {"type": "string", "description": "Content of the file or directory."},
+                    "status": {"type": "string", "description": "Status of the operation."}
+                },
+                "required": ["status"]
+            }
+        },
+        {
+            "name": "file_writer",
+            "description": "Write into only allowed destination which is a file named reviews.md. There you can tell all the problems and issues with the codebase, as well as the suggested fixes.",
+            "type": "File System Operations",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "path": {"type": "string", "description": "Path to the file."},
+                    "content": {"type": "string", "description": "Content to write to the file."}
+                },
+                "required": ["path", "content"]
+            },
+            "output_schema": {
+                "type": "object",
+                "properties": {
+                    "status": {"type": "string", "description": "Status of the operation."}
+                },
+                "required": ["status"]
+            }
+        },
+        {
+            "name": "MermaidDiagramGenerator",
+            "description": "Generates Mermaid diagrams from structured descriptions of concepts and relationships",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "concepts": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": {"type": "string"},
+                                "label": {"type": "string"},
+                                "style": {"type": "object", "optional": true}
+                            },
+                            "required": ["id", "label"]
+                        }
+                    },
+                    "relationships": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "from": {"type": "string"},
+                                "to": {"type": "string"},
+                                "label": {"type": "string"},
+                                "type": {"type": "string", "enum": ["normal", "dotted", "thick"]}
+                            },
+                            "required": ["from", "to", "label", "type"]
+                        }
+                    },
+                    "direction": {
+                        "type": "string",
+                        "enum": ["TD", "LR"]
+                    }
+                },
+                "required": ["concepts", "relationships", "direction"]
+            },
+            "output_schema": {
+                "type": "object",
+                "properties": {
+                    "diagram_source": {"type": "string", "description": "Mermaid diagram source code."}
+                },
+                "required": ["diagram_source"]
             }
         },
         {
             "name": "generate_diagram",
-            "description": "Generate a Mermaid diagram source code for software architecture visualization.",
-            "type": "tool_use",
+            "description": "Generate a mermaid diagram source code to include in README.md when writing it's contents, covering software architecture design for the project.",
             "input_schema": {
                 "type": "object",
                 "properties": {
-                    "diagram_planning": {"type": "string", "description": "Detailed diagram planning strategy."}
+                    "diagram_planning": {
+                        "type": "string",
+                        "description": "Planned strategy for the diagram implementation."
+                    }
                 },
-                "required": ["diagram_planning"]
-            }
-        },
-        {
-            "name": "async_anthropic_request",
-            "description": "Invoke an asynchronous Agent via the Anthropic API. The Agent executes a task based on a system prompt and user query and updates a text file to indicate the task status (success, failure, in-progress).",
-            "type": "API Interaction",
-            "input_schema": {
+                "required": [
+                    "diagram_planning"
+                ]
+            },
+            "output_schema": {
                 "type": "object",
                 "properties": {
-                    "system_prompt": {"type": "text", "text": "The system prompt to configure the Agent."},
-                    "user_query": {"type": "text", "text": "The dynamic query provided by the user."},
-                    "status_file_path": {"type": "string", "description": "Path to the text file where task status will be updated."}
+                    "diagram_source": {"type": "string", "description": "Mermaid diagram source code."}
                 },
-                "required": ["system_prompt", "user_query", "status_file_path"]
+                "required": ["diagram_source"]
             }
         }
     ],
-    "workflow_steps": [
+    "communication_protocol": "JSON-RPC",
+    "mcp_compliance": true,
+    "tasks": [
         {
-            "name": "Query Analysis",
-            "description": "Evaluate the user requirements and identify a matching design pattern from the templates or suggest creating a new one.",
-            "output_variable": "PATTERN",
+            "name": "Project Analysis and Planning",
+            "description": "Analyze user input and available project templates to determine the best approach for project implementation. Provide a detailed analysis in the <analysis_and_planning> section.",
+            "output_variable": "ANALYSIS_AND_PLANNING",
             "tools_required": [
                 {
                     "name": "custom_text_editor",
-                    "goal": "Read content from 'project_templates.json' to load available patterns."
+                    "goal": "Write analysis and planning details into `analysis.md` asynchronously."
                 }
             ]
         },
         {
-            "name": "Template Initialization",
-            "description": "Load the selected pattern template, create new documentation, and plan for a Mermaid diagram.",
-            "output_variable": "DEV_TEMPLATE",
+            "name": "Project Template Initialization",
+            "description": "Load and select an appropriate project template from `project_templates.json` or create a new one if necessary. Store the selected template in the `PROJECT_TEMPLATE` variable.",
+            "output_variable": "PROJECT_TEMPLATE",
             "tools_required": [
                 {
-                    "name": "custom_text_editor",
-                    "goal": "View and edit 'project_templates.json' for template loading into `DEV_TEMPLATE`."
+                    "name": "file_reader",
+                    "goal": "Read content from 'project_templates.json' into `PROJECT_TEMPLATE` variable."
                 },
                 {
                     "name": "custom_bash",
-                    "goal": "Modify value of variable `TOOLS`."
-                },
-                {
-                    "name": "generate_diagram",
-                    "goal": "Prepare diagram based on `diagram_planning`."
+                    "goal": "Modify value of variable `PROJECT_TEMPLATE`."
                 }
             ]
         },
@@ -152,7 +247,7 @@
         },
         {
             "name": "Tool Usage Guide",
-            "description": "Provide step-by-step instructions for using tools effectively throughout the development process. Default value to return if no changes to the tools used: `{\"tools\": [{\"name\": \"Initialize project templates\", \"functionality\": \"Load and select an appropriate project template from project_templates.json or create a new one if necessary.\"}, {\"name\": \"Initialize tools\", \"functionality\": \"Load available tools from tools.json and populate the TOOLS variable.\"}, {\"name\": \"Analyze user query\", \"functionality\": \"Match user requirements to existing templates and propose new ones if needed.\"}, {\"name\": \"Generate implementation plan\", \"functionality\": \"Prepare a comprehensive plan including design pattern selection, components, and project structure.\"}, {\"name\": \"Guide tool use\", \"functionality\": \"Provide instructions for effectively utilizing tools, validating parameters, and ensuring accuracy at each step.\"}]}`",
+            "description": "Provide step-by-step instructions for using tools effectively throughout the development process. Default value to return if no changes to the tools used: `{\"tools\": [{\"name\": \"Initialize project templates\", \"functionality\": \"Load and select an appropriate project template from project_templates.json or create a new one if necessary.\"}, {\"name\": \"Initialize tools\", \"functionality\": \"Load available tools from tools.json and populate the TOOLS variable.\"}, {\"name\": \"Analyze user query\", \"functionality\": \"Match user requirements to existing templates and design patterns.\"}, {\"name\": \"Generate implementation plan\", \"functionality\": \"Create a detailed implementation plan including design patterns, file structures, and testing strategies.\"}, {\"name\": \"Implement project\", \"functionality\": \"Use tools to implement the project based on the implementation plan.\"}, {\"name\": \"Review changes\", \"functionality\": \"Review, explain and correct changes to the codebase/file structure since last run.\"}, {\"name\": \"Generate diagram\", \"functionality\": \"Generate a mermaid diagram source code to include in README.md when writing it's contents, covering software architecture design for the project.\"}]}`",
             "output_variable": "TOOL_USE_INSTRUCTIONS",
             "tools_required": [
                 {
@@ -190,4 +285,3 @@
         }
     ]
 }
-    
