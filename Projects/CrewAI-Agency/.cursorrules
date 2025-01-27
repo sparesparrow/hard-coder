@@ -1,0 +1,214 @@
+{
+  "rules": {
+    "context_initialization": {
+      "description": "Setup for LLM-based projects using CrewAI and related frameworks",
+      "steps": [
+        "ALWAYS check config/prompts.yaml for prompt templates",
+        "Review agent_definitions.md for agent specifications",
+        "Check environment variables and API keys setup",
+        "Verify model configurations in config/models.yaml",
+        "Review existing tools and their specifications"
+      ]
+    },
+    "operational_protocol": {
+      "description": "Development guidelines for LLM applications",
+      "before_action": [
+        "Verify prompt template variables",
+        "Check token usage and model constraints",
+        "Review agent dependencies and communication flow",
+        "Consider error handling for API failures"
+      ],
+      "code_changes": [
+        "Implement context management for LLM calls",
+        "Add proper error handling for API responses",
+        "Include token counting and cost tracking",
+        "Document prompt templates and variables",
+        "Add logging for agent interactions"
+      ]
+    },
+    "safety_requirements": [
+      "NEVER include API keys in code",
+      "NEVER commit .env files",
+      "ALWAYS validate LLM responses",
+      "ALWAYS implement rate limiting",
+      "ALWAYS handle API timeouts",
+      "ALWAYS sanitize user inputs",
+      "ALWAYS implement cost controls"
+    ],
+    "prompt_engineering": {
+      "templates": [
+        "Use consistent formatting across prompts",
+        "Include clear section markers",
+        "Define expected output format",
+        "Document required variables"
+      ],
+      "variables": [
+        "Use descriptive variable names",
+        "Document expected value types",
+        "Include example values",
+        "Validate variable presence"
+      ]
+    },
+    "priorities": [
+      {
+        "source": "src/prompts/",
+        "weight": 1.0
+      },
+      {
+        "source": "src/agents/",
+        "weight": 0.9
+      },
+      {
+        "source": "src/tools/",
+        "weight": 0.9
+      },
+      {
+        "source": "src/models/",
+        "weight": 0.8
+      },
+      {
+        "source": "tests/",
+        "weight": 0.8
+      }
+    ],
+    "modes": {
+      "agent": {
+        "description": "For developing individual agents"
+      },
+      "prompt": {
+        "description": "For prompt engineering and testing"
+      },
+      "tool": {
+        "description": "For implementing agent tools"
+      },
+      "orchestration": {
+        "description": "For agent communication and workflow"
+      }
+    },
+    "project_directives": {
+      "name": "llm-project",
+      "ai_first": true,
+      "folder_structure": {
+        "prompts": "src/prompts",
+        "agents": "src/agents",
+        "tools": "src/tools",
+        "models": "src/models",
+        "tests": "tests",
+        "config": "config"
+      },
+      "dependencies": {
+        "required": [
+          "anthropic",
+          "crewai",
+          "langchain"
+        ],
+        "optional": [
+          "crewai_tools",
+          "python-dotenv"
+        ]
+      }
+    },
+    "common_patterns": {
+      "agent_definition": {
+        "pattern": [
+          "Define agent role and goals",
+          "Specify allowed tools",
+          "Set memory configuration",
+          "Configure response validation",
+          "Add error handling"
+        ]
+      },
+      "prompt_template": {
+        "pattern": [
+          "Add template description",
+          "List required variables",
+          "Include example usage",
+          "Define expected output format",
+          "Add validation rules"
+        ]
+      },
+      "tool_implementation": {
+        "pattern": [
+          "Define input/output schemas",
+          "Add error handling",
+          "Implement rate limiting",
+          "Add usage tracking",
+          "Document examples"
+        ]
+      }
+    },
+    "testing_requirements": {
+      "prompts": [
+        "Test variable substitution",
+        "Verify output format",
+        "Check edge cases",
+        "Validate error handling"
+      ],
+      "agents": [
+        "Test goal achievement",
+        "Verify tool usage",
+        "Check memory utilization",
+        "Validate communication"
+      ],
+      "tools": [
+        "Test input validation",
+        "Verify error handling",
+        "Check rate limiting",
+        "Validate output format"
+      ],
+      "integration": [
+        "Test agent collaboration",
+        "Verify workflow completion",
+        "Check system resilience",
+        "Validate cost controls"
+      ]
+    },
+    "api_usage": {
+      "anthropic": {
+        "models": [
+          "claude-3-opus-20240229",
+          "claude-3-sonnet-20240229",
+          "claude-3-haiku-20240307"
+        ],
+        "best_practices": [
+          "Implement exponential backoff",
+          "Track token usage",
+          "Handle API errors gracefully",
+          "Use appropriate temperature settings",
+          "Validate API responses"
+        ]
+      },
+      "constraints": {
+        "rate_limiting": {
+          "requests_per_minute": 50,
+          "concurrent_requests": 5
+        },
+        "timeouts": {
+          "api_call": 30,
+          "workflow": 300
+        }
+      }
+    },
+    "documentation_requirements": {
+      "agents": [
+        "Purpose and goals",
+        "Required tools",
+        "Memory configuration",
+        "Communication patterns",
+        "Error handling"
+      ],
+      "prompts": [
+        "Template variables",
+        "Expected output",
+        "Example usage",
+        "Validation rules"
+      ],
+      "tools": [
+        "Input/output schemas",
+        "Rate limits",
+        "Error scenarios",
+        "Usage examples"
+      ]
+    }
+  }
+}

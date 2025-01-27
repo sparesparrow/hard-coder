@@ -95,7 +95,6 @@ cd {{project_name}}
 ├── docs/
 └── README.md
 ```
-
 ## Development
 
 ### Testing
@@ -103,19 +102,8 @@ cd {{project_name}}
 ```bash
 {{package_manager}} test
 ```
-
-### Contributing
-
-1. Fork the repository.
-2. Create your feature branch.
-3. Submit a pull request.
-
 ## Documentation
 
 - [API Documentation](./docs/api.md)
 - [Development Guide](./docs/development.md)
 - [Architecture Overview](./docs/architecture.md)
-
-## License
-
-This project is licensed under the {{license}} License - see the [LICENSE](LICENSE) file for details.

@@ -1,0 +1,198 @@
+{
+  "rules": {
+    "context_initialization": {
+      "description": "Setup for MCP SDK development",
+      "steps": [
+        "ALWAYS check protocol specification compliance",
+        "Review cross-language implementation patterns",
+        "Verify transport layer configurations",
+        "Check SDK version compatibility"
+      ]
+    },
+    "operational_protocol": {
+      "description": "Development guidelines for MCP SDK",
+      "before_action": [
+        "Verify protocol version compatibility",
+        "Check transport layer requirements",
+        "Review capability declarations",
+        "Consider cross-language implications"
+      ],
+      "code_changes": [
+        "Maintain type safety",
+        "Include error handling",
+        "Add protocol validation",
+        "Document API changes",
+        "Update transport implementations"
+      ]
+    },
+    "safety_requirements": [
+      "NEVER expose sensitive data in logs",
+      "ALWAYS validate protocol messages",
+      "ALWAYS handle transport errors",
+      "ALWAYS implement proper cleanup",
+      "NEVER block event loop",
+      "ALWAYS verify capability support"
+    ],
+    "implementation_patterns": {
+      "server": {
+        "required_components": [
+          "Server implementation",
+          "Transport layer",
+          "Message handlers",
+          "Capability declarations"
+        ],
+        "features": {
+          "prompts": [
+            "Template management",
+            "Argument validation",
+            "Dynamic generation"
+          ],
+          "resources": [
+            "URI handling",
+            "Content streaming",
+            "MIME type support"
+          ],
+          "tools": [
+            "Tool registration",
+            "Argument validation",
+            "Result handling"
+          ]
+        }
+      },
+      "client": {
+        "required_components": [
+          "Client implementation",
+          "Transport layer",
+          "Request builders",
+          "Response handlers"
+        ],
+        "features": {
+          "connection": [
+            "Transport selection",
+            "Capability negotiation",
+            "Error handling"
+          ],
+          "requests": [
+            "Request construction",
+            "Response parsing",
+            "Error handling"
+          ],
+          "lifecycle": [
+            "Connection management",
+            "Resource cleanup",
+            "Event handling"
+          ]
+        }
+      }
+    },
+    "cross_language_patterns": {
+      "type_mapping": {
+        "rules": [
+          "Use consistent type names",
+          "Match type constraints",
+          "Handle serialization properly"
+        ],
+        "examples": {
+          "python": {
+            "str": "string",
+            "int": "number",
+            "dict": "object",
+            "list": "array"
+          },
+          "typescript": {
+            "string": "str",
+            "number": "int | float",
+            "object": "dict",
+            "array": "list"
+          }
+        }
+      },
+      "error_handling": {
+        "rules": [
+          "Use consistent error types",
+          "Match error hierarchies",
+          "Provide equivalent context"
+        ]
+      },
+      "async_patterns": {
+        "rules": [
+          "Use native async patterns",
+          "Handle cancellation",
+          "Manage cleanup"
+        ]
+      }
+    },
+    "documentation_requirements": {
+      "api_docs": [
+        "Interface specifications",
+        "Type definitions",
+        "Usage examples",
+        "Error scenarios"
+      ],
+      "protocol_docs": [
+        "Message formats",
+        "Capability requirements",
+        "Transport specifications",
+        "Version compatibility"
+      ],
+      "examples": [
+        "Basic usage",
+        "Advanced scenarios",
+        "Error handling",
+        "Cross-language examples"
+      ]
+    },
+    "testing_requirements": {
+      "unit_tests": [
+        "Message validation",
+        "Type conversions",
+        "Error handling",
+        "Capability checks"
+      ],
+      "integration_tests": [
+        "Transport layer",
+        "Protocol compliance",
+        "Cross-language interop",
+        "Resource management"
+      ],
+      "performance_tests": [
+        "Message throughput",
+        "Memory usage",
+        "Resource cleanup",
+        "Connection handling"
+      ]
+    },
+    "transport_implementations": {
+      "stdio": {
+        "requirements": [
+          "Proper stream handling",
+          "Buffer management",
+          "Error propagation",
+          "Cleanup procedures"
+        ]
+      },
+      "sse": {
+        "requirements": [
+          "Event stream handling",
+          "Reconnection logic",
+          "Message ordering",
+          "Error recovery"
+        ]
+      }
+    },
+    "capability_management": {
+      "declaration": [
+        "Clear capability listing",
+        "Version requirements",
+        "Feature flags",
+        "Dependency specs"
+      ],
+      "negotiation": [
+        "Capability matching",
+        "Version compatibility",
+        "Feature availability",
+        "Error handling"
+      ]
+    }
+  }
+}

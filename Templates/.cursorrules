@@ -1,0 +1,210 @@
+{
+  "rules": {
+    "context_initialization": {
+      "description": "Setup for project template management",
+      "steps": [
+        "ALWAYS check template schema validity",
+        "Verify design pattern compatibility",
+        "Review component hierarchy",
+        "Check documentation templates"
+      ]
+    },
+    "template_management": {
+      "schema": {
+        "required_fields": [
+          "project_name",
+          "description",
+          "components"
+        ],
+        "validation": [
+          "Check schema compliance",
+          "Validate component hierarchy",
+          "Verify path consistency",
+          "Check naming conventions"
+        ]
+      },
+      "patterns": {
+        "microservices": {
+          "required_components": [
+            "API Gateway",
+            "Service Registry",
+            "Individual Services",
+            "Event Bus"
+          ],
+          "communication": [
+            "Service discovery",
+            "API contracts",
+            "Event messaging",
+            "Error handling"
+          ]
+        },
+        "mvc": {
+          "required_components": [
+            "Model",
+            "View",
+            "Controller"
+          ],
+          "relationships": [
+            "Data flow",
+            "Event handling",
+            "State management",
+            "View updates"
+          ]
+        },
+        "event_driven": {
+          "required_components": [
+            "Event Producer",
+            "Event Consumer",
+            "Event Store",
+            "Event Bus"
+          ],
+          "patterns": [
+            "Event sourcing",
+            "Event handling",
+            "State management",
+            "Error recovery"
+          ]
+        },
+        "cqrs": {
+          "required_components": [
+            "Command Handler",
+            "Query Handler",
+            "Event Store"
+          ],
+          "patterns": [
+            "Command processing",
+            "Query optimization",
+            "Event storage",
+            "State projection"
+          ]
+        }
+      }
+    },
+    "documentation_generation": {
+      "readme": {
+        "required_sections": [
+          "Overview",
+          "Features",
+          "Architecture",
+          "Getting Started"
+        ],
+        "formatting": [
+          "Use consistent headers",
+          "Include TOC",
+          "Add diagrams",
+          "Document setup steps"
+        ]
+      },
+      "architecture": {
+        "required_sections": [
+          "Principles",
+          "Patterns",
+          "Components",
+          "Infrastructure"
+        ],
+        "diagrams": [
+          "Component hierarchy",
+          "Data flow",
+          "Infrastructure",
+          "Deployment"
+        ]
+      }
+    },
+    "code_generation": {
+      "structure": {
+        "validation": [
+          "Directory hierarchy",
+          "File naming",
+          "Component organization",
+          "Module structure"
+        ],
+        "patterns": [
+          "Use consistent naming",
+          "Follow pattern conventions",
+          "Implement interfaces",
+          "Handle errors"
+        ]
+      },
+      "implementation": {
+        "requirements": [
+          "Type safety",
+          "Error handling",
+          "Documentation",
+          "Testing setup"
+        ],
+        "standards": [
+          "Code style",
+          "Documentation format",
+          "Test coverage",
+          "Error handling"
+        ]
+      }
+    },
+    "llm_integration": {
+      "prompt_engineering": {
+        "template_analysis": [
+          "Pattern recognition",
+          "Component identification",
+          "Relationship mapping",
+          "Constraint validation"
+        ],
+        "code_generation": [
+          "Structure planning",
+          "Implementation details",
+          "Documentation generation",
+          "Test planning"
+        ]
+      },
+      "response_handling": {
+        "validation": [
+          "Schema compliance",
+          "Pattern adherence",
+          "Code correctness",
+          "Documentation completeness"
+        ],
+        "processing": [
+          "Parse structured output",
+          "Extract components",
+          "Generate files",
+          "Create documentation"
+        ]
+      }
+    },
+    "testing_requirements": {
+      "template_tests": [
+        "Schema validation",
+        "Pattern compliance",
+        "Component completeness",
+        "Documentation coverage"
+      ],
+      "implementation_tests": [
+        "Code generation",
+        "File structure",
+        "Component integration",
+        "Documentation generation"
+      ]
+    },
+    "project_structure": {
+      "organization": {
+        "directories": [
+          "src/",
+          "docs/",
+          "tests/",
+          "config/"
+        ],
+        "files": [
+          "README.md",
+          "CONTRIBUTING.md",
+          "LICENSE",
+          "package.json"
+        ]
+      },
+      "naming_conventions": {
+        "directories": "lowercase with underscores",
+        "files": "PascalCase for classes, snake_case for modules",
+        "components": "PascalCase",
+        "interfaces": "IPascalCase"
+      }
+    }
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "rules": {
+    "context_initialization": {
+      "description": "Setup for cross-platform web server with Termux integration and mobile assistant capabilities",
+      "steps": [
+        "ALWAYS check termux_integration.md for API compatibility",
+        "Review security.md for command execution guidelines", 
+        "Check port availability and permissions",
+        "Verify JSON schema definitions in schemas/",
+        "Review markdown processing configurations",
+        "Check mobile assistant agent configurations",
+        "Verify TTS and voice capabilities"
+      ]
+    },
+    "operational_protocol": {
+      "description": "Development guidelines focusing on security, compatibility and mobile assistant features",
+      "before_action": [
+        "Verify security implications of command execution",
+        "Check cross-platform compatibility",
+        "Review file access permissions",
+        "Consider mobile device constraints",
+        "Validate agent communication channels",
+        "Check TTS engine availability"
+      ],
+      "code_changes": [
+        "Implement secure command execution wrappers",
+        "Add input validation for all file operations",
+        "Include error handling for Termux commands",
+        "Document API endpoints",
+        "Add request rate limiting",
+        "Implement file change monitoring",
+        "Add agent coordination logic",
+        "Implement TTS request handling",
+        "Add web search capabilities",
+        "Include file download management"
+      ]
+    },
+    "safety_requirements": [
+      "NEVER execute unvalidated commands",
+      "NEVER expose system paths in responses", 
+      "ALWAYS sanitize file paths",
+      "ALWAYS validate JSON schemas",
+      "ALWAYS escape markdown content",
+      "ALWAYS implement CORS policies",
+      "ALWAYS add request timeouts",
+      "ALWAYS validate agent requests",
+      "NEVER expose sensitive user data",
+      "ALWAYS encrypt agent communications"
+    ],
+    "api_guidelines": {
+      "endpoints": [
+        "Use RESTful conventions",
+        "Version all endpoints (/api/v1/...)",
+        "Document response formats",
+        "Include rate limiting headers",
+        "Add agent communication endpoints",
+        "Include TTS request endpoints",
+        "Add search operation endpoints",
+        "Include file transfer endpoints"
+      ],
+      "security": [
+        "Implement authentication for Termux commands",
+        "Validate file permissions",
+        "Sanitize all inputs",
+        "Log security events",
+        "Authenticate agent requests",
+        "Validate TTS requests"
+      ]
+    },
+    "priorities": [
+      {
+        "source": "src/security/",
+        "weight": 1.0
+      },
+      {
+        "source": "src/termux/",
+        "weight": 0.9
+      },
+      {
+        "source": "src/agents/",
+        "weight": 0.9
+      },
+      {
+        "source": "src/json_handlers/",
+        "weight": 0.8
+      },
+      {
+        "source": "src/markdown/",
+        "weight": 0.8
+      },
+      {
+        "source": "src/web/",
+        "weight": 0.7
+      },
+      {
+        "source": "src/tts/",
+        "weight": 0.7
+      }
+    ],
+    "modes": {
+      "server": {
+        "description": "For core server development with security focus"
+      },
+      "termux": {
+        "description": "For Termux integration and command handling"
+      },
+      "agent": {
+        "description": "For mobile assistant agent development"
+      },
+      "json": {
+        "description": "For JSON processing features"
+      },
+      "markdown": {
+        "description": "For markdown processing and diff visualization"
+      },
+      "ui": {
+        "description": "For web interface development"
+      },
+      "tts": {
+        "description": "For text-to-speech integration"
+      }
+    },
+    "project_directives": {
+      "name": "termux-web-server",
+      "ai_first": true,
+      "folder_structure": {
+        "server": "src/server",
+        "termux": "src/termux",
+        "agents": "src/agents",
+        "json_handlers": "src/json_handlers", 
+        "markdown": "src/markdown",
+        "web": "src/web",
+        "tts": "src/tts",
+        "schemas": "schemas",
+        "tests": "tests"
+      },
+      "security": {
+        "allowed_commands": [
+          "termux-clipboard-get",
+          "termux-clipboard-set",
+          "termux-tts-speak",
+          "termux-download"
+        ],
+        "forbidden_operations": [
+          "system commands",
+          "file system traversal", 
+          "network configuration"
+        ]
+      },
+      "dependencies": {
+        "preferred": {
+          "web_framework": "fastify",
+          "json_schema": "ajv",
+          "markdown": "marked",
+          "diff": "diff",
+          "ui": "preact",
+          "tts": "elevenlabs",
+          "agents": "crewai"
+        }
+      }
+    },
+    "common_patterns": {
+      "command_execution": {
+        "pattern": [
+          "Validate command against whitelist",
+          "Sanitize all arguments",
+          "Set execution timeout",
+          "Handle errors and timeouts",
+          "Log execution attempts"
+        ]
+      },
+      "file_operations": {
+        "pattern": [
+          "Validate file path",
+          "Check permissions", 
+          "Handle concurrent access",
+          "Implement file locking",
+          "Log file operations"
+        ]
+      },
+      "api_endpoint": {
+        "pattern": [
+          "Validate request schema",
+          "Authenticate if needed",
+          "Rate limit check",
+          "Execute operation",
+          "Format response",
+          "Handle errors"
+        ]
+      },
+      "agent_communication": {
+        "pattern": [
+          "Validate agent request",
+          "Check agent permissions",
+          "Process agent message",
+          "Coordinate with other agents",
+          "Send response"
+        ]
+      }
+    },
+    "testing_requirements": {
+      "security": [
+        "Test command injection vectors",
+        "Verify file access restrictions",
+        "Check rate limiting",
+        "Validate authentication",
+        "Test agent security"
+      ],
+      "functionality": [
+        "Test JSON operations",
+        "Verify markdown rendering",
+        "Check diff generation",
+        "Test Termux command integration",
+        "Verify agent coordination",
+        "Test TTS functionality",
+        "Validate search operations"
+      ]
+    }
+  }
+}

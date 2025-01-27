@@ -1,0 +1,215 @@
+{
+  "rules": {
+    "context_initialization": {
+      "description": "Setup for game and interface components",
+      "steps": [
+        "ALWAYS verify React hooks usage",
+        "Check game loop performance",
+        "Review voice integration",
+        "Verify state management"
+      ]
+    },
+    "game_mechanics": {
+      "core_loop": {
+        "requirements": [
+          "Frame rate consistency",
+          "State updates",
+          "Collision detection",
+          "Resource management"
+        ],
+        "optimizations": [
+          "Use requestAnimationFrame",
+          "Implement render throttling",
+          "Optimize collision checks",
+          "Cleanup resources"
+        ]
+      },
+      "state_management": {
+        "game_state": [
+          "Player position",
+          "Game objects",
+          "Score tracking",
+          "Word management"
+        ],
+        "interface_state": [
+          "Input handling",
+          "Modal states",
+          "Audio states",
+          "Error states"
+        ]
+      }
+    },
+    "user_interface": {
+      "components": {
+        "game_view": {
+          "requirements": [
+            "Player rendering",
+            "Word rendering",
+            "Score display",
+            "Input overlay"
+          ],
+          "styling": [
+            "Use Tailwind classes",
+            "Consistent animations",
+            "Responsive layout",
+            "Accessible colors"
+          ]
+        },
+        "input_handling": {
+          "keyboard": [
+            "Movement controls",
+            "Word typing",
+            "Modal interaction",
+            "Game controls"
+          ],
+          "voice": [
+            "Input recognition",
+            "Command processing",
+            "Feedback display",
+            "Error handling"
+          ]
+        }
+      }
+    },
+    "voice_integration": {
+      "audio_input": {
+        "requirements": [
+          "Permission handling",
+          "Stream management",
+          "Error recovery",
+          "State feedback"
+        ],
+        "processing": [
+          "Speech recognition",
+          "Command parsing",
+          "Text conversion",
+          "Response handling"
+        ]
+      },
+      "audio_output": {
+        "requirements": [
+          "Volume control",
+          "Mute functionality",
+          "Stream handling",
+          "Resource cleanup"
+        ],
+        "features": [
+          "Text-to-speech",
+          "Sound effects",
+          "Audio feedback",
+          "State indicators"
+        ]
+      }
+    },
+    "performance_optimization": {
+      "rendering": {
+        "requirements": [
+          "Component memoization",
+          "Render throttling",
+          "State batching",
+          "DOM updates"
+        ],
+        "techniques": [
+          "Use useCallback",
+          "Implement useMemo",
+          "Optimize re-renders",
+          "Batch state updates"
+        ]
+      },
+      "game_loop": {
+        "requirements": [
+          "Frame timing",
+          "State updates",
+          "Collision checks",
+          "Resource management"
+        ],
+        "optimizations": [
+          "RAF scheduling",
+          "State batching",
+          "Object pooling",
+          "Cleanup routines"
+        ]
+      }
+    },
+    "audio_processing": {
+      "input": {
+        "requirements": [
+          "Stream initialization",
+          "Buffer management",
+          "Error handling",
+          "Resource cleanup"
+        ],
+        "features": [
+          "Voice recognition",
+          "Noise filtering",
+          "Command detection",
+          "State management"
+        ]
+      },
+      "output": {
+        "requirements": [
+          "Stream management",
+          "Buffer handling",
+          "Volume control",
+          "Error recovery"
+        ],
+        "features": [
+          "Speech synthesis",
+          "Effect playback",
+          "State feedback",
+          "Resource management"
+        ]
+      }
+    },
+    "state_management": {
+      "game_state": {
+        "structure": [
+          "Use reducers",
+          "Implement context",
+          "Handle updates",
+          "Manage effects"
+        ],
+        "patterns": [
+          "State immutability",
+          "Action creators",
+          "Effect cleanup",
+          "State persistence"
+        ]
+      },
+      "interface_state": {
+        "structure": [
+          "Modal management",
+          "Input tracking",
+          "Audio states",
+          "Error states"
+        ],
+        "patterns": [
+          "State machines",
+          "Event handling",
+          "State transitions",
+          "Error recovery"
+        ]
+      }
+    },
+    "testing_requirements": {
+      "game_mechanics": [
+        "Movement logic",
+        "Collision detection",
+        "Scoring system",
+        "State updates"
+      ],
+      "interface": [
+        "Input handling",
+        "Voice commands",
+        "Audio playback",
+        "State transitions"
+      ],
+      "performance": [
+        "Frame rate",
+        "Memory usage",
+        "Audio latency",
+        "State updates"
+      ]
+    }
+  }
+}

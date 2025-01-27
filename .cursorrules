@@ -1,0 +1,239 @@
+{
+  "rules": {
+    "context_initialization": {
+      "description": "Setup for voice AI integration",
+      "steps": [
+        "ALWAYS check API configurations",
+        "Verify streaming capabilities",
+        "Review audio settings",
+        "Check environment variables"
+      ]
+    },
+    "operational_protocol": {
+      "description": "Development guidelines for voice AI",
+      "before_action": [
+        "Verify API keys",
+        "Check latency requirements",
+        "Review streaming setup",
+        "Consider audio quality"
+      ],
+      "code_changes": [
+        "Implement proper streaming",
+        "Add error handling",
+        "Include audio controls",
+        "Document API usage",
+        "Update WebSocket handlers"
+      ]
+    },
+    "safety_requirements": [
+      "NEVER expose API keys",
+      "ALWAYS handle stream errors",
+      "ALWAYS implement timeout handling",
+      "ALWAYS clean up audio resources",
+      "NEVER block main thread",
+      "ALWAYS validate audio state"
+    ],
+    "frontend_implementation": {
+      "react_components": {
+        "structure": {
+          "audio_controls": [
+            "Volume adjustment",
+            "Mute functionality",
+            "Stream management",
+            "Error display"
+          ],
+          "input_handling": [
+            "Text input",
+            "Voice input",
+            "Mode switching",
+            "State management"
+          ]
+        },
+        "streaming": {
+          "response_handling": [
+            "Real-time display",
+            "Progress indication",
+            "Error states",
+            "Loading states"
+          ],
+          "audio_handling": [
+            "Stream initialization",
+            "Buffer management",
+            "Resource cleanup",
+            "State synchronization"
+          ]
+        }
+      },
+      "state_management": {
+        "audio_state": [
+          "Playing status",
+          "Volume level",
+          "Mute state",
+          "Buffer status"
+        ],
+        "conversation_state": [
+          "Message history",
+          "Stream status",
+          "Error states",
+          "Loading states"
+        ]
+      }
+    },
+    "backend_implementation": {
+      "fastapi_setup": {
+        "endpoints": [
+          "Proper route handling",
+          "WebSocket support",
+          "Error responses",
+          "Status updates"
+        ],
+        "middleware": [
+          "CORS configuration",
+          "Authentication",
+          "Rate limiting",
+          "Error handling"
+        ]
+      },
+      "api_integration": {
+        "claude": {
+          "requirements": [
+            "Stream handling",
+            "Response parsing",
+            "Error management",
+            "Tool integration"
+          ],
+          "setup": [
+            "API configuration",
+            "Model selection",
+            "Parameter tuning",
+            "Response formatting"
+          ]
+        },
+        "elevenlabs": {
+          "requirements": [
+            "Flash model setup",
+            "Audio streaming",
+            "Voice settings",
+            "Error handling"
+          ],
+          "setup": [
+            "Voice selection",
+            "Quality settings",
+            "Latency optimization",
+            "Stream management"
+          ]
+        }
+      }
+    },
+    "streaming_implementation": {
+      "websockets": {
+        "requirements": [
+          "Connection management",
+          "Message handling",
+          "Error recovery",
+          "State synchronization"
+        ],
+        "patterns": [
+          "Heartbeat mechanism",
+          "Reconnection logic",
+          "Buffer management",
+          "Event handling"
+        ]
+      },
+      "audio_streaming": {
+        "requirements": [
+          "Buffer size optimization",
+          "Latency management",
+          "Quality control",
+          "Resource efficiency"
+        ],
+        "patterns": [
+          "Chunk processing",
+          "Stream synchronization",
+          "Error recovery",
+          "Resource cleanup"
+        ]
+      }
+    },
+    "error_handling": {
+      "api_errors": {
+        "claude": [
+          "Rate limits",
+          "Token limits",
+          "Stream interruptions",
+          "Service errors"
+        ],
+        "elevenlabs": [
+          "Voice generation errors",
+          "Stream failures",
+          "API limits",
+          "Quality issues"
+        ]
+      },
+      "streaming_errors": [
+        "Connection drops",
+        "Buffer overflows",
+        "Latency issues",
+        "Resource exhaustion"
+      ]
+    },
+    "performance_optimization": {
+      "latency": {
+        "requirements": [
+          "Maximum response time",
+          "Audio buffer size",
+          "Stream chunk size",
+          "Processing overhead"
+        ],
+        "optimizations": [
+          "Proper buffering",
+          "Efficient streaming",
+          "Resource pooling",
+          "Cache utilization"
+        ]
+      },
+      "resource_management": {
+        "memory": [
+          "Buffer management",
+          "Stream cleanup",
+          "Cache limits",
+          "Memory pooling"
+        ],
+        "processing": [
+          "Worker utilization",
+          "Task scheduling",
+          "Load balancing",
+          "Resource limits"
+        ]
+      }
+    },
+    "testing_requirements": {
+      "integration_tests": [
+        "API connectivity",
+        "Streaming functionality",
+        "Audio quality",
+        "Error scenarios"
+      ],
+      "performance_tests": [
+        "Latency measurements",
+        "Resource usage",
+        "Streaming efficiency",
+        "Error recovery"
+      ]
+    },
+    "documentation_requirements": {
+      "setup": [
+        "Environment configuration",
+        "API setup",
+        "Dependencies",
+        "Running instructions"
+      ],
+      "api": [
+        "Endpoint documentation",
+        "WebSocket protocol",
+        "Error codes",
+        "Response formats"
+      ]
+    }
+  }
+}

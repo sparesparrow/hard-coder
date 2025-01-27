@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./workspace/modelcontextprotocol/python-sdk/src"
+    ]
+}

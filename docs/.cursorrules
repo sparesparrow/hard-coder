@@ -1,0 +1,271 @@
+{
+  "rules": {
+    "context_initialization": {
+      "description": "Setup for project structure and implementation",
+      "steps": [
+        "ALWAYS check design pattern compatibility",
+        "Review naming conventions",
+        "Verify component hierarchy",
+        "Check documentation templates"
+      ]
+    },
+    "component_hierarchy": {
+      "structure": {
+        "organization": [
+          "Group by functionality",
+          "Maintain clear dependencies",
+          "Follow pattern conventions",
+          "Use consistent naming"
+        ],
+        "relationships": [
+          "Define clear interfaces",
+          "Document dependencies",
+          "Specify communication patterns",
+          "Map data flows"
+        ]
+      },
+      "naming_conventions": {
+        "files": {
+          "python": "snake_case.py",
+          "typescript": "PascalCase.ts",
+          "javascript": "camelCase.js",
+          "cpp": "snake_case.cpp"
+        },
+        "folders": {
+          "pattern": "PascalCase",
+          "examples": [
+            "Components/",
+            "Services/",
+            "Models/",
+            "Tests/"
+          ]
+        },
+        "code": {
+          "classes": "PascalCase",
+          "methods": "snake_case",
+          "functions": "snake_case",
+          "variables": "snake_case",
+          "constants": "SCREAMING_SNAKE_CASE"
+        }
+      }
+    },
+    "documentation_standards": {
+      "readme": {
+        "sections": [
+          "Overview",
+          "Features",
+          "Architecture",
+          "Getting Started",
+          "Usage",
+          "Development",
+          "Documentation",
+          "License"
+        ],
+        "content": {
+          "overview": [
+            "Project purpose",
+            "Design pattern",
+            "Key features",
+            "Architecture summary"
+          ],
+          "architecture": [
+            "Design principles",
+            "Component hierarchy",
+            "Communication patterns",
+            "Data flow"
+          ]
+        }
+      },
+      "api": {
+        "components": [
+          "Purpose",
+          "Dependencies",
+          "Interface",
+          "Usage examples"
+        ],
+        "methods": [
+          "Parameters",
+          "Return values",
+          "Exceptions",
+          "Examples"
+        ]
+      }
+    },
+    "implementation_patterns": {
+      "components": {
+        "structure": {
+          "required_elements": [
+            "Interface definition",
+            "Implementation class",
+            "Tests",
+            "Documentation"
+          ],
+          "optional_elements": [
+            "Factory class",
+            "Builder pattern",
+            "Configuration",
+            "Utilities"
+          ]
+        },
+        "patterns": {
+          "microservices": [
+            "Service isolation",
+            "API contracts",
+            "Event handling",
+            "Data persistence"
+          ],
+          "mvc": [
+            "Model separation",
+            "View isolation",
+            "Controller patterns",
+            "Event handling"
+          ],
+          "repository": [
+            "Data access",
+            "CRUD operations",
+            "Transaction handling",
+            "Cache management"
+          ]
+        }
+      },
+      "services": {
+        "structure": {
+          "required_elements": [
+            "Service interface",
+            "Implementation",
+            "Configuration",
+            "Tests"
+          ],
+          "patterns": [
+            "Dependency injection",
+            "Lifecycle management",
+            "Error handling",
+            "Resource cleanup"
+          ]
+        }
+      },
+      "modules": {
+        "structure": {
+          "required_elements": [
+            "Public interface",
+            "Internal implementation",
+            "Tests",
+            "Documentation"
+          ],
+          "patterns": [
+            "Encapsulation",
+            "Dependency management",
+            "Error handling",
+            "Resource management"
+          ]
+        }
+      }
+    },
+    "test_structure": {
+      "organization": {
+        "directories": [
+          "unit/",
+          "integration/",
+          "performance/",
+          "e2e/"
+        ],
+        "naming": {
+          "files": "test_{component}_name.py",
+          "classes": "Test{ComponentName}",
+          "methods": "test_{functionality}"
+        }
+      },
+      "requirements": {
+        "unit_tests": [
+          "Component isolation",
+          "Edge cases",
+          "Error conditions",
+          "Performance constraints"
+        ],
+        "integration_tests": [
+          "Component interaction",
+          "Data flow",
+          "Error handling",
+          "Resource management"
+        ]
+      }
+    },
+    "project_structure": {
+      "root_level": {
+        "required_files": [
+          "README.md",
+          "requirements.txt",
+          "setup.py",
+          "tox.ini",
+          ".gitignore"
+        ],
+        "folders": [
+          "src/",
+          "tests/",
+          "docs/",
+          "examples/"
+        ]
+      },
+      "source_structure": {
+        "organization": [
+          "Group by feature",
+          "Separate interfaces",
+          "Isolate implementations",
+          "Include tests"
+        ],
+        "patterns": [
+          "Use consistent structure",
+          "Follow pattern conventions",
+          "Maintain hierarchy",
+          "Document relationships"
+        ]
+      }
+    },
+    "implementation_guidelines": {
+      "code_style": {
+        "python": {
+          "imports": [
+            "Standard library",
+            "Third party",
+            "Local modules",
+            "Type annotations"
+          ],
+          "classes": [
+            "Public interface first",
+            "Private methods last",
+            "Clear inheritance",
+            "Type hints"
+          ]
+        },
+        "typescript": {
+          "imports": [
+            "Interfaces first",
+            "External modules",
+            "Internal modules",
+            "Type definitions"
+          ],
+          "classes": [
+            "Interface implementation",
+            "Property definitions",
+            "Method implementations",
+            "Type safety"
+          ]
+        }
+      },
+      "documentation": {
+        "code": [
+          "Purpose description",
+          "Parameter details",
+          "Return values",
+          "Example usage"
+        ],
+        "architecture": [
+          "Component relationships",
+          "Data flow",
+          "Error handling",
+          "Performance considerations"
+        ]
+      }
+    }
+  }
+}

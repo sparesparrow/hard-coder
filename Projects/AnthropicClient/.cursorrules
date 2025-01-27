@@ -1,0 +1,234 @@
+{
+  "rules": {
+    "context_initialization": {
+      "description": "Setup for Anthropic client development",
+      "steps": [
+        "ALWAYS check environment variables setup",
+        "Review templates directory structure",
+        "Verify YAML configurations",
+        "Check async operation patterns"
+      ]
+    },
+    "operational_protocol": {
+      "description": "Development guidelines for Anthropic client",
+      "before_action": [
+        "Verify async/await usage",
+        "Check error handling",
+        "Review template variables",
+        "Consider resource loading sequence"
+      ],
+      "code_changes": [
+        "Maintain type hints",
+        "Add logging statements",
+        "Include error handling",
+        "Document public methods",
+        "Update template configurations"
+      ]
+    },
+    "safety_requirements": [
+      "NEVER commit API keys",
+      "ALWAYS validate template variables",
+      "ALWAYS handle async exceptions",
+      "ALWAYS validate YAML configurations",
+      "NEVER expose sensitive data in logs",
+      "ALWAYS use proper error types"
+    ],
+    "template_management": {
+      "structure": {
+        "directories": [
+          "templates/",
+          "templates/system_prompts/",
+          "templates/examples/",
+          "templates/tools/"
+        ],
+        "formats": {
+          "templates": "*.j2",
+          "configurations": "*.yaml",
+          "examples": "*.yaml",
+          "tools": "*.yaml"
+        }
+      },
+      "validation": [
+        "Check template existence",
+        "Validate variable presence",
+        "Verify YAML structure",
+        "Test template rendering"
+      ]
+    },
+    "priorities": [
+      {
+        "source": "src/client/",
+        "weight": 1.0
+      },
+      {
+        "source": "src/templates/",
+        "weight": 0.9
+      },
+      {
+        "source": "src/tools/",
+        "weight": 0.9
+      },
+      {
+        "source": "tests/",
+        "weight": 0.8
+      }
+    ],
+    "modes": {
+      "client": {
+        "description": "For core client development"
+      },
+      "template": {
+        "description": "For template and configuration management"
+      },
+      "tool": {
+        "description": "For tool integration development"
+      }
+    },
+    "project_directives": {
+      "name": "anthropic-client",
+      "ai_first": true,
+      "folder_structure": {
+        "src": {
+          "client": [
+            "__init__.py",
+            "client.py",
+            "config.py",
+            "exceptions.py"
+          ],
+          "templates": [
+            "__init__.py",
+            "manager.py",
+            "loader.py"
+          ],
+          "tools": [
+            "__init__.py",
+            "manager.py",
+            "handlers.py"
+          ]
+        },
+        "tests": {
+          "unit": [
+            "test_client.py",
+            "test_templates.py",
+            "test_tools.py"
+          ],
+          "integration": [
+            "test_message_creation.py",
+            "test_tool_usage.py"
+          ]
+        },
+        "templates": {
+          "system_prompts": "*.yaml",
+          "examples": "*.yaml",
+          "tools": "*.yaml"
+        }
+      },
+      "type_annotations": {
+        "required": true,
+        "style": "typing.Optional[Type]"
+      },
+      "async_patterns": {
+        "always_async": [
+          "API calls",
+          "File operations",
+          "Tool executions"
+        ],
+        "error_handling": [
+          "Use try/except in async functions",
+          "Proper exception chaining",
+          "Contextual error messages"
+        ]
+      }
+    },
+    "message_handling": {
+      "content_blocks": {
+        "validation": [
+          "Check content type",
+          "Validate structure",
+          "Verify required fields"
+        ],
+        "types": [
+          "text",
+          "tool_use",
+          "tool_result"
+        ]
+      },
+      "configuration": {
+        "required_fields": [
+          "model",
+          "max_tokens",
+          "temperature"
+        ],
+        "optional_fields": [
+          "system",
+          "tools",
+          "metadata"
+        ]
+      }
+    },
+    "error_handling": {
+      "patterns": [
+        "Use custom exception types",
+        "Include context in errors",
+        "Log with appropriate levels",
+        "Handle async timeout errors"
+      ],
+      "logging": {
+        "levels": {
+          "debug": "Detailed information",
+          "info": "General operations",
+          "warning": "Potential issues",
+          "error": "Operation failures",
+          "critical": "System failures"
+        },
+        "required_fields": [
+          "timestamp",
+          "level",
+          "message",
+          "context"
+        ]
+      }
+    },
+    "testing_requirements": {
+      "unit_tests": [
+        "Test async operations",
+        "Validate error handling",
+        "Check template loading",
+        "Verify tool execution"
+      ],
+      "integration_tests": [
+        "Test message creation",
+        "Verify tool integration",
+        "Check error propagation",
+        "Validate resource loading"
+      ],
+      "mocking": [
+        "Mock API responses",
+        "Simulate async operations",
+        "Provide test configurations"
+      ]
+    },
+    "documentation_requirements": {
+      "classes": [
+        "Class purpose",
+        "Constructor parameters",
+        "Method descriptions",
+        "Type hints",
+        "Usage examples"
+      ],
+      "methods": [
+        "Purpose",
+        "Parameters",
+        "Return values",
+        "Exceptions",
+        "Async behavior"
+      ],
+      "configurations": [
+        "Template structure",
+        "Required fields",
+        "Example configurations",
+        "Validation rules"
+      ]
+    }
+  }
+}

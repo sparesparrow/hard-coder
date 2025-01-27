@@ -1,0 +1,176 @@
+{
+  "rules": {
+    "context_initialization": {
+      "description": "Setup for LLM agent development following Anthropic's best practices",
+      "steps": [
+        "ALWAYS validate workflow selection against use case",
+        "Review tool documentation and interfaces",
+        "Check agent complexity requirements",
+        "Verify environment setup for testing"
+      ]
+    },
+    "design_principles": {
+      "core_values": [
+        "Maintain simplicity in agent design",
+        "Prioritize transparency in planning steps",
+        "Craft clear agent-computer interfaces",
+        "Start with simplest solution possible",
+        "Only increase complexity when needed"
+      ],
+      "workflow_selection": {
+        "prompt_chaining": {
+          "use_when": [
+            "Task decomposable into fixed subtasks",
+            "Trading latency for accuracy is acceptable",
+            "Clear sequential dependencies exist"
+          ],
+          "examples": [
+            "Marketing copy generation then translation",
+            "Document outline creation and validation"
+          ]
+        },
+        "routing": {
+          "use_when": [
+            "Distinct categories need specialized handling",
+            "Classification can be handled accurately",
+            "Separation of concerns benefits performance"
+          ],
+          "examples": [
+            "Customer service query routing",
+            "Model selection based on query complexity"
+          ]
+        },
+        "parallelization": {
+          "use_when": [
+            "Tasks can be divided into independent subtasks",
+            "Multiple perspectives needed",
+            "Speed improvement through parallel processing"
+          ],
+          "examples": [
+            "Content moderation with multiple checks",
+            "Code vulnerability review"
+          ]
+        },
+        "orchestrator_workers": {
+          "use_when": [
+            "Complex tasks with dynamic subtasks",
+            "Flexibility in execution needed",
+            "Central coordination beneficial"
+          ],
+          "examples": [
+            "Multi-file code changes",
+            "Complex information gathering tasks"
+          ]
+        },
+        "evaluator_optimizer": {
+          "use_when": [
+            "Clear evaluation criteria exist",
+            "Iterative refinement adds value",
+            "Feedback loops improve output"
+          ],
+          "examples": [
+            "Literary translation",
+            "Complex search tasks"
+          ]
+        }
+      }
+    },
+    "tool_engineering": {
+      "documentation": [
+        "Include example usage",
+        "Document edge cases",
+        "Specify input format requirements",
+        "Define clear boundaries between tools",
+        "Provide clear parameter descriptions"
+      ],
+      "interface_design": [
+        "Consider LLM perspective in tool usage",
+        "Use intuitive parameter names",
+        "Include safeguards against common mistakes",
+        "Keep formats close to natural text",
+        "Avoid unnecessary formatting overhead"
+      ],
+      "testing": [
+        "Run diverse example inputs",
+        "Test edge cases",
+        "Verify error handling",
+        "Check format compliance",
+        "Validate against common mistakes"
+      ]
+    },
+    "implementation_requirements": {
+      "transparency": [
+        "Log planning steps",
+        "Document decision points",
+        "Track tool usage",
+        "Maintain execution history"
+      ],
+      "safety": [
+        "Implement execution limits",
+        "Add stopping conditions",
+        "Include human checkpoints",
+        "Monitor resource usage"
+      ],
+      "performance": [
+        "Track latency metrics",
+        "Monitor cost efficiency",
+        "Measure success rates",
+        "Log error patterns"
+      ]
+    },
+    "testing_strategy": {
+      "environments": [
+        "Development sandbox",
+        "Staging environment",
+        "Production simulation"
+      ],
+      "scenarios": [
+        "Happy path execution",
+        "Error handling cases",
+        "Edge case handling",
+        "Resource limits",
+        "Tool failures"
+      ],
+      "metrics": [
+        "Task completion rate",
+        "Average steps per task",
+        "Error recovery rate",
+        "Cost per successful task"
+      ]
+    },
+    "documentation_requirements": {
+      "agent_spec": [
+        "Purpose and scope",
+        "Workflow justification",
+        "Tool requirements",
+        "Performance targets"
+      ],
+      "tools": [
+        "Usage examples",
+        "Parameter descriptions",
+        "Format specifications",
+        "Error scenarios"
+      ],
+      "workflows": [
+        "Step sequences",
+        "Decision points",
+        "Error handling",
+        "Human intervention points"
+      ]
+    },
+    "human_oversight": {
+      "checkpoints": [
+        "Define clear stopping points",
+        "Implement approval mechanisms",
+        "Document override procedures",
+        "Log human interventions"
+      ],
+      "monitoring": [
+        "Track performance metrics",
+        "Alert on anomalies",
+        "Log significant decisions",
+        "Review tool usage patterns"
+      ]
+    }
+  }
+}

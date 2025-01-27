@@ -1,0 +1,184 @@
+{
+  "rules": {
+    "context_initialization": {
+      "description": "Setup for LLM interaction template projects",
+      "steps": [
+        "ALWAYS read system_prompts.md for core instructions",
+        "Check conversation_flows.yaml for template patterns",
+        "Review example_outputs.md for expected formats",
+        "Verify environment variables configuration"
+      ]
+    },
+    "operational_protocol": {
+      "description": "Development guidelines for LLM templates",
+      "before_action": [
+        "Verify XML tag structure",
+        "Check variable placeholders",
+        "Review token count estimates",
+        "Consider conversation flow impact"
+      ],
+      "conversation_structure": [
+        "Define clear role assignments",
+        "Structure message sequences",
+        "Handle tool interactions",
+        "Document expected outputs"
+      ]
+    },
+    "safety_requirements": [
+      "NEVER expose API keys in templates",
+      "ALWAYS validate XML structure",
+      "ALWAYS test variable substitution",
+      "ALWAYS handle tool failures",
+      "NEVER hardcode model versions",
+      "ALWAYS document token limits"
+    ],
+    "template_patterns": {
+      "xml_tags": [
+        "Use descriptive tag names",
+        "Keep nesting depth reasonable",
+        "Include closing tags",
+        "Document tag purpose"
+      ],
+      "variables": [
+        "Use {{variable}} format",
+        "Document expected types",
+        "Provide example values",
+        "Check for required variables"
+      ],
+      "examples": [
+        "Include diverse scenarios",
+        "Show expected outputs",
+        "Demonstrate error cases",
+        "Document edge cases"
+      ]
+    },
+    "conversation_flow": {
+      "structure": [
+        "Define clear message sequence",
+        "Handle user inputs",
+        "Process tool results",
+        "Generate appropriate responses"
+      ],
+      "tool_handling": [
+        "Define tool parameters",
+        "Handle tool results",
+        "Process errors gracefully",
+        "Document tool dependencies"
+      ]
+    },
+    "priorities": [
+      {
+        "source": "src/templates/",
+        "weight": 1.0
+      },
+      {
+        "source": "src/prompts/",
+        "weight": 0.9
+      },
+      {
+        "source": "src/tools/",
+        "weight": 0.8
+      },
+      {
+        "source": "tests/",
+        "weight": 0.7
+      }
+    ],
+    "modes": {
+      "template": {
+        "description": "For developing conversation templates"
+      },
+      "prompt": {
+        "description": "For prompt engineering and testing"
+      },
+      "tool": {
+        "description": "For tool integration development"
+      }
+    },
+    "project_directives": {
+      "name": "llm-templates",
+      "ai_first": true,
+      "folder_structure": {
+        "templates": "src/templates",
+        "prompts": "src/prompts",
+        "tools": "src/tools",
+        "tests": "tests",
+        "examples": "examples"
+      },
+      "output_format": {
+        "xml_structure": {
+          "allowed_tags": [
+            "analysis_and_planning",
+            "implementation_plan",
+            "file_structure",
+            "tool_use",
+            "examples",
+            "user_query"
+          ],
+          "format_rules": [
+            "Tags must be properly nested",
+            "Tag names in snake_case",
+            "Include descriptive comments"
+          ]
+        }
+      },
+      "variable_conventions": {
+        "format": "{{variable_name}}",
+        "naming": "snake_case",
+        "documentation": "Required for all variables"
+      }
+    },
+    "documentation_requirements": {
+      "templates": [
+        "Purpose and context",
+        "Required variables",
+        "Expected output format",
+        "Example usage",
+        "Token count estimates"
+      ],
+      "tools": [
+        "Input parameters",
+        "Expected outputs",
+        "Error handling",
+        "Usage examples"
+      ],
+      "prompts": [
+        "System instructions",
+        "Conversation flow",
+        "Output formats",
+        "Error cases"
+      ]
+    },
+    "anthropic_api": {
+      "models": {
+        "supported": [
+          "claude-3-opus-20240229",
+          "claude-3-sonnet-20240229",
+          "claude-3-haiku-20240307"
+        ],
+        "configuration": {
+          "max_tokens": {
+            "default": 8192,
+            "warning_threshold": 7500
+          },
+          "temperature": {
+            "default": 0,
+            "range": [0, 1]
+          }
+        }
+      },
+      "message_structure": {
+        "required_fields": [
+          "role",
+          "content"
+        ],
+        "content_types": [
+          "text",
+          "image",
+          "tool_use",
+          "tool_result"
+        ]
+      }
+    }
+  }
+}
