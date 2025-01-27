@@ -1,0 +1,96 @@
+// src/main/kotlin/io/mcp/client/model/Types.kt
+package io.mcp.client.model
+
+data class ClientConfig(
+    val transport: Transport,
+    val serverUrl: String? = null,
+    val serverCommand: String? = null,
+    val serverArgs: List<String> = emptyList(),
+    val logLevel: String = "INFO"
+)
+
+enum class Transport {
+    STDIO, HTTP
+}
+
+// src/main/kotlin/io/mcp/client/transport/BaseTransport.kt
+package io.mcp.client.transport
+
+import io.modelcontextprotocol.kotlin.sdk.types.*
+import kotlinx.coroutines.flow.Flow
+import org.slf4j.Logger
+
+interface Transport {
+    suspend fun connect()
+    suspend fun disconnect()
+    suspend fun listTools(): List<Tool>
+    suspend fun callTool(name: String, arguments: Map<String, Any>? = null): CallToolResult
+    fun onProgress(): Flow<Progress>
+}
+
+data class Progress(
+    val current: Int,
+    val total: Int
+)
+
+abstract class BaseTransport(protected val logger: Logger) : Transport {
+    protected var connected = false
+
+    protected fun checkConnection() {
+        if (!connected) {
+            throw IllegalStateException("Transport not connected")
+        }
+    }
+
+    protected fun logError(error: Throwable, context: String) {
+        logger.error("$context: ${error.message}", error)
+    }
+}
+
+// src/main/kotlin/io/mcp/client/transport/StdioTransport.kt
+package io.mcp.client.transport
+
+import io.modelcontextprotocol.kotlin.sdk.Implementation
+import io.modelcontextprotocol.kotlin.sdk.client.Client
+import io.modelcontextprotocol.kotlin.sdk.client.StdioClientTransport
+import io.modelcontextprotocol.kotlin.sdk.types.*
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import org.slf4j.LoggerFactory
+import java.util.UUID
+
+class StdioTransport(
+    private val command: String,
+    private val args: List<String> = emptyList()
+) : BaseTransport(LoggerFactory.getLogger(StdioTransport::class.java)) {
+    private lateinit var client: Client
+    private lateinit var transport: StdioClientTransport
+
+    override suspend fun connect() {
+        if (connected) return
+
+        try {
+            client = Client(
+                clientInfo = Implementation(
+                    name = "kotlin-mcp-client",
+                    version = "1.0.0"
+                )
+            )
+
+            transport = StdioClientTransport(
+                command = command,
+                args = args
+            )
+
+            client.connect(transport)
+            connected = true
+            logger.info("Connected via stdio transport")
+        } catch (e: Exception) {
+            logError(e, "Failed to connect via stdio")
+            throw e
+        }
+    }
+
+    override suspend fun disconnect() {
+        if (!connected) return

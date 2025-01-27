@@ -1,0 +1,186 @@
+// src/client/transport.ts
+import { EventEmitter } from 'events';
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { StdioClientTransport as SDKStdioTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import axios, { AxiosInstance } from 'axios';
+import EventSource from 'eventsource';
+import { Tool } from '../types.js';
+import { Logger } from '../types.js';
+import { ConnectionError, TransportError } from '../errors.js';
+
+export abstract class BaseTransport extends EventEmitter {
+  protected connected: boolean = false;
+  protected logger: Logger;
+
+  constructor(logger: Logger) {
+    super();
+    this.logger = logger;
+  }
+
+  abstract connect(): Promise<void>;
+  abstract disconnect(): Promise<void>;
+  abstract listTools(): Promise<Tool[]>;
+  abstract callTool(name: string, arguments_?: Record<string, unknown>): Promise<any>;
+
+  protected checkConnection(): void {
+    if (!this.connected) {
+      throw new ConnectionError('Transport not connected');
+    }
+  }
+
+  protected logError(error: Error, context: string): void {
+    this.logger.error(`${context}:`, {
+      error: error.message,
+      stack: error.stack,
+      transportType: this.constructor.name
+    });
+  }
+}
+
+export class StdioTransport extends BaseTransport {
+  private client: Client;
+  private transport: SDKStdioTransport;
+
+  constructor(
+    command: string,
+    args: string[] = [],
+    logger: Logger
+  ) {
+    super(logger);
+
+    this.client = new Client({
+      name: "mcp-typescript-client",
+      version: "1.0.0"
+    }, {
+      capabilities: {}
+    });
+
+    this.transport = new SDKStdioTransport({
+      command,
+      args
+    });
+  }
+
+  async connect(): Promise<void> {
+    if (this.connected) return;
+
+    try {
+      await this.client.connect(this.transport);
+      this.connected = true;
+      this.logger.info('Connected via stdio transport');
+      this.emit('connected');
+    } catch (error) {
+      this.logError(error as Error, 'Failed to connect via stdio');
+      throw new ConnectionError((error as Error).message);
+    }
+  }
+
+  async disconnect(): Promise<void> {
+    if (!this.connected) return;
+
+    try {
+      await this.client.close();
+      this.connected = false;
+      this.logger.info('Disconnected stdio transport');
+      this.emit('disconnected');
+    } catch (error) {
+      this.logError(error as Error, 'Error disconnecting stdio transport');
+      throw error;
+    }
+  }
+
+  async listTools(): Promise<Tool[]> {
+    this.checkConnection();
+    
+    try {
+      const response = await this.client.request(
+        { method: "tools/list" },
+        ListToolsResultSchema
+      );
+      return response.tools;
+    } catch (error) {
+      this.logError(error as Error, 'Failed to list tools');
+      throw new TransportError((error as Error).message);
+    }
+  }
+
+  async callTool(name: string, arguments_?: Record<string, unknown>): Promise<any> {
+    this.checkConnection();
+
+    try {
+      const response = await this.client.request({
+        method: "tools/call",
+        params: {
+          name,
+          arguments: arguments_,
+          _meta: {
+            progressToken: this.generateProgressToken()
+          }
+        }
+      }, CallToolResultSchema);
+      return response;
+    } catch (error) {
+      this.logError(error as Error, `Failed to call tool ${name}`);
+      throw new TransportError((error as Error).message);
+    }
+  }
+
+  private generateProgressToken(): string {
+    return Math.random().toString(36).substring(2);
+  }
+}
+
+export class HTTPTransport extends BaseTransport {
+  private httpClient: AxiosInstance;
+  private eventSource?: EventSource;
+  private reconnectAttempts: number = 0;
+  private readonly maxReconnectAttempts: number = 3;
+  private readonly reconnectTimeout: number = 1000;
+
+  constructor(
+    baseURL: string,
+    logger: Logger
+  ) {
+    super(logger);
+    this.httpClient = axios.create({ 
+      baseURL,
+      timeout: 30000
+    });
+  }
+
+  async connect(): Promise<void> {
+    try {
+      await this.listTools();
+      this.setupSSE();
+      this.connected = true;
+      this.logger.info(`Connected to HTTP transport at ${this.httpClient.defaults.baseURL}`);
+      this.emit('connected');
+    } catch (error) {
+      this.logError(error as Error, 'Failed to connect via HTTP');
+      throw new ConnectionError((error as Error).message);
+    }
+  }
+
+  private setupSSE(): void {
+    if (!this.httpClient.defaults.baseURL) return;
+
+    this.eventSource = new EventSource(`${this.httpClient.defaults.baseURL}/sse`);
+    
+    this.eventSource.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        this.logger.debug('Received SSE message:', data);
+        this.emit('message', data);
+      } catch (error) {
+        this.logError(error as Error, 'Failed to process SSE message');
+      }
+    };
+
+    this.eventSource.onerror = (error) => {
+      this.logError(error as Error, 'SSE connection error');
+      this.handleSSEError();
+    };
+  }
+
+  private async handleSSEError(): Promise<void> {
+    if (this.reconnectAttempts
