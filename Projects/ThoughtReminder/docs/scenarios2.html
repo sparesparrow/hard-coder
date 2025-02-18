@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>scenarios2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p>Here are some more complex or challenging scenarios for interactions between a human programmer and an <strong>Agentic AI</strong> integrated with <strong>DictAssist</strong>:</p>
+<h3 id="scenario-1-real-time-collaboration-on-code">Scenario 1: Real-time Collaboration on Code</h3>
+<p><strong>Programmer:</strong> &quot;DictAssist, I'm working on a complex algorithm for image processing. Can you listen in and provide real-time suggestions?&quot;</p>
+<p><strong>DictAssist (ThoughtAgent):</strong> &quot;I'm listening and ready to assist. Please describe your algorithm or share your code.&quot;</p>
+<p><strong>Programmer:</strong> &quot;Here's the current state of my code:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> scipy <span class="hljs-keyword">import</span> ndimage
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gaussian_blur</span><span class="hljs-params">(image, sigma)</span>:</span>
+    <span class="hljs-string">"""
+    Apply a Gaussian blur to the input image.
+
+    :param image: Input image (numpy array)
+    :param sigma: Standard deviation for Gaussian kernel
+    :return: Blurred image
+    """</span>
+    <span class="hljs-keyword">return</span> ndimage.gaussian_filter(image, sigma=sigma)
+</div></code></pre>
+<p>I need to optimize this for real-time processing.&quot;</p>
+<p><strong>DictAssist (ThoughtAgent):</strong> &quot;To optimize this for real-time processing, consider using <strong>OpenCV's</strong> <code>cv2.GaussianBlur</code> function which is optimized for speed. Here's how:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> cv2
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">optimized_gaussian_blur</span><span class="hljs-params">(image, sigma)</span>:</span>
+    <span class="hljs-keyword">return</span> cv2.GaussianBlur(image, (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), sigmaX=sigma, sigmaY=sigma)
+</div></code></pre>
+<p>This function uses CPU optimizations and can leverage GPU acceleration if available. Would you like me to integrate this into your code?&quot;</p>
+<p><strong>Programmer:</strong> &quot;Yes, please. And can you suggest a way to check if the GPU is available?&quot;</p>
+<p><strong>DictAssist (ThoughtAgent):</strong> &quot;Here's how you can check for GPU availability:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> cv2
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">check_gpu_availability</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">if</span> cv2.cuda.getCudaEnabledDeviceCount() &gt; <span class="hljs-number">0</span>:
+        print(<span class="hljs-string">'CUDA-capable GPU found'</span>)
+    <span class="hljs-keyword">else</span>:
+        print(<span class="hljs-string">'No CUDA-capable GPU found'</span>)
+</div></code></pre>
+<p>Let me know if you want me to modify your code to incorporate this check.&quot;</p>
+<h3 id="scenario-2-handling-unforeseen-issues">Scenario 2: Handling Unforeseen Issues</h3>
+<p><strong>Programmer:</strong> &quot;DictAssist, I've encountered an unusual error in our production system. It's not related to any known issues. Can you help me diagnose this?&quot;</p>
+<p><strong>DictAssist (ReviewAgent):</strong> &quot;Sure, please provide details of the error or the relevant parts of the system logs.&quot;</p>
+<p><strong>Programmer:</strong> &quot;Here's the error message:</p>
+<pre class="hljs"><code><div>Exception in thread &quot;main&quot; java.lang.RuntimeException: Unexpected error in processing
+at com.company.system.Handler.process(Handler.java:45)
+Caused by: org.apache.kafka.clients.consumer.CommitFailedException: Commit cannot be completed since the group has already rebalanced and assigned the partitions to another member.
+</div></code></pre>
+<p><strong>DictAssist (ReviewAgent):</strong> &quot;This seems like a Kafka consumer group rebalancing issue. Here are some potential causes and solutions:</p>
+<ul>
+<li>
+<p><strong>Check your consumer group settings:</strong> Ensure that your <code>session.timeout.ms</code> and <code>max.poll.interval.ms</code> are set appropriately to prevent frequent rebalancing.</p>
+</li>
+<li>
+<p><strong>Examine your partition assignment strategy:</strong> Consider using the <code>StickyAssignment</code> strategy which reduces rebalancing overhead.</p>
+</li>
+<li>
+<p><strong>Monitor consumer lag:</strong> Use tools like Kafka Manager or custom scripts to track consumer lag. If lag is high, it might trigger rebalancing.</p>
+</li>
+<li>
+<p><strong>Check network stability:</strong> Network issues can lead to rebalancing.</p>
+</li>
+</ul>
+<p>Would you like me to generate a script to monitor consumer lag or check the current group settings?&quot;</p>
+<h3 id="scenario-3-proactive-learning-and-recommendations">Scenario 3: Proactive Learning and Recommendations</h3>
+<p><strong>Programmer:</strong> &quot;DictAssist, I've been focusing on backend development. Can you suggest some areas for learning that would complement my current skills?&quot;</p>
+<p><strong>DictAssist (ReviewAgent):</strong> &quot;Based on your recent interest in backend development, here are some areas for learning:</p>
+<ul>
+<li>
+<p><strong>Microservices Architecture:</strong> Learn about service mesh technologies like <strong>Istio</strong> or <strong>Linkerd</strong>.</p>
+</li>
+<li>
+<p><strong>DevOps Practices:</strong> Explore tools like <strong>Docker</strong> for containerization, <strong>Kubernetes</strong> for orchestration, and <strong>CI/CD pipelines</strong> with <strong>Jenkins</strong> or <strong>GitLab CI</strong>.</p>
+</li>
+<li>
+<p><strong>Data Engineering:</strong> Understand data pipelines, ETL processes, and tools like <strong>Apache Airflow</strong>.</p>
+</li>
+<li>
+<p><strong>Security:</strong> Delve into security practices for backend services, including authentication, authorization, and encryption.</p>
+</li>
+<li>
+<p><strong>AI and Machine Learning:</strong> Consider integrating ML models into your backend for predictive analytics or personalization.</p>
+</li>
+</ul>
+<p>Would you like me to set reminders to explore these areas?&quot;</p>
+<h3 id="scenario-4-multi-turn-conversation">Scenario 4: Multi-Turn Conversation</h3>
+<p><strong>Programmer:</strong> &quot;DictAssist, I'm working on a new feature for our project. Can you help me structure the implementation?&quot;</p>
+<p><strong>DictAssist (VoiceAgent):</strong> &quot;Certainly. What would you like to start with?&quot;</p>
+<p><strong>Programmer:</strong> &quot;I need to create a new module for user authentication.&quot;</p>
+<p><strong>DictAssist:</strong> &quot;For user authentication, would you like to use a standard library like <strong>Passport.js</strong> for Node.js, or are you looking for a custom solution?&quot;</p>
+<p><strong>Programmer:</strong> &quot;I'm interested in using <strong>Passport.js</strong>.&quot;</p>
+<p><strong>DictAssist:</strong> &quot;Here's a basic structure for implementing Passport.js:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> passport = <span class="hljs-built_in">require</span>(<span class="hljs-string">'passport'</span>);
+<span class="hljs-keyword">const</span> LocalStrategy = <span class="hljs-built_in">require</span>(<span class="hljs-string">'passport-local'</span>).Strategy;
+
+<span class="hljs-keyword">const</span> app = express();
+
+passport.use(<span class="hljs-keyword">new</span> LocalStrategy(
+  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">username, password, done</span>) </span>{
+    <span class="hljs-comment">// Your authentication logic here</span>
+  }
+));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+<span class="hljs-comment">// Add routes for login, logout, etc.</span>
+
+app.post(<span class="hljs-string">'/login'</span>,
+  passport.authenticate(<span class="hljs-string">'local'</span>, { <span class="hljs-attr">successRedirect</span>: <span class="hljs-string">'/'</span>,
+                                   <span class="hljs-attr">failureRedirect</span>: <span class="hljs-string">'/login'</span>,
+                                   <span class="hljs-attr">failureFlash</span>: <span class="hljs-literal">true</span> })
+);
+
+<span class="hljs-comment">// Start the server</span>
+app.listen(<span class="hljs-number">3000</span>, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Server running on port 3000'</span>));
+</div></code></pre>
+<p>Would you like me to go into more detail on any part of this setup?&quot;</p>
+<p>These scenarios demonstrate <strong>DictAssist</strong>'s ability to engage in complex, multi-turn conversations, provide real-time coding assistance, handle unforeseen issues proactively, and offer learning recommendations tailored to the programmer's interests.</p>
+<p>Citations:
+[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/25333841/407979e7-104d-4d7b-96f3-b0e3cdaf1550/en_REDME.md
+[2] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/25333841/8c527574-7df6-456d-a872-a9cb0f744da0/README.md
+[3] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/25333841/8863e542-8bf5-4c12-b63e-16614ddb00d0/implementation.md</p>
+
+</body>
+</html>

@@ -179,7 +179,7 @@ client = AnthropicClient(
 2. **Tool Configuration**
 ```python
 tool_config = {
-    "name": "custom_tool",
+    "name": "anthropic_tool",
     "description": "Tool description",
     "input_schema": {
         "type": "object",

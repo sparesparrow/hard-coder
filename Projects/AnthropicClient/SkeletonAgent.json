@@ -9,7 +9,7 @@
     ],
     "tools": [
         {
-            "name": "custom_bash",
+            "name": "anthropic_bash",
             "description": "Execute commands in a persistent Bash shell environment.",
             "type": "System Command Execution",
             "input_schema": {
@@ -31,7 +31,7 @@
             }
         },
         {
-            "name": "custom_computer_use",
+            "name": "anthropic_computer_use",
             "description": "Interact with a GUI environment using a virtual mouse and keyboard.",
             "type": "GUI Automation",
             "input_schema": {
@@ -52,7 +52,7 @@
             }
         },
         {
-            "name": "custom_text_editor",
+            "name": "anthropic_text_editor",
             "description": "View, create, and edit text files persistently.",
             "type": "Text File Operations",
             "input_schema": {
@@ -195,7 +195,7 @@
             "output_variable": "ANALYSIS_AND_PLANNING",
             "tools_required": [
                 {
-                    "name": "custom_text_editor",
+                    "name": "anthropic_text_editor",
                     "goal": "Write analysis and planning details into `analysis.md` asynchronously."
                 }
             ]
@@ -210,7 +210,7 @@
                     "goal": "Read content from 'project_templates.json' into `PROJECT_TEMPLATE` variable."
                 },
                 {
-                    "name": "custom_bash",
+                    "name": "anthropic_bash",
                     "goal": "Modify value of variable `PROJECT_TEMPLATE`."
                 }
             ]
@@ -225,7 +225,7 @@
                     "goal": "Read content from 'generic_tools.json' into `TOOLS` variable."
                 },
                 {
-                    "name": "custom_bash",
+                    "name": "anthropic_bash",
                     "goal": "Modify value of variable `TOOLS`."
                 },
                 {
@@ -240,7 +240,7 @@
             "output_variable": "IMPLEMENTATION_PLAN",
             "tools_required": [
                 {
-                    "name": "custom_text_editor",
+                    "name": "anthropic_text_editor",
                     "goal": "Write implementation details stored in IMPLEMENTATION_PLAN into `README.md` asynchronously."
                 }
             ]
@@ -251,11 +251,11 @@
             "output_variable": "TOOL_USE_INSTRUCTIONS",
             "tools_required": [
                 {
-                    "name": "custom_text_editor",
+                    "name": "anthropic_text_editor",
                     "goal": "Generate and save tool usage instructions."
                 },
                 {
-                    "name": "custom_bash",
+                    "name": "anthropic_bash",
                     "goal": "Generate and create new tools."
                 }
             ]
@@ -266,11 +266,11 @@
             "output_variable": "TOOL_USE_INSTRUCTIONS",
             "tools_required": [
                 {
-                    "name": "custom_bash",
+                    "name": "anthropic_bash",
                     "goal": "Review, explain and correct changes to the codebase/file structure since last run. Use to export mermaid source to SVG, PNG, JPG, html etc."
                 },
                 {
-                    "name": "custom_computer_use",
+                    "name": "anthropic_computer_use",
                     "goal": "Capture screenshot to verify that diagram was rendered."
                 },
                 {

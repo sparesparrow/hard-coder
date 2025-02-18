@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="anthropicclient">AnthropicClient</h1>
+<p>A comprehensive Python client for Anthropic's Claude API with integrated tools for development workflow automation.</p>
+<h2 id="system-architecture">System Architecture</h2>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+graph TD
+    classDef core fill:#2ecc71,stroke:#27ae60,stroke-width:2px
+    classDef tool fill:#3498db,stroke:#2980b9,stroke-width:2px
+    classDef agent fill:#e74c3c,stroke:#c0392b,stroke-width:2px
+    classDef interface fill:#f1c40f,stroke:#f39c12,stroke-width:2px
+
+    AC[AnthropicClient]:::core --> |Manages Clipboard| CM[ClipboardManager]
+    AC --> |File Operations| FH[FileHandler]
+    AC --> |API Communication| AH[AnthropicHandler]
+    AC --> |Configuration| TC[ToolConfigs]
+    
+    subgraph Core Components
+        CM:::interface --> |DBus| KI[Klipper Integration]
+        FH:::interface --> |I/O Operations| FS[File System]
+        AH:::interface --> |HTTP/REST| API[Anthropic API]
+    end
+    
+    subgraph Tools
+        TC:::tool --> |Command Execution| BT[Bash Tool]
+        TC --> |File Manipulation| TE[Text Editor]
+        TC --> |GUI Automation| CU[Computer Use]
+        TC --> |Documentation| DG[Diagram Generator]
+    end
+    
+    subgraph Specialized Agents
+        SA[SkeletonAgent]:::agent --> |Project Setup| AC
+        NA[NamingAgent]:::agent --> |Naming Conventions| AC
+        FA[FileAnnotator]:::agent --> |Code Analysis| AC
+        AV[AggregateVersions]:::agent --> |Version Management| AC
+    end
+</div></code></pre>
+<h2 id="data-flow-process">Data Flow Process</h2>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest' }}%%
+sequenceDiagram
+    participant User
+    participant CM as ClipboardManager
+    participant FH as FileHandler
+    participant AC as AnthropicClient
+    participant API as Anthropic API
+    
+    Note over User,API: Content Processing Flow
+    
+    User->>CM: Copy text/path
+    activate CM
+    
+    CM->>CM: Analyze content type
+    Note right of CM: Check if content is<br/>file path or text
+    
+    alt Is File Path
+        CM->>FH: Request file contents
+        activate FH
+        FH->>FH: Validate path
+        FH->>FH: Read file
+        FH-->>CM: Return contents
+        deactivate FH
+    else Is Text
+        CM->>CM: Prepare text content
+    end
+    
+    CM->>AC: Submit for processing
+    deactivate CM
+    activate AC
+    
+    AC->>AC: Apply templates
+    AC->>AC: Configure request
+    
+    AC->>API: Send API request
+    activate API
+    Note right of API: Process with<br/>Claude model
+    API-->>AC: Return response
+    deactivate API
+    
+    AC->>CM: Update clipboard
+    deactivate AC
+    
+    CM-->>User: Notify completion
+</div></code></pre>
+<h2 id="tool-integration-architecture">Tool Integration Architecture</h2>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+graph LR
+    classDef primary fill:#2ecc71,stroke:#27ae60,stroke-width:2px
+    classDef secondary fill:#3498db,stroke:#2980b9,stroke-width:2px
+    classDef operation fill:#e74c3c,stroke:#c0392b,stroke-width:2px
+
+    subgraph Clipboard System
+        CP[Copy]:::operation --> |Content| CM[ClipboardManager]:::primary
+        CM --> |Result| PT[Paste]:::operation
+        CM --> |Events| KL[Klipper]:::secondary
+    end
+    
+    subgraph File System
+        FH[FileHandler]:::primary --> |Read| RD[Read Operations]:::operation
+        FH --> |Write| WR[Write Operations]:::operation
+        FH --> |Check| VL[Path Validation]:::operation
+        FH --> |Watch| FW[File Watcher]:::secondary
+    end
+    
+    subgraph API Layer
+        AH[AnthropicHandler]:::primary --> |Send| RQ[Request Handler]:::operation
+        AH --> |Receive| RS[Response Parser]:::operation
+        AH --> |Transform| PR[Content Processor]:::operation
+        AH --> |Cache| CH[Response Cache]:::secondary
+    end
+    
+    CM --> |File Content| FH
+    FH --> |Processed Data| AH
+    AH --> |Results| CM
+</div></code></pre>
+<h2 id="agent-state-management">Agent State Management</h2>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+stateDiagram-v2
+    [*] --> Initialize: Start Agent
+    Initialize --> LoadTools: Load Configurations
+    LoadTools --> ValidateSetup: Check Dependencies
+    
+    state "Process Execution" as PE {
+        [*] --> ContentAnalysis
+        ContentAnalysis --> ToolSelection: Analyze Input
+        ToolSelection --> ExecutionPrep: Select Tool
+        ExecutionPrep --> Execution: Prepare Parameters
+        Execution --> ResultValidation: Run Tool
+        ResultValidation --> [*]: Validate Output
+    }
+    
+    ValidateSetup --> PE: Setup Complete
+    PE --> ResponseGeneration: Process Complete
+    
+    state "Response Handling" as RH {
+        ResponseGeneration --> ContentFormatting: Format Output
+        ContentFormatting --> ClipboardUpdate: Prepare Content
+        ClipboardUpdate --> UserNotification: Update Clipboard
+    }
+    
+    RH --> [*]: Complete
+</div></code></pre>
+<h2 id="core-components">Core Components</h2>
+<h3 id="anthropicclient-anthropic-clientpy">AnthropicClient (<code>anthropic-client.py</code>)</h3>
+<ul>
+<li>Main client interface for Anthropic API interactions</li>
+<li>Handles message creation, tool usage, and template management</li>
+<li>Supports system prompts, examples, and tool configurations</li>
+<li>Provides async API for all operations</li>
+</ul>
+<h3 id="clipboardmanager">ClipboardManager</h3>
+<ul>
+<li>Integrates with KDE's Klipper via DBus</li>
+<li>Handles clipboard content retrieval and setting</li>
+<li>Supports file path detection and content loading</li>
+</ul>
+<h3 id="filehandler">FileHandler</h3>
+<ul>
+<li>Manages file system operations</li>
+<li>Handles file reading, writing, and path validation</li>
+<li>Supports various file formats (Python, JSON, YAML)</li>
+</ul>
+<h2 id="tools">Tools</h2>
+<h3 id="bash-tool-custombashjson">Bash Tool (<code>custom_bash.json</code>)</h3>
+<ul>
+<li>Execute shell commands in a persistent environment</li>
+<li>Access to common Linux and Python packages</li>
+<li>State persistence across command calls</li>
+</ul>
+<h3 id="text-editor-customtexteditorjson">Text Editor (<code>custom_text_editor.json</code>)</h3>
+<ul>
+<li>View, create, and edit files</li>
+<li>Support for line-based operations</li>
+<li>File content manipulation with undo capability</li>
+</ul>
+<h3 id="computer-use-customcomputerusejson">Computer Use (<code>custom_computer_use.json</code>)</h3>
+<ul>
+<li>GUI automation capabilities</li>
+<li>Keyboard and mouse control</li>
+<li>Screenshot functionality</li>
+</ul>
+<h3 id="diagram-generator-generatediagramtooljson-mermaidgeneratorjson">Diagram Generator (<code>generate_diagram_tool.json</code>, <code>mermaid_generator.json</code>)</h3>
+<ul>
+<li>Generate Mermaid diagrams for documentation</li>
+<li>Support for various diagram types and styles</li>
+<li>Automatic layout optimization</li>
+</ul>
+<h2 id="specialized-agents">Specialized Agents</h2>
+<h3 id="skeletonagent-skeletonagentjson">SkeletonAgent (<code>SkeletonAgent.json</code>)</h3>
+<ul>
+<li>Pre-development planning and setup</li>
+<li>Project template selection</li>
+<li>Implementation plan generation</li>
+<li>Tool initialization and configuration</li>
+</ul>
+<h3 id="namingagent-namingagentpy">NamingAgent (<code>NamingAgent.py</code>)</h3>
+<ul>
+<li>Intelligent naming suggestions</li>
+<li>Context-aware naming patterns</li>
+<li>Consistency enforcement</li>
+</ul>
+<h3 id="fileannotator-fileannotatorpy">FileAnnotator (<code>FileAnnotator.py</code>)</h3>
+<ul>
+<li>Code analysis and annotation</li>
+<li>Documentation generation</li>
+<li>Context-aware commenting</li>
+</ul>
+<h3 id="aggregateversions-aggregateversionspy">AggregateVersions (<code>AggregateVersions.py</code>)</h3>
+<ul>
+<li>Version comparison and merging</li>
+<li>Change tracking</li>
+<li>Conflict resolution</li>
+</ul>
+<h2 id="usage-examples">Usage Examples</h2>
+<h3 id="basic-message-creation">Basic Message Creation</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> anthropic_client <span class="hljs-keyword">import</span> AnthropicClient, MessageConfig
+
+config = MessageConfig(
+    model=<span class="hljs-string">"claude-3-5-sonnet-20241022"</span>,
+    max_tokens=<span class="hljs-number">8192</span>,
+    temperature=<span class="hljs-number">0</span>
+)
+
+client = AnthropicClient(default_config=config)
+
+<span class="hljs-comment"># Create a simple message</span>
+message = <span class="hljs-keyword">await</span> client.create_message(
+    content=<span class="hljs-string">"Hello, how can I help you?"</span>
+)
+</div></code></pre>
+<h3 id="tool-usage">Tool Usage</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Use the bash tool</span>
+result = <span class="hljs-keyword">await</span> client.create_tool_message(
+    tool_name=<span class="hljs-string">"custom_bash"</span>,
+    tool_input={
+        <span class="hljs-string">"command"</span>: <span class="hljs-string">"ls -la"</span>
+    }
+)
+
+<span class="hljs-comment"># Use the text editor</span>
+result = <span class="hljs-keyword">await</span> client.create_tool_message(
+    tool_name=<span class="hljs-string">"custom_text_editor"</span>,
+    tool_input={
+        <span class="hljs-string">"command"</span>: <span class="hljs-string">"view"</span>,
+        <span class="hljs-string">"path"</span>: <span class="hljs-string">"/path/to/file.py"</span>
+    }
+)
+</div></code></pre>
+<h3 id="clipboard-integration">Clipboard Integration</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Process clipboard content</span>
+content = <span class="hljs-keyword">await</span> client.clipboard_manager.get_clipboard_content()
+<span class="hljs-keyword">if</span> client.clipboard_manager.is_file_path(content):
+    content = <span class="hljs-keyword">await</span> client.file_handler.read_file_content(content)
+    
+response = <span class="hljs-keyword">await</span> client.create_message(content=content)
+<span class="hljs-keyword">await</span> client.clipboard_manager.set_clipboard_content(response.content)
+</div></code></pre>
+<h2 id="installation">Installation</h2>
+<ol>
+<li>Clone the repository:</li>
+</ol>
+<pre class="hljs"><code><div>git <span class="hljs-built_in">clone</span> https://github.com/yourusername/AnthropicClient.git
+</div></code></pre>
+<ol start="2">
+<li>Install dependencies:</li>
+</ol>
+<pre class="hljs"><code><div>pip install -r requirements.txt
+</div></code></pre>
+<ol start="3">
+<li>Set up environment variables:</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-built_in">export</span> ANTHROPIC_API_KEY=<span class="hljs-string">"your-api-key"</span>
+</div></code></pre>
+<h2 id="configuration">Configuration</h2>
+<p>The client can be configured through:</p>
+<ul>
+<li>Environment variables</li>
+<li>YAML configuration files</li>
+<li>Runtime configuration objects</li>
+</ul>
+<p>Example configuration:</p>
+<pre class="hljs"><code><div><span class="hljs-attr">api:</span>
+  <span class="hljs-attr">model:</span> <span class="hljs-string">claude-3-5-sonnet-20241022</span>
+  <span class="hljs-attr">max_tokens:</span> <span class="hljs-number">8192</span>
+  <span class="hljs-attr">temperature:</span> <span class="hljs-number">0</span>
+
+<span class="hljs-attr">templates_dir:</span> <span class="hljs-string">templates/</span>
+<span class="hljs-attr">tools_dir:</span> <span class="hljs-string">tools/</span>
+
+<span class="hljs-attr">logging:</span>
+  <span class="hljs-attr">level:</span> <span class="hljs-string">INFO</span>
+  <span class="hljs-attr">format:</span> <span class="hljs-string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span>
+</div></code></pre>
+<h2 id="contributing">Contributing</h2>
+<ol>
+<li>Fork the repository</li>
+<li>Create a feature branch</li>
+<li>Commit your changes</li>
+<li>Push to the branch</li>
+<li>Create a Pull Request</li>
+</ol>
+<h2 id="license">License</h2>
+<p>MIT License - see LICENSE file for details</p>
+<h2 id="skeletonagent-analysis">SkeletonAgent Analysis</h2>
+<p>The SkeletonAgent is a sophisticated pre-development planning assistant that orchestrates project initialization and setup. Here's a detailed analysis:</p>
+<h3 id="api-integration-flow">API Integration Flow</h3>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+sequenceDiagram
+    participant Client
+    participant SA as SkeletonAgent
+    participant Tools as Tool Registry
+    participant AC as Anthropic Client
+    participant FS as File System
+    
+    rect rgb(191, 223, 255)
+        Note over Client,FS: Initialization Phase
+        Client->>SA: Initialize Agent
+        SA->>Tools: Load Tool Configurations
+        Tools-->>SA: Tool Definitions
+        SA->>FS: Verify File Structure
+    end
+    
+    rect rgb(200, 255, 200)
+        Note over Client,FS: Query Analysis Phase
+        Client->>SA: Submit Requirements
+        SA->>AC: Analyze Requirements
+        AC-->>SA: Pattern Suggestions
+        SA->>FS: Load Templates
+        FS-->>SA: Project Templates
+        SA->>SA: Match Requirements to Templates
+    end
+    
+    rect rgb(255, 228, 196)
+        Note over Client,FS: Implementation Planning
+        SA->>AC: Generate Implementation Plan
+        AC-->>SA: Plan Details
+        SA->>FS: Create Project Structure
+        SA->>FS: Generate Documentation
+        SA->>Client: Return Plan Summary
+    end
+</div></code></pre>
+<h3 id="tool-orchestration-architecture">Tool Orchestration Architecture</h3>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+graph TD
+    classDef primary fill:#2ecc71,stroke:#27ae60,stroke-width:2px
+    classDef tool fill:#3498db,stroke:#2980b9,stroke-width:2px
+    classDef output fill:#e74c3c,stroke:#c0392b,stroke-width:2px
+    
+    SA[SkeletonAgent]:::primary
+    
+    subgraph Workflow Steps
+        QA[Query Analysis]:::primary
+        TI[Template Init]:::primary
+        TL[Tools Init]:::primary
+        IP[Implementation Plan]:::primary
+        TU[Tool Usage Guide]:::primary
+        RC[Review Changes]:::primary
+    end
+    
+    subgraph Tools Integration
+        CB[Custom Bash]:::tool
+        CU[Computer Use]:::tool
+        TE[Text Editor]:::tool
+        DP[Diagram Planner]:::tool
+        DG[Diagram Generator]:::tool
+        AA[Async Anthropic]:::tool
+    end
+    
+    subgraph Outputs
+        PT[Project Template]:::output
+        TS[Tool Setup]:::output
+        PL[Project Layout]:::output
+        DC[Documentation]:::output
+        RV[Review Report]:::output
+    end
+    
+    SA --> QA
+    QA --> TI
+    TI --> TL
+    TL --> IP
+    IP --> TU
+    TU --> RC
+    
+    QA --> |Uses| TE
+    TI --> |Uses| CB
+    TI --> |Uses| DG
+    TL --> |Uses| CB
+    IP --> |Uses| TE
+    TU --> |Uses| CB
+    RC --> |Uses| CU
+    
+    QA --> PT
+    TL --> TS
+    IP --> PL
+    TU --> DC
+    RC --> RV
+</div></code></pre>
+<h3 id="api-usage-examples">API Usage Examples</h3>
+<ol>
+<li><strong>Initialize SkeletonAgent</strong>:</li>
+</ol>
+<pre class="hljs"><code><div>response = client.messages.create(
+    model=<span class="hljs-string">"claude-3-5-sonnet-20241022"</span>,
+    system=SkeletonAgent.system_prompt,
+    messages=[{
+        <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+        <span class="hljs-string">"content"</span>: <span class="hljs-string">"Initialize project setup for a new microservice"</span>
+    }]
+)
+</div></code></pre>
+<ol start="2">
+<li><strong>Query Analysis</strong>:</li>
+</ol>
+<pre class="hljs"><code><div>response = client.messages.create(
+    model=<span class="hljs-string">"claude-3-5-sonnet-20241022"</span>,
+    messages=[{
+        <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+        <span class="hljs-string">"content"</span>: {
+            <span class="hljs-string">"type"</span>: <span class="hljs-string">"tool_use"</span>,
+            <span class="hljs-string">"step"</span>: <span class="hljs-string">"Query Analysis"</span>,
+            <span class="hljs-string">"input"</span>: project_requirements,
+            <span class="hljs-string">"templates"</span>: available_templates
+        }
+    }]
+)
+</div></code></pre>
+<ol start="3">
+<li><strong>Implementation Planning</strong>:</li>
+</ol>
+<pre class="hljs"><code><div>response = client.messages.create(
+    model=<span class="hljs-string">"claude-3-5-sonnet-20241022"</span>,
+    messages=[{
+        <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+        <span class="hljs-string">"content"</span>: {
+            <span class="hljs-string">"type"</span>: <span class="hljs-string">"tool_use"</span>,
+            <span class="hljs-string">"step"</span>: <span class="hljs-string">"Implementation Plan Generation"</span>,
+            <span class="hljs-string">"pattern"</span>: selected_pattern,
+            <span class="hljs-string">"template"</span>: project_template,
+            <span class="hljs-string">"tools"</span>: available_tools
+        }
+    }]
+)
+</div></code></pre>
+<h3 id="key-features">Key Features</h3>
+<ol>
+<li><strong>Workflow Orchestration</strong></li>
+</ol>
+<ul>
+<li>Sequential step execution</li>
+<li>Tool coordination</li>
+<li>State management</li>
+<li>Output validation</li>
+</ul>
+<ol start="2">
+<li><strong>Tool Integration</strong></li>
+</ol>
+<ul>
+<li>Custom bash execution</li>
+<li>GUI automation</li>
+<li>File operations</li>
+<li>Diagram generation</li>
+<li>Async API calls</li>
+</ul>
+<ol start="3">
+<li><strong>Documentation Generation</strong></li>
+</ol>
+<ul>
+<li>Project structure</li>
+<li>Implementation plans</li>
+<li>Tool usage guides</li>
+<li>Review reports</li>
+</ul>
+<ol start="4">
+<li><strong>Template Management</strong></li>
+</ol>
+<ul>
+<li>Pattern matching</li>
+<li>Template initialization</li>
+<li>Custom template creation</li>
+<li>Template validation</li>
+</ul>
+<h2 id="documentation">Documentation</h2>
+<p>For detailed development documentation, including component analysis, workflow diagrams, and best practices, see <a href="docs/DEVELOPMENT.md">DEVELOPMENT.md</a>.</p>
+
+</body>
+</html>

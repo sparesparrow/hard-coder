@@ -1,0 +1,44 @@
+[project]
+name = "mcp-system-context"
+version = "0.1.0"
+description = "MCP System Context Server for providing contextual data to LLMs"
+authors = [
+    {name = "MCP Contributors", email = "mcp-coc@anthropic.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "fastmcp>=0.1.0",
+    "chromadb>=0.4.0",
+    "pyperclip>=1.8.2",
+    "python-dotenv>=1.0.0",
+    "watchdog>=3.0.0",
+    "pydantic>=2.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "mypy>=1.0.0"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 88
+target-version = ["py38"]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3 

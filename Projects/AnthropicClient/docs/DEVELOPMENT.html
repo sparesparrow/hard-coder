@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DEVELOPMENT.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="anthropicclient-development-documentation">AnthropicClient Development Documentation</h1>
+<h2 id="core-components-analysis">Core Components Analysis</h2>
+<h3 id="anthropicclient-anthropic-clientpy">AnthropicClient (<code>anthropic-client.py</code>)</h3>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+classDiagram
+    class AnthropicClient {
+        +client: Anthropic
+        +templates: Dict[str, Template]
+        +system_prompts: Dict[str, SystemPrompt]
+        +examples: Dict[str, List[Example]]
+        +tools: Dict[str, Tool]
+        +create_message()
+        +create_tool_message()
+        -_load_resources()
+        -_prepare_examples()
+    }
+    
+    class MessageConfig {
+        +model: str
+        +max_tokens: int
+        +temperature: float
+        +system: Optional[str]
+        +tools: Optional[List[Tool]]
+        +metadata: Optional[Dict]
+    }
+    
+    class Tool {
+        +name: str
+        +description: str
+        +input_schema: Dict
+        +handler: Optional[callable]
+    }
+    
+    AnthropicClient --> MessageConfig
+    AnthropicClient --> Tool
+</div></code></pre>
+<h4 id="key-features">Key Features</h4>
+<ol>
+<li>
+<p><strong>Resource Management</strong></p>
+<ul>
+<li>Template loading and rendering</li>
+<li>System prompt management</li>
+<li>Example management for few-shot learning</li>
+<li>Tool configuration and handling</li>
+</ul>
+</li>
+<li>
+<p><strong>Message Creation</strong></p>
+<ul>
+<li>Support for templated messages</li>
+<li>Example injection</li>
+<li>Tool usage integration</li>
+<li>Error handling and logging</li>
+</ul>
+</li>
+<li>
+<p><strong>Configuration</strong></p>
+<ul>
+<li>Flexible message configuration</li>
+<li>Environment-based setup</li>
+<li>Template directory structure</li>
+</ul>
+</li>
+</ol>
+<h3 id="project-setup-components">Project Setup Components</h3>
+<h4 id="skeletonagent-skeletonagentjson">SkeletonAgent (<code>SkeletonAgent.json</code>)</h4>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+stateDiagram-v2
+    [*] --> QueryAnalysis
+    QueryAnalysis --> TemplateInit: Pattern Selected
+    TemplateInit --> ToolsInit: Template Ready
+    ToolsInit --> PlanGeneration: Tools Configured
+    
+    state "Implementation Planning" as PlanGeneration {
+        [*] --> DesignPatterns
+        DesignPatterns --> Components
+        Components --> Documentation
+        Documentation --> Testing
+        Testing --> [*]
+    }
+    
+    PlanGeneration --> ToolGuide: Plan Complete
+    ToolGuide --> Review: Guide Generated
+    Review --> [*]: Changes Verified
+</div></code></pre>
+<h4 id="workflow-steps">Workflow Steps</h4>
+<ol>
+<li>
+<p><strong>Query Analysis</strong></p>
+<ul>
+<li>Pattern matching</li>
+<li>Template selection</li>
+<li>Requirement analysis</li>
+</ul>
+</li>
+<li>
+<p><strong>Template Initialization</strong></p>
+<ul>
+<li>Pattern loading</li>
+<li>Documentation setup</li>
+<li>Diagram generation</li>
+</ul>
+</li>
+<li>
+<p><strong>Tools Initialization</strong></p>
+<ul>
+<li>Tool configuration loading</li>
+<li>Variable initialization</li>
+<li>Configuration validation</li>
+</ul>
+</li>
+<li>
+<p><strong>Implementation Planning</strong></p>
+<ul>
+<li>Design pattern selection</li>
+<li>Component hierarchy</li>
+<li>Documentation structure</li>
+<li>Testing strategy</li>
+</ul>
+</li>
+</ol>
+<h3 id="project-development-tools">Project Development Tools</h3>
+<h4 id="project-setup-projectdevsetuppy">Project Setup (<code>project_devsetup.py</code>)</h4>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+graph TD
+    subgraph Setup Flow
+        Init[Initialize Client] --> LoadTools[Load Tools]
+        LoadTools --> ValidateEnv[Validate Environment]
+        ValidateEnv --> CreateStructure[Create Project Structure]
+    end
+    
+    subgraph Implementation
+        CreateStructure --> GenDocs[Generate Documentation]
+        GenDocs --> SetupTests[Setup Testing]
+        SetupTests --> Review[Review Implementation]
+    end
+    
+    subgraph Validation
+        Review --> RunTests[Run Tests]
+        RunTests --> UpdateDocs[Update Documentation]
+        UpdateDocs --> Finalize[Finalize Setup]
+    end
+</div></code></pre>
+<h4 id="project-implementation-implementprojectpy">Project Implementation (<code>implement_project.py</code>)</h4>
+<p>Key responsibilities:</p>
+<ul>
+<li>Project structure creation</li>
+<li>Component implementation</li>
+<li>Documentation generation</li>
+<li>Test setup and execution</li>
+</ul>
+<h2 id="tool-integration">Tool Integration</h2>
+<h3 id="available-tools">Available Tools</h3>
+<ol>
+<li>
+<p><strong>Custom Bash Tool</strong></p>
+<ul>
+<li>Command execution</li>
+<li>Environment management</li>
+<li>State persistence</li>
+</ul>
+</li>
+<li>
+<p><strong>Text Editor Tool</strong></p>
+<ul>
+<li>File operations</li>
+<li>Content manipulation</li>
+<li>Version tracking</li>
+</ul>
+</li>
+<li>
+<p><strong>Computer Use Tool</strong></p>
+<ul>
+<li>GUI automation</li>
+<li>Screenshot capture</li>
+<li>Input simulation</li>
+</ul>
+</li>
+<li>
+<p><strong>Diagram Generator</strong></p>
+<ul>
+<li>Architecture visualization</li>
+<li>Component relationship mapping</li>
+<li>Documentation integration</li>
+</ul>
+</li>
+</ol>
+<h2 id="development-workflow">Development Workflow</h2>
+<ol>
+<li><strong>Project Initialization</strong></li>
+</ol>
+<pre class="hljs"><code><div>client = AnthropicClient(
+    templates_dir=<span class="hljs-string">"templates"</span>,
+    default_config=MessageConfig(
+        model=<span class="hljs-string">"claude-3-5-sonnet-20241022"</span>,
+        max_tokens=<span class="hljs-number">8192</span>,
+        temperature=<span class="hljs-number">0</span>
+    )
+)
+</div></code></pre>
+<ol start="2">
+<li><strong>Tool Configuration</strong></li>
+</ol>
+<pre class="hljs"><code><div>tool_config = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"custom_tool"</span>,
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"Tool description"</span>,
+    <span class="hljs-string">"input_schema"</span>: {
+        <span class="hljs-string">"type"</span>: <span class="hljs-string">"object"</span>,
+        <span class="hljs-string">"properties"</span>: {
+            <span class="hljs-string">"param"</span>: {<span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>}
+        }
+    }
+}
+</div></code></pre>
+<ol start="3">
+<li><strong>Message Creation</strong></li>
+</ol>
+<pre class="hljs"><code><div>response = <span class="hljs-keyword">await</span> client.create_message(
+    content=<span class="hljs-string">"Message content"</span>,
+    template_name=<span class="hljs-string">"template"</span>,
+    template_variables={<span class="hljs-string">"var"</span>: <span class="hljs-string">"value"</span>},
+    example_tags=[<span class="hljs-string">"tag"</span>]
+)
+</div></code></pre>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>
+<p><strong>Error Handling</strong></p>
+<ul>
+<li>Use try-except blocks for API calls</li>
+<li>Validate inputs before processing</li>
+<li>Log errors with context</li>
+</ul>
+</li>
+<li>
+<p><strong>Configuration Management</strong></p>
+<ul>
+<li>Use environment variables for sensitive data</li>
+<li>Keep configurations in separate files</li>
+<li>Version control configurations</li>
+</ul>
+</li>
+<li>
+<p><strong>Documentation</strong></p>
+<ul>
+<li>Document all public methods</li>
+<li>Include usage examples</li>
+<li>Keep diagrams updated</li>
+</ul>
+</li>
+<li>
+<p><strong>Testing</strong></p>
+<ul>
+<li>Write unit tests for core functionality</li>
+<li>Include integration tests</li>
+<li>Test error cases</li>
+</ul>
+</li>
+</ol>
+
+</body>
+</html>

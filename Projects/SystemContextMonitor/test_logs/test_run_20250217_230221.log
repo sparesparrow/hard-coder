@@ -1,0 +1,3 @@
+2025-02-17 23:02:21,287 - __main__ - INFO - Starting test execution
+2025-02-17 23:02:21,289 - __main__ - INFO - Running tests with arguments: --verbose --capture=no --log-cli-level=INFO -s --asyncio-mode=auto --tb=short --cov=core --cov=services --cov-report=term-missing --cov-report=html:test_coverage
+2025-02-17 23:02:22,032 - __main__ - ERROR - Some tests failed. Check the log file: test_logs/test_run_20250217_230221.log

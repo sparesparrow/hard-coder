@@ -1,0 +1,35 @@
+2025-01-01 15:05:09,772 - __main__ - INFO - Initiating connection to server at: /home/sparrow/projects/hard-coder/Projects/AnthropicClient/tooluse.py
+2025-01-01 15:05:09,795 - __main__ - INFO - Starting message handling loop
+2025-01-01 15:05:09,796 - __main__ - INFO - Initializing session
+2025-01-01 15:05:09,800 - __main__ - INFO - Starting message receive loop
+2025-01-01 15:05:10,993 - __main__ - INFO - Session initialized successfully
+2025-01-01 15:05:11,004 - __main__ - INFO - Found 4 tools:
+2025-01-01 15:05:11,005 - __main__ - INFO -   - anthropic_bash: Run commands in a bash shell
+* When invoking this tool, the contents of the "command" parameter does NOT need to be XML-escaped.
+* You have access to a mirror of common linux and python packages via apt and pip.
+* State is 
+persistent across command calls and discussions with the user.
+* To inspect a particular line range of a file, e.g. lines 10-25, try 'sed -n 10,25p /path/to/the/file'.
+* Please avoid commands that may produce a very large amount of output.
+* Please run long lived commands in the background, e.g. 'sleep 10 &' or start a server in the background.
+2025-01-01 15:05:11,007 - __main__ - INFO -   - anthropic_computer_use: Use a mouse and keyboard to interact with a computer, and take screenshots.
+* This is an interface to a desktop GUI. You do not have access to a terminal or applications menu. You must click on desktop icons to start applications.
+* Some applications may take time to start or process actions, so you may need to wait and take successive screenshots to see the results of your actions. E.g. if you click on Firefox and a window doesn't open, try taking another screenshot.
+* The screen's resolution is {{ display_width_px }}x{{ display_height_px }}.
+* The display number is {{ display_number }}
+* Whenever you intend to move the cursor to click on an element like an icon, you should consult a screenshot to determine the coordinates of the element before moving the cursor.
+* If you tried clicking on a program or link but it failed to load, even after waiting, try adjusting your cursor position so that the tip of the cursor visually falls on the element that you want to click.
+* Make sure to click any buttons, links, icons, etc with the cursor tip in the center of the element. Don't click boxes on their edges unless asked.
+
+2025-01-01 15:05:11,008 - __main__ - INFO -   - anthropic_text_editor: Custom editing tool for viewing, creating and editing files
+* State is persistent across command calls and discussions with the user
+* If `path` is a file, `view` displays the result of applying `cat -n`. If `path` is a directory, `view` lists non-hidden files and directories up to 2 levels deep
+* The `create` command cannot be used if the specified `path` already exists as a file
+* If a `command` generates a long output, it will be truncated and marked with `<response clipped>`
+* The `undo_edit` command will revert the last edit made to the file at `path`
+
+Notes for using the `str_replace` command:
+* The `old_str` parameter should match EXACTLY one or more consecutive lines from the original file. Be mindful of whitespaces!
+* If the `old_str` parameter is not unique in the file, the replacement will not be performed. Make sure to include enough context in `old_str` to make it unique
+* The `new_str` parameter should contain the edited lines that should replace the `old_str`
+2025-01-01 15:05:11,009 - __main__ - INFO -   - MermaidDiagramGenerator: Generates Mermaid diagrams from structured descriptions of concepts and relationships, with intention to  include it in README.md later, covering software architecture design for the project.

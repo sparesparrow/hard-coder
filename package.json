@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "@shadcn/ui": "^0.0.4",
+    "@types/qrcode.react": "^1.0.5",
+    "@types/react": "^19.0.9"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.475.0",
+    "tailwind-merge": "^3.0.1"
+  }
+}

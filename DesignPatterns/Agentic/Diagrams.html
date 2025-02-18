@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Diagrams.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h3 id="anti-patterns">Anti-patterns</h3>
+<p><strong>Use Case:</strong></p>
+<p>A developer is designing an AI assistant but notices that it occasionally leaks sensitive user information from previous conversations into new sessions. They seek advice on how to prevent this memory leakage.</p>
+<p>&lt;diagram_planning&gt;</p>
+<p><strong>a. List main concepts/components from the design pattern:</strong></p>
+<ul>
+<li>LLM (Language Model)</li>
+<li>User Sessions</li>
+<li>Memory Management</li>
+<li>Sensitive Information</li>
+<li>Context Isolation</li>
+<li>Cleanup Mechanisms</li>
+</ul>
+<p><strong>b. Identify relationships between concepts:</strong></p>
+<ul>
+<li>LLM handles multiple user sessions.</li>
+<li>Sensitive information is stored in memory.</li>
+<li>Without proper context isolation, data leaks occur.</li>
+<li>Cleanup mechanisms are needed to prevent leaks.</li>
+</ul>
+<p><strong>c. Determine appropriate diagram type:</strong></p>
+<ul>
+<li>Flowchart (to illustrate the problem and solution)</li>
+<li>Sequence Diagram (design pattern-specific)</li>
+</ul>
+<p><strong>d. Plan node structure and naming:</strong></p>
+<ul>
+<li>Nodes: User, LLM, Memory, Sensitive Data, Context Isolation</li>
+</ul>
+<p><strong>e. Outline relationships and labels:</strong></p>
+<ul>
+<li>User → LLM: Provides Input</li>
+<li>LLM ↔ Memory: Stores and Retrieves Data</li>
+<li>Sensitive Data leaks between sessions without context isolation</li>
+<li>Implement Context Isolation to prevent leakage</li>
+</ul>
+<p><strong>f. Consider alternative representations and justify your chosen approach:</strong></p>
+<ul>
+<li>Flowchart effectively illustrates the flow leading to memory leakage and its prevention.</li>
+</ul>
+<p><strong>g. Brainstorm potential edge cases or complexities in the diagram:</strong></p>
+<ul>
+<li>Concurrent user sessions</li>
+<li>Asynchronous data access</li>
+</ul>
+<p><strong>h. Propose solutions for handling these complexities:</strong></p>
+<ul>
+<li>Illustrate separate memory spaces per session.</li>
+<li>Use notes to explain context isolation measures.</li>
+</ul>
+<p>&lt;/diagram_planning&gt;</p>
+<answer>
+<p><strong>Flowchart Showing Memory Leakage:</strong></p>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+flowchart TD
+    subgraph Session1 [User Session 1]
+        A1[User] --> B1[LLM]
+        B1 --> C1[Memory]
+        C1 --> D[Stores Sensitive Data]
+    end
+    subgraph Session2 [User Session 2]
+        A2[User] --> B2[LLM]
+        B2 --> C2[Memory]
+        C2 --> E[Accesses Sensitive Data]
+    end
+    D -.->|Leakage| E
+    style D fill:#e74c3c,stroke:#c0392b,stroke-width:2px
+    style E fill:#e74c3c,stroke:#c0392b,stroke-width:2px
+</div></code></pre>
+<p><strong>Flowchart with Context Isolation:</strong></p>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+flowchart TD
+    subgraph Session1 [User Session 1]
+        A1[User] --> B1[LLM]
+        B1 --> C1[Memory]
+        C1 --> D1[Stores Sensitive Data]
+    end
+    subgraph Session2 [User Session 2]
+        A2[User] --> B2[LLM]
+        B2 --> C2[Memory]
+        C2 --> D2[No Access to Session 1 Data]
+    end
+    style D2 fill:#2ecc71,stroke:#27ae60,stroke-width:2px
+    D2 --> F[Data Protected]
+    Note over D2,F: Context Isolation Implemented
+    style D fill:#e74c3c,stroke:#c0392b,stroke-width:2px
+    style E fill:#e74c3c,stroke:#c0392b,stroke-width:2px
+</div></code></pre>
+<p><strong>Sequence Diagram Showing Data Leakage:</strong></p>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+sequenceDiagram
+    participant User1
+    participant LLM
+    participant Memory
+    participant User2
+    User1->>LLM: Provides Input
+    LLM->>Memory: Store Sensitive Data
+    Note over Memory: Data stored for Session 1
+    User2->>LLM: Initiates Session
+    LLM->>Memory: Retrieve Data without Isolation
+    Memory-->>LLM: Returns Sensitive Data
+    LLM-->>User2: Leaks Data
+    rect rgb(231, 76, 60)
+    Note over LLM,User2: Memory Leakage Occurs
+    end
+</div></code></pre>
+<p><strong>Sequence Diagram with Context Isolation:</strong></p>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+sequenceDiagram
+    participant User1
+    participant LLM
+    participant Memory
+    participant User2
+    User1->>LLM: Provides Input
+    LLM->>Memory: Store Sensitive Data (Session 1)
+    User2->>LLM: Initiates Session
+    LLM->>Memory: Attempt to Retrieve Data (Session 2)
+    Memory-->>LLM: No Access to Session 1 Data
+    LLM-->>User2: Responds Without Leakage
+    rect rgb(46, 204, 113)
+    Note over LLM,User2: Context Isolation Successful
+    end
+</div></code></pre>
+</answer>
+<hr>
+<h3 id="tool-selection-pattern">Tool Selection Pattern</h3>
+<p><strong>Use Case:</strong></p>
+<p>A user asks an AI assistant: &quot;I need to analyze sales data, generate a summary report, and create visualizations for the trends over the past year. Can you help me with that?&quot;</p>
+<p>&lt;diagram_planning&gt;</p>
+<p><strong>a. List main concepts/components from the design pattern:</strong></p>
+<ul>
+<li>LLM (Language Model)</li>
+<li>Task Analyzer</li>
+<li>Tool Selector</li>
+<li>Tool Registry</li>
+<li>Tool Sequencer</li>
+<li>Output Integrator</li>
+<li>Available Tools (Data Analyzer, Report Generator, Visualization Tool)</li>
+</ul>
+<p><strong>b. Identify relationships between concepts:</strong></p>
+<ul>
+<li>LLM uses Task Analyzer to understand the task.</li>
+<li>Tool Selector consults Tool Registry to find suitable tools.</li>
+<li>Tool Sequencer determines execution order.</li>
+<li>Tools process data and output results.</li>
+<li>Output Integrator combines outputs for the final response.</li>
+</ul>
+<p><strong>c. Determine appropriate diagram type:</strong></p>
+<ul>
+<li>Flowchart (to illustrate the workflow)</li>
+<li>Class Diagram (design pattern-specific diagram)</li>
+</ul>
+<p><strong>d. Plan node structure and naming:</strong></p>
+<ul>
+<li>Nodes: User, LLM, Task Analyzer, Tool Selector, Tool Registry, Tool Sequencer, Tools, Output Integrator, Response</li>
+</ul>
+<p><strong>e. Outline relationships and labels:</strong></p>
+<ul>
+<li>User → LLM: User Query</li>
+<li>LLM → Task Analyzer: Analyze Task</li>
+<li>Task Analyzer → Tool Selector: Task Requirements</li>
+<li>Tool Selector → Tool Registry: Find Tools</li>
+<li>Tool Selector → Tool Sequencer: Selected Tools</li>
+<li>Tool Sequencer → Tools: Execute Tools</li>
+<li>Tools → Output Integrator: Tool Outputs</li>
+<li>Output Integrator → LLM: Integrated Response</li>
+<li>LLM → User: Final Response</li>
+</ul>
+<p><strong>f. Consider alternative representations and justify your chosen approach:</strong></p>
+<ul>
+<li>Flowchart and Class Diagram provide clarity without excessive detail.</li>
+</ul>
+<p><strong>g. Brainstorm potential edge cases or complexities in the diagram:</strong></p>
+<ul>
+<li>Tool failure handling</li>
+<li>Parallel tool execution</li>
+</ul>
+<p><strong>h. Propose solutions for handling these complexities:</strong></p>
+<ul>
+<li>Indicate error handling in the flowchart.</li>
+<li>Use notes to denote asynchronous processes.</li>
+</ul>
+<p>&lt;/diagram_planning&gt;</p>
+<answer>
+<p><strong>Flowchart of Tool Selection Workflow:</strong></p>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+flowchart TD
+    A[User] --> B[LLM]
+    B --> C[Task Analyzer]
+    C --> D[Tool Selector]
+    D --> E[Tool Registry]
+    E --> D
+    D --> F[Tool Sequencer]
+    F --> G[Data Analyzer]
+    F --> H[Report Generator]
+    F --> I[Visualization Tool]
+    G --> J[Output Integrator]
+    H --> J
+    I --> J
+    J --> K[LLM]
+    K --> A[User]
+    classDef primary fill:#2ecc71,stroke:#27ae60,stroke-width:2px
+    class A,B,C,D,E,F,G,H,I,J,K primary
+    style D fill:#e74c3c,stroke:#c0392b,stroke-width:2px
+    style E fill:#e74c3c,stroke:#c0392b,stroke-width:2px
+</div></code></pre>
+<p><strong>Class Diagram of Tool Selection Pattern:</strong></p>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+classDiagram
+    class LLM {
+        +analyzeTask()
+        +generateResponse()
+    }
+    class TaskAnalyzer {
+        +analyze(task)
+    }
+    class ToolSelector {
+        +selectTools(requirements)
+    }
+    class ToolRegistry {
+        +getAvailableTools()
+    }
+    class ToolSequencer {
+        +sequence(tools)
+    }
+    class OutputIntegrator {
+        +integrate(outputs)
+    }
+    LLM --> TaskAnalyzer : uses
+    TaskAnalyzer --> ToolSelector : providesRequirements
+    ToolSelector --> ToolRegistry : queries
+    ToolSelector --> ToolSequencer : passesSelectedTools
+    ToolSequencer --> Tools : executes
+    Tools --> OutputIntegrator : outputs
+    OutputIntegrator --> LLM : returns
+    LLM --> User : responds
+    classDef primary fill:#2ecc71,stroke:#27ae60,stroke-width:2px
+    class LLM,TaskAnalyzer,ToolSelector,ToolRegistry,ToolSequencer,OutputIntegrator,Tools primary
+</div></code></pre>
+</answer>
+<hr>
+<h3 id="attention-router-pattern">Attention Router Pattern</h3>
+<p><strong>Use Case:</strong></p>
+<p>A user asks an AI assistant: &quot;Can you translate this paragraph into French and then summarize it?&quot; The assistant needs to route the query to appropriate processing paths.</p>
+<p>&lt;diagram_planning&gt;</p>
+<p><strong>a. List main concepts/components from the design pattern:</strong></p>
+<ul>
+<li>Attention Router</li>
+<li>Query</li>
+<li>Processors (Translation Processor, Summarization Processor)</li>
+<li>Attention Scores</li>
+</ul>
+<p><strong>b. Identify relationships between concepts:</strong></p>
+<ul>
+<li>Attention Router receives the query.</li>
+<li>Calculates attention scores for processors.</li>
+<li>Routes query to appropriate processors.</li>
+<li>Processors return outputs.</li>
+<li>Attention Router integrates outputs into final response.</li>
+</ul>
+<p><strong>c. Determine appropriate diagram type:</strong></p>
+<ul>
+<li>Flowchart (to show processing flow)</li>
+<li>Sequence Diagram (design pattern-specific)</li>
+</ul>
+<p><strong>d. Plan node structure and naming:</strong></p>
+<ul>
+<li>Nodes: User, Attention Router, Translation Processor, Summarization Processor, Final Response</li>
+</ul>
+<p><strong>e. Outline relationships and labels:</strong></p>
+<ul>
+<li>User → Attention Router: Query</li>
+<li>Attention Router → Processors: Distributes Query</li>
+<li>Processors → Attention Router: Results</li>
+<li>Attention Router → User: Final Response</li>
+</ul>
+<p><strong>f. Consider alternative representations and justify your chosen approach:</strong></p>
+<ul>
+<li>Sequence Diagram effectively illustrates the message passing and processing sequence.</li>
+</ul>
+<p><strong>g. Brainstorm potential edge cases or complexities in the diagram:</strong></p>
+<ul>
+<li>Queries requiring sequential processing.</li>
+<li>Conflicting outputs.</li>
+</ul>
+<p><strong>h. Propose solutions for handling these complexities:</strong></p>
+<ul>
+<li>Indicate processing order.</li>
+<li>Use notes to explain integration steps.</li>
+</ul>
+<p>&lt;/diagram_planning&gt;</p>
+<answer>
+<p><strong>Flowchart of Attention Router Processing:</strong></p>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+flowchart TD
+    A[User] --> B[Attention Router]
+    B --> C{Calculate Attention Scores}
+    C --> D[Translation Processor]
+    C --> E[Summarization Processor]
+    D --> F[Translation Result]
+    E --> G[Summarization Result]
+    F & G --> H[Integrate Results]
+    H --> I[Final Response]
+    I --> A
+    classDef primary fill:#2ecc71,stroke:#27ae60,stroke-width:2px
+    class A,B,C,D,E,F,G,H,I primary
+</div></code></pre>
+<p><strong>Sequence Diagram of Attention Router Pattern:</strong></p>
+<pre><code class="language-mermaid"><div class="mermaid">%%{init: {'theme': 'forest'}}%%
+sequenceDiagram
+    participant User
+    participant AR as Attention Router
+    participant TP as Translation Processor
+    participant SP as Summarization Processor
+    User->>AR: Submit Query
+    AR->>AR: Calculate Attention Scores
+    AR->>TP: Send for Translation
+    TP-->>AR: Translated Text
+    AR->>SP: Send for Summarization
+    SP-->>AR: Summary
+    AR->>User: Provide Final Response
+</div></code></pre>
+</answer>
+<hr>
+
+</body>
+</html>

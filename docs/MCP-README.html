@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MCP-README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="mcp-python-sdk">MCP Python SDK</h1>
+<div align="center">
+<p><strong>Python implementation of the Model Context Protocol (MCP)</strong></p>
+<p><a href="https://pypi.org/project/mcp/"><img src="https://img.shields.io/pypi/v/mcp.svg" alt="PyPI"></a>
+<a href="https://github.com/modelcontextprotocol/python-sdk/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/mcp.svg" alt="MIT licensed"></a>
+<a href="https://www.python.org/downloads/"><img src="https://img.shields.io/pypi/pyversions/mcp.svg" alt="Python Version"></a>
+<a href="https://modelcontextprotocol.io"><img src="https://img.shields.io/badge/docs-modelcontextprotocol.io-blue.svg" alt="Documentation"></a>
+<a href="https://spec.modelcontextprotocol.io"><img src="https://img.shields.io/badge/spec-spec.modelcontextprotocol.io-blue.svg" alt="Specification"></a>
+<a href="https://github.com/modelcontextprotocol/python-sdk/discussions"><img src="https://img.shields.io/github/discussions/modelcontextprotocol/python-sdk" alt="GitHub Discussions"></a></p>
+</div>
+<!-- omit in toc -->
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#quickstart">Quickstart</a></li>
+<li><a href="#what-is-mcp">What is MCP?</a></li>
+<li><a href="#core-concepts">Core Concepts</a>
+<ul>
+<li><a href="#server">Server</a></li>
+<li><a href="#resources">Resources</a></li>
+<li><a href="#tools">Tools</a></li>
+<li><a href="#prompts">Prompts</a></li>
+<li><a href="#images">Images</a></li>
+<li><a href="#context">Context</a></li>
+</ul>
+</li>
+<li><a href="#running-your-server">Running Your Server</a>
+<ul>
+<li><a href="#development-mode">Development Mode</a></li>
+<li><a href="#claude-desktop-integration">Claude Desktop Integration</a></li>
+<li><a href="#direct-execution">Direct Execution</a></li>
+</ul>
+</li>
+<li><a href="#examples">Examples</a>
+<ul>
+<li><a href="#echo-server">Echo Server</a></li>
+<li><a href="#sqlite-explorer">SQLite Explorer</a></li>
+</ul>
+</li>
+<li><a href="#advanced-usage">Advanced Usage</a>
+<ul>
+<li><a href="#low-level-server">Low-Level Server</a></li>
+<li><a href="#writing-mcp-clients">Writing MCP Clients</a></li>
+<li><a href="#mcp-primitives">MCP Primitives</a></li>
+<li><a href="#server-capabilities">Server Capabilities</a></li>
+</ul>
+</li>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#contributing">Contributing</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>The Model Context Protocol allows applications to provide context for LLMs in a standardized way, separating the concerns of providing context from the actual LLM interaction. This Python SDK implements the full MCP specification, making it easy to:</p>
+<ul>
+<li>Build MCP clients that can connect to any MCP server</li>
+<li>Create MCP servers that expose resources, prompts and tools</li>
+<li>Use standard transports like stdio and SSE</li>
+<li>Handle all MCP protocol messages and lifecycle events</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>We recommend using <a href="https://docs.astral.sh/uv/">uv</a> to manage your Python projects:</p>
+<pre class="hljs"><code><div>uv add <span class="hljs-string">"mcp[cli]"</span>
+</div></code></pre>
+<p>Alternatively:</p>
+<pre class="hljs"><code><div>pip install mcp
+</div></code></pre>
+<h2 id="quickstart">Quickstart</h2>
+<p>Let's create a simple MCP server that exposes a calculator tool and some data:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># server.py</span>
+<span class="hljs-keyword">from</span> mcp.server.fastmcp <span class="hljs-keyword">import</span> FastMCP
+
+<span class="hljs-comment"># Create an MCP server</span>
+mcp = FastMCP(<span class="hljs-string">"Demo"</span>)
+
+<span class="hljs-comment"># Add an addition tool</span>
+<span class="hljs-meta">@mcp.tool()</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(a: int, b: int)</span> -&gt; int:</span>
+    <span class="hljs-string">"""Add two numbers"""</span>
+    <span class="hljs-keyword">return</span> a + b
+
+<span class="hljs-comment"># Add a dynamic greeting resource</span>
+<span class="hljs-meta">@mcp.resource("greeting://{name}")</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_greeting</span><span class="hljs-params">(name: str)</span> -&gt; str:</span>
+    <span class="hljs-string">"""Get a personalized greeting"""</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">f"Hello, <span class="hljs-subst">{name}</span>!"</span>
+</div></code></pre>
+<p>You can install this server in <a href="https://claude.ai/download">Claude Desktop</a> and interact with it right away by running:</p>
+<pre class="hljs"><code><div>mcp install server.py
+</div></code></pre>
+<p>Alternatively, you can test it with the MCP Inspector:</p>
+<pre class="hljs"><code><div>mcp dev server.py
+</div></code></pre>
+<h2 id="what-is-mcp">What is MCP?</h2>
+<p>The <a href="https://modelcontextprotocol.io">Model Context Protocol (MCP)</a> lets you build servers that expose data and functionality to LLM applications in a secure, standardized way. Think of it like a web API, but specifically designed for LLM interactions. MCP servers can:</p>
+<ul>
+<li>Expose data through <strong>Resources</strong> (think of these sort of like GET endpoints; they are used to load information into the LLM's context)</li>
+<li>Provide functionality through <strong>Tools</strong> (sort of like POST endpoints; they are used to execute code or otherwise produce a side effect)</li>
+<li>Define interaction patterns through <strong>Prompts</strong> (reusable templates for LLM interactions)</li>
+<li>And more!</li>
+</ul>
+<h2 id="core-concepts">Core Concepts</h2>
+<h3 id="server">Server</h3>
+<p>The FastMCP server is your core interface to the MCP protocol. It handles connection management, protocol compliance, and message routing:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> mcp.server.fastmcp <span class="hljs-keyword">import</span> FastMCP
+
+<span class="hljs-comment"># Create a named server</span>
+mcp = FastMCP(<span class="hljs-string">"My App"</span>)
+
+<span class="hljs-comment"># Specify dependencies for deployment and development</span>
+mcp = FastMCP(<span class="hljs-string">"My App"</span>, dependencies=[<span class="hljs-string">"pandas"</span>, <span class="hljs-string">"numpy"</span>])
+</div></code></pre>
+<h3 id="resources">Resources</h3>
+<p>Resources are how you expose data to LLMs. They're similar to GET endpoints in a REST API - they provide data but shouldn't perform significant computation or have side effects:</p>
+<pre class="hljs"><code><div><span class="hljs-meta">@mcp.resource("config://app")</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_config</span><span class="hljs-params">()</span> -&gt; str:</span>
+    <span class="hljs-string">"""Static configuration data"""</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"App configuration here"</span>
+
+<span class="hljs-meta">@mcp.resource("users://{user_id}/profile")</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_user_profile</span><span class="hljs-params">(user_id: str)</span> -&gt; str:</span>
+    <span class="hljs-string">"""Dynamic user data"""</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">f"Profile data for user <span class="hljs-subst">{user_id}</span>"</span>
+</div></code></pre>
+<h3 id="tools">Tools</h3>
+<p>Tools let LLMs take actions through your server. Unlike resources, tools are expected to perform computation and have side effects:</p>
+<pre class="hljs"><code><div><span class="hljs-meta">@mcp.tool()</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calculate_bmi</span><span class="hljs-params">(weight_kg: float, height_m: float)</span> -&gt; float:</span>
+    <span class="hljs-string">"""Calculate BMI given weight in kg and height in meters"""</span>
+    <span class="hljs-keyword">return</span> weight_kg / (height_m ** <span class="hljs-number">2</span>)
+
+<span class="hljs-meta">@mcp.tool()</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fetch_weather</span><span class="hljs-params">(city: str)</span> -&gt; str:</span>
+    <span class="hljs-string">"""Fetch current weather for a city"""</span>
+    <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> httpx.AsyncClient() <span class="hljs-keyword">as</span> client:
+        response = <span class="hljs-keyword">await</span> client.get(<span class="hljs-string">f"https://api.weather.com/<span class="hljs-subst">{city}</span>"</span>)
+        <span class="hljs-keyword">return</span> response.text
+</div></code></pre>
+<h3 id="prompts">Prompts</h3>
+<p>Prompts are reusable templates that help LLMs interact with your server effectively:</p>
+<pre class="hljs"><code><div><span class="hljs-meta">@mcp.prompt()</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">review_code</span><span class="hljs-params">(code: str)</span> -&gt; str:</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">f"Please review this code:\n\n<span class="hljs-subst">{code}</span>"</span>
+
+<span class="hljs-meta">@mcp.prompt()</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">debug_error</span><span class="hljs-params">(error: str)</span> -&gt; list[Message]:</span>
+    <span class="hljs-keyword">return</span> [
+        UserMessage(<span class="hljs-string">"I'm seeing this error:"</span>),
+        UserMessage(error),
+        AssistantMessage(<span class="hljs-string">"I'll help debug that. What have you tried so far?"</span>)
+    ]
+</div></code></pre>
+<h3 id="images">Images</h3>
+<p>FastMCP provides an <code>Image</code> class that automatically handles image data:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> mcp.server.fastmcp <span class="hljs-keyword">import</span> FastMCP, Image
+<span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image <span class="hljs-keyword">as</span> PILImage
+
+<span class="hljs-meta">@mcp.tool()</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">create_thumbnail</span><span class="hljs-params">(image_path: str)</span> -&gt; Image:</span>
+    <span class="hljs-string">"""Create a thumbnail from an image"""</span>
+    img = PILImage.open(image_path)
+    img.thumbnail((<span class="hljs-number">100</span>, <span class="hljs-number">100</span>))
+    <span class="hljs-keyword">return</span> Image(data=img.tobytes(), format=<span class="hljs-string">"png"</span>)
+</div></code></pre>
+<h3 id="context">Context</h3>
+<p>The Context object gives your tools and resources access to MCP capabilities:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> mcp.server.fastmcp <span class="hljs-keyword">import</span> FastMCP, Context
+
+<span class="hljs-meta">@mcp.tool()</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">long_task</span><span class="hljs-params">(files: list[str], ctx: Context)</span> -&gt; str:</span>
+    <span class="hljs-string">"""Process multiple files with progress tracking"""</span>
+    <span class="hljs-keyword">for</span> i, file <span class="hljs-keyword">in</span> enumerate(files):
+        ctx.info(<span class="hljs-string">f"Processing <span class="hljs-subst">{file}</span>"</span>)
+        <span class="hljs-keyword">await</span> ctx.report_progress(i, len(files))
+        data = <span class="hljs-keyword">await</span> ctx.read_resource(<span class="hljs-string">f"file://<span class="hljs-subst">{file}</span>"</span>)
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"Processing complete"</span>
+</div></code></pre>
+<h2 id="running-your-server">Running Your Server</h2>
+<h3 id="development-mode">Development Mode</h3>
+<p>The fastest way to test and debug your server is with the MCP Inspector:</p>
+<pre class="hljs"><code><div>mcp dev server.py
+
+<span class="hljs-comment"># Add dependencies</span>
+mcp dev server.py --with pandas --with numpy
+
+<span class="hljs-comment"># Mount local code</span>
+mcp dev server.py --with-editable .
+</div></code></pre>
+<h3 id="claude-desktop-integration">Claude Desktop Integration</h3>
+<p>Once your server is ready, install it in Claude Desktop:</p>
+<pre class="hljs"><code><div>mcp install server.py
+
+<span class="hljs-comment"># Custom name</span>
+mcp install server.py --name <span class="hljs-string">"My Analytics Server"</span>
+
+<span class="hljs-comment"># Environment variables</span>
+mcp install server.py -e API_KEY=abc123 -e DB_URL=postgres://...
+mcp install server.py -f .env
+</div></code></pre>
+<h3 id="direct-execution">Direct Execution</h3>
+<p>For advanced scenarios like custom deployments:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> mcp.server.fastmcp <span class="hljs-keyword">import</span> FastMCP
+
+mcp = FastMCP(<span class="hljs-string">"My App"</span>)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    mcp.run()
+</div></code></pre>
+<p>Run it with:</p>
+<pre class="hljs"><code><div>python server.py
+<span class="hljs-comment"># or</span>
+mcp run server.py
+</div></code></pre>
+<h2 id="examples">Examples</h2>
+<h3 id="echo-server">Echo Server</h3>
+<p>A simple server demonstrating resources, tools, and prompts:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> mcp.server.fastmcp <span class="hljs-keyword">import</span> FastMCP
+
+mcp = FastMCP(<span class="hljs-string">"Echo"</span>)
+
+<span class="hljs-meta">@mcp.resource("echo://{message}")</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">echo_resource</span><span class="hljs-params">(message: str)</span> -&gt; str:</span>
+    <span class="hljs-string">"""Echo a message as a resource"""</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">f"Resource echo: <span class="hljs-subst">{message}</span>"</span>
+
+<span class="hljs-meta">@mcp.tool()</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">echo_tool</span><span class="hljs-params">(message: str)</span> -&gt; str:</span>
+    <span class="hljs-string">"""Echo a message as a tool"""</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">f"Tool echo: <span class="hljs-subst">{message}</span>"</span>
+
+<span class="hljs-meta">@mcp.prompt()</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">echo_prompt</span><span class="hljs-params">(message: str)</span> -&gt; str:</span>
+    <span class="hljs-string">"""Create an echo prompt"""</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">f"Please process this message: <span class="hljs-subst">{message}</span>"</span>
+</div></code></pre>
+<h3 id="sqlite-explorer">SQLite Explorer</h3>
+<p>A more complex example showing database integration:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> mcp.server.fastmcp <span class="hljs-keyword">import</span> FastMCP
+<span class="hljs-keyword">import</span> sqlite3
+
+mcp = FastMCP(<span class="hljs-string">"SQLite Explorer"</span>)
+
+<span class="hljs-meta">@mcp.resource("schema://main")</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_schema</span><span class="hljs-params">()</span> -&gt; str:</span>
+    <span class="hljs-string">"""Provide the database schema as a resource"""</span>
+    conn = sqlite3.connect(<span class="hljs-string">"database.db"</span>)
+    schema = conn.execute(
+        <span class="hljs-string">"SELECT sql FROM sqlite_master WHERE type='table'"</span>
+    ).fetchall()
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"\n"</span>.join(sql[<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> sql <span class="hljs-keyword">in</span> schema <span class="hljs-keyword">if</span> sql[<span class="hljs-number">0</span>])
+
+<span class="hljs-meta">@mcp.tool()</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">query_data</span><span class="hljs-params">(sql: str)</span> -&gt; str:</span>
+    <span class="hljs-string">"""Execute SQL queries safely"""</span>
+    conn = sqlite3.connect(<span class="hljs-string">"database.db"</span>)
+    <span class="hljs-keyword">try</span>:
+        result = conn.execute(sql).fetchall()
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"\n"</span>.join(str(row) <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> result)
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">f"Error: <span class="hljs-subst">{str(e)}</span>"</span>
+</div></code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="low-level-server">Low-Level Server</h3>
+<p>For more control, you can use the low-level server implementation directly. This gives you full access to the protocol and allows you to customize every aspect of your server:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> mcp.server.lowlevel <span class="hljs-keyword">import</span> Server, NotificationOptions
+<span class="hljs-keyword">from</span> mcp.server.models <span class="hljs-keyword">import</span> InitializationOptions
+<span class="hljs-keyword">import</span> mcp.server.stdio
+<span class="hljs-keyword">import</span> mcp.types <span class="hljs-keyword">as</span> types
+
+<span class="hljs-comment"># Create a server instance</span>
+server = Server(<span class="hljs-string">"example-server"</span>)
+
+<span class="hljs-meta">@server.list_prompts()</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">handle_list_prompts</span><span class="hljs-params">()</span> -&gt; list[types.Prompt]:</span>
+    <span class="hljs-keyword">return</span> [
+        types.Prompt(
+            name=<span class="hljs-string">"example-prompt"</span>,
+            description=<span class="hljs-string">"An example prompt template"</span>,
+            arguments=[
+                types.PromptArgument(
+                    name=<span class="hljs-string">"arg1"</span>,
+                    description=<span class="hljs-string">"Example argument"</span>,
+                    required=<span class="hljs-literal">True</span>
+                )
+            ]
+        )
+    ]
+
+<span class="hljs-meta">@server.get_prompt()</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">handle_get_prompt</span><span class="hljs-params">(
+    name: str,
+    arguments: dict[str, str] | None
+)</span> -&gt; types.GetPromptResult:</span>
+    <span class="hljs-keyword">if</span> name != <span class="hljs-string">"example-prompt"</span>:
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f"Unknown prompt: <span class="hljs-subst">{name}</span>"</span>)
+
+    <span class="hljs-keyword">return</span> types.GetPromptResult(
+        description=<span class="hljs-string">"Example prompt"</span>,
+        messages=[
+            types.PromptMessage(
+                role=<span class="hljs-string">"user"</span>,
+                content=types.TextContent(
+                    type=<span class="hljs-string">"text"</span>,
+                    text=<span class="hljs-string">"Example prompt text"</span>
+                )
+            )
+        ]
+    )
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> mcp.server.stdio.stdio_server() <span class="hljs-keyword">as</span> (read_stream, write_stream):
+        <span class="hljs-keyword">await</span> server.run(
+            read_stream,
+            write_stream,
+            InitializationOptions(
+                server_name=<span class="hljs-string">"example"</span>,
+                server_version=<span class="hljs-string">"0.1.0"</span>,
+                capabilities=server.get_capabilities(
+                    notification_options=NotificationOptions(),
+                    experimental_capabilities={},
+                )
+            )
+        )
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    <span class="hljs-keyword">import</span> asyncio
+    asyncio.run(run())
+</div></code></pre>
+<h3 id="writing-mcp-clients">Writing MCP Clients</h3>
+<p>The SDK provides a high-level client interface for connecting to MCP servers:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> mcp <span class="hljs-keyword">import</span> ClientSession, StdioServerParameters
+<span class="hljs-keyword">from</span> mcp.client.stdio <span class="hljs-keyword">import</span> stdio_client
+
+<span class="hljs-comment"># Create server parameters for stdio connection</span>
+server_params = StdioServerParameters(
+    command=<span class="hljs-string">"python"</span>, <span class="hljs-comment"># Executable</span>
+    args=[<span class="hljs-string">"example_server.py"</span>], <span class="hljs-comment"># Optional command line arguments</span>
+    env=<span class="hljs-literal">None</span> <span class="hljs-comment"># Optional environment variables</span>
+)
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> stdio_client(server_params) <span class="hljs-keyword">as</span> (read, write):
+        <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> ClientSession(read, write) <span class="hljs-keyword">as</span> session:
+            <span class="hljs-comment"># Initialize the connection</span>
+            <span class="hljs-keyword">await</span> session.initialize()
+
+            <span class="hljs-comment"># List available prompts</span>
+            prompts = <span class="hljs-keyword">await</span> session.list_prompts()
+
+            <span class="hljs-comment"># Get a prompt</span>
+            prompt = <span class="hljs-keyword">await</span> session.get_prompt(<span class="hljs-string">"example-prompt"</span>, arguments={<span class="hljs-string">"arg1"</span>: <span class="hljs-string">"value"</span>})
+
+            <span class="hljs-comment"># List available resources</span>
+            resources = <span class="hljs-keyword">await</span> session.list_resources()
+
+            <span class="hljs-comment"># List available tools</span>
+            tools = <span class="hljs-keyword">await</span> session.list_tools()
+
+            <span class="hljs-comment"># Read a resource</span>
+            resource = <span class="hljs-keyword">await</span> session.read_resource(<span class="hljs-string">"file://some/path"</span>)
+
+            <span class="hljs-comment"># Call a tool</span>
+            result = <span class="hljs-keyword">await</span> session.call_tool(<span class="hljs-string">"tool-name"</span>, arguments={<span class="hljs-string">"arg1"</span>: <span class="hljs-string">"value"</span>})
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    <span class="hljs-keyword">import</span> asyncio
+    asyncio.run(run())
+</div></code></pre>
+<h3 id="mcp-primitives">MCP Primitives</h3>
+<p>The MCP protocol defines three core primitives that servers can implement:</p>
+<table>
+<thead>
+<tr>
+<th>Primitive</th>
+<th>Control</th>
+<th>Description</th>
+<th>Example Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prompts</td>
+<td>User-controlled</td>
+<td>Interactive templates invoked by user choice</td>
+<td>Slash commands, menu options</td>
+</tr>
+<tr>
+<td>Resources</td>
+<td>Application-controlled</td>
+<td>Contextual data managed by the client application</td>
+<td>File contents, API responses</td>
+</tr>
+<tr>
+<td>Tools</td>
+<td>Model-controlled</td>
+<td>Functions exposed to the LLM to take actions</td>
+<td>API calls, data updates</td>
+</tr>
+</tbody>
+</table>
+<h3 id="server-capabilities">Server Capabilities</h3>
+<p>MCP servers declare capabilities during initialization:</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Feature Flag</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>prompts</code></td>
+<td><code>listChanged</code></td>
+<td>Prompt template management</td>
+</tr>
+<tr>
+<td><code>resources</code></td>
+<td><code>subscribe</code><br/><code>listChanged</code></td>
+<td>Resource exposure and updates</td>
+</tr>
+<tr>
+<td><code>tools</code></td>
+<td><code>listChanged</code></td>
+<td>Tool discovery and execution</td>
+</tr>
+<tr>
+<td><code>logging</code></td>
+<td>-</td>
+<td>Server logging configuration</td>
+</tr>
+<tr>
+<td><code>completion</code></td>
+<td>-</td>
+<td>Argument completion suggestions</td>
+</tr>
+</tbody>
+</table>
+<h2 id="documentation">Documentation</h2>
+<ul>
+<li><a href="https://modelcontextprotocol.io">Model Context Protocol documentation</a></li>
+<li><a href="https://spec.modelcontextprotocol.io">Model Context Protocol specification</a></li>
+<li><a href="https://github.com/modelcontextprotocol/servers">Officially supported servers</a></li>
+</ul>
+<h2 id="contributing">Contributing</h2>
+<p>We are passionate about supporting contributors of all levels of experience and would love to see you get involved in the project. See the <a href="CONTRIBUTING.md">contributing guide</a> to get started.</p>
+<h2 id="license">License</h2>
+<p>This project is licensed under the MIT License - see the LICENSE file for details.
+Breadcrumbs</p>
+<h1 id="mcp-typescript-sdk-npm-version">MCP TypeScript SDK <img src="https://img.shields.io/npm/v/@modelcontextprotocol/sdk" alt="NPM Version"></h1>
+<p>TypeScript implementation of the <a href="https://modelcontextprotocol.io">Model Context Protocol</a> (MCP), providing both client and server capabilities for integrating with LLM surfaces.</p>
+<h2 id="overview">Overview</h2>
+<p>The Model Context Protocol allows applications to provide context for LLMs in a standardized way, separating the concerns of providing context from the actual LLM interaction. This TypeScript SDK implements the full MCP specification, making it easy to:</p>
+<ul>
+<li>Build MCP clients that can connect to any MCP server</li>
+<li>Create MCP servers that expose resources, prompts and tools</li>
+<li>Use standard transports like stdio and SSE</li>
+<li>Handle all MCP protocol messages and lifecycle events</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<pre class="hljs"><code><div>npm install @modelcontextprotocol/sdk
+</div></code></pre>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="creating-a-client">Creating a Client</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Client } <span class="hljs-keyword">from</span> <span class="hljs-string">"@modelcontextprotocol/sdk/client/index.js"</span>;
+<span class="hljs-keyword">import</span> { StdioClientTransport } <span class="hljs-keyword">from</span> <span class="hljs-string">"@modelcontextprotocol/sdk/client/stdio.js"</span>;
+
+<span class="hljs-keyword">const</span> transport = <span class="hljs-keyword">new</span> StdioClientTransport({
+  command: <span class="hljs-string">"path/to/server"</span>,
+});
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> Client({
+  name: <span class="hljs-string">"example-client"</span>,
+  version: <span class="hljs-string">"1.0.0"</span>,
+}, {
+  capabilities: {}
+});
+
+<span class="hljs-keyword">await</span> client.connect(transport);
+
+<span class="hljs-comment">// List available resources</span>
+<span class="hljs-keyword">const</span> resources = <span class="hljs-keyword">await</span> client.request(
+  { method: <span class="hljs-string">"resources/list"</span> },
+  ListResourcesResultSchema
+);
+
+<span class="hljs-comment">// Read a specific resource</span>
+<span class="hljs-keyword">const</span> resourceContent = <span class="hljs-keyword">await</span> client.request(
+  {
+    method: <span class="hljs-string">"resources/read"</span>,
+    params: {
+      uri: <span class="hljs-string">"file:///example.txt"</span>
+    }
+  },
+  ReadResourceResultSchema
+);
+</div></code></pre>
+<h3 id="creating-a-server">Creating a Server</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Server } <span class="hljs-keyword">from</span> <span class="hljs-string">"@modelcontextprotocol/sdk/server/index.js"</span>;
+<span class="hljs-keyword">import</span> { StdioServerTransport } <span class="hljs-keyword">from</span> <span class="hljs-string">"@modelcontextprotocol/sdk/server/stdio.js"</span>;
+
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> Server({
+  name: <span class="hljs-string">"example-server"</span>,
+  version: <span class="hljs-string">"1.0.0"</span>,
+}, {
+  capabilities: {
+    resources: {}
+  }
+});
+
+server.setRequestHandler(ListResourcesRequestSchema, <span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">return</span> {
+    resources: [
+      {
+        uri: <span class="hljs-string">"file:///example.txt"</span>,
+        name: <span class="hljs-string">"Example Resource"</span>,
+      },
+    ],
+  };
+});
+
+server.setRequestHandler(ReadResourceRequestSchema, <span class="hljs-keyword">async</span> (request) =&gt; {
+  <span class="hljs-keyword">if</span> (request.params.uri === <span class="hljs-string">"file:///example.txt"</span>) {
+    <span class="hljs-keyword">return</span> {
+      contents: [
+        {
+          uri: <span class="hljs-string">"file:///example.txt"</span>,
+          mimeType: <span class="hljs-string">"text/plain"</span>,
+          text: <span class="hljs-string">"This is the content of the example resource."</span>,
+        },
+      ],
+    };
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"Resource not found"</span>);
+  }
+});
+
+<span class="hljs-keyword">const</span> transport = <span class="hljs-keyword">new</span> StdioServerTransport();
+<span class="hljs-keyword">await</span> server.connect(transport);
+</div></code></pre>
+<h2 id="documentation">Documentation</h2>
+<ul>
+<li><a href="https://modelcontextprotocol.io">Model Context Protocol documentation</a></li>
+<li><a href="https://spec.modelcontextprotocol.io">MCP Specification</a></li>
+<li><a href="https://github.com/modelcontextprotocol/servers">Example Servers</a></li>
+</ul>
+<h2 id="contributing">Contributing</h2>
+<p>Issues and pull requests are welcome on GitHub at https://github.com/modelcontextprotocol/typescript-sdk.</p>
+<h2 id="license">License</h2>
+<p>This project is licensed under the MIT License—see the <a href="LICENSE">LICENSE</a> file for details.</p>
+
+</body>
+</html>

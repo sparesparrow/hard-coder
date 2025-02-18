@@ -1,0 +1,353 @@
+2025-02-17 23:09:10 [    INFO] Starting test execution (run_tests.py:32)
+2025-02-17 23:09:12 [    INFO] Started monitoring service: ScreenshotService (base.py:49)
+2025-02-17 23:09:12 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:09:12 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:09:12 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:09:12 [    INFO] Started monitoring service: NetworkService (base.py:49)
+2025-02-17 23:09:12 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:09:13 [    INFO] Stopped monitoring service: NetworkService (base.py:61)
+2025-02-17 23:09:13 [    INFO] Stopped monitoring service: NetworkService (base.py:61)
+2025-02-17 23:09:13 [    INFO] Started monitoring service: ClipboardService (base.py:49)
+2025-02-17 23:09:13 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:09:13 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:09:13 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:09:13 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:09:13 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:09:13 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:09:13 [    INFO] Stopped monitoring service: ClipboardService (base.py:61)
+2025-02-17 23:09:13 [    INFO] Stopped monitoring service: ClipboardService (base.py:61)
+2025-02-17 23:09:13 [    INFO] Stopped monitoring service: ClipboardService (base.py:61)
+2025-02-17 23:09:13 [   ERROR] monitoring_config must be a dictionary (workflows.py:35)
+2025-02-17 23:09:13 [   ERROR] enabled_services must be a list (workflows.py:40)
+2025-02-17 23:09:13 [   ERROR] Missing configuration for service: screenshot (workflows.py:47)
+2025-02-17 23:09:13 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:09:13 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:09:13 [    INFO] Initialized clipboard service (workflows.py:100)
+2025-02-17 23:09:13 [   ERROR] Error executing workflow: Unknown service: invalid_service (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 90, in _initialize_services
+    raise ValueError(f"Unknown service: {service_name}")
+ValueError: Unknown service: invalid_service
+2025-02-17 23:09:13 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:09:13 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:09:13 [    INFO] Stopping clipboard service (workflows.py:134)
+2025-02-17 23:09:13 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:09:13 [    INFO] Stopped monitoring service: NetworkService (base.py:61)
+2025-02-17 23:09:13 [    INFO] Stopped monitoring service: ClipboardService (base.py:61)
+2025-02-17 23:09:13 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:09:13 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:09:13 [    INFO] Initialized clipboard service (workflows.py:100)
+2025-02-17 23:09:13 [    INFO] Starting screenshot service (workflows.py:117)
+2025-02-17 23:09:13 [    INFO] Starting network service (workflows.py:117)
+2025-02-17 23:09:13 [    INFO] Starting clipboard service (workflows.py:117)
+2025-02-17 23:09:13 [    INFO] Started monitoring service: ScreenshotService (base.py:49)
+2025-02-17 23:09:13 [    INFO] Started monitoring service: NetworkService (base.py:49)
+2025-02-17 23:09:13 [    INFO] Started monitoring service: ClipboardService (base.py:49)
+2025-02-17 23:09:13 [   ERROR] Error in monitoring loop: name 'ResourceExhaustion' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 68, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 98, in _check_resource_usage
+    raise ResourceExhaustion(
+          ^^^^^^^^^^^^^^^^^^
+NameError: name 'ResourceExhaustion' is not defined
+2025-02-17 23:09:14 [   ERROR] Error in monitoring loop: name 'ResourceExhaustion' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 68, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 98, in _check_resource_usage
+    raise ResourceExhaustion(
+          ^^^^^^^^^^^^^^^^^^
+NameError: name 'ResourceExhaustion' is not defined
+2025-02-17 23:09:14 [   ERROR] Error in monitoring loop: name 'ResourceExhaustion' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 68, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 98, in _check_resource_usage
+    raise ResourceExhaustion(
+          ^^^^^^^^^^^^^^^^^^
+NameError: name 'ResourceExhaustion' is not defined
+2025-02-17 23:09:14 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:09:14 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:09:14 [    INFO] Stopping clipboard service (workflows.py:134)
+2025-02-17 23:09:14 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:09:14 [    INFO] Stopped monitoring service: NetworkService (base.py:61)
+2025-02-17 23:09:14 [    INFO] Stopped monitoring service: ClipboardService (base.py:61)
+2025-02-17 23:09:14 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:09:14 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:09:14 [    INFO] Initialized clipboard service (workflows.py:100)
+2025-02-17 23:09:14 [    INFO] Starting screenshot service (workflows.py:117)
+2025-02-17 23:09:14 [    INFO] Starting network service (workflows.py:117)
+2025-02-17 23:09:14 [    INFO] Starting clipboard service (workflows.py:117)
+2025-02-17 23:09:14 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:09:14 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:09:14 [    INFO] Initialized clipboard service (workflows.py:100)
+2025-02-17 23:09:14 [    INFO] Starting screenshot service (workflows.py:117)
+2025-02-17 23:09:14 [    INFO] Starting network service (workflows.py:117)
+2025-02-17 23:09:14 [    INFO] Starting clipboard service (workflows.py:117)
+2025-02-17 23:09:14 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:09:14 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:09:14 [    INFO] Initialized clipboard service (workflows.py:100)
+2025-02-17 23:09:14 [    INFO] Starting screenshot service (workflows.py:117)
+2025-02-17 23:09:14 [    INFO] Starting network service (workflows.py:117)
+2025-02-17 23:09:14 [    INFO] Starting clipboard service (workflows.py:117)
+2025-02-17 23:09:14 [    INFO] Started monitoring service: ScreenshotService (base.py:49)
+2025-02-17 23:09:14 [    INFO] Started monitoring service: NetworkService (base.py:49)
+2025-02-17 23:09:14 [    INFO] Started monitoring service: ClipboardService (base.py:49)
+2025-02-17 23:09:14 [    INFO] Started monitoring service: ScreenshotService (base.py:49)
+2025-02-17 23:09:14 [    INFO] Started monitoring service: NetworkService (base.py:49)
+2025-02-17 23:09:14 [    INFO] Started monitoring service: ClipboardService (base.py:49)
+2025-02-17 23:09:14 [    INFO] Started monitoring service: ScreenshotService (base.py:49)
+2025-02-17 23:09:14 [    INFO] Started monitoring service: NetworkService (base.py:49)
+2025-02-17 23:09:14 [    INFO] Started monitoring service: ClipboardService (base.py:49)
+2025-02-17 23:09:14 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:09:14 [   ERROR] Error in monitoring loop: name 'ResourceExhaustion' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 68, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 98, in _check_resource_usage
+    raise ResourceExhaustion(
+          ^^^^^^^^^^^^^^^^^^
+NameError: name 'ResourceExhaustion' is not defined
+2025-02-17 23:09:14 [   ERROR] Error in monitoring loop: name 'ResourceExhaustion' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 68, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 98, in _check_resource_usage
+    raise ResourceExhaustion(
+          ^^^^^^^^^^^^^^^^^^
+NameError: name 'ResourceExhaustion' is not defined
+2025-02-17 23:09:15 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:09:15 [   ERROR] Error in monitoring loop: name 'ResourceExhaustion' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 68, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 98, in _check_resource_usage
+    raise ResourceExhaustion(
+          ^^^^^^^^^^^^^^^^^^
+NameError: name 'ResourceExhaustion' is not defined
+2025-02-17 23:09:15 [   ERROR] Error in monitoring loop: name 'ResourceExhaustion' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 68, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 98, in _check_resource_usage
+    raise ResourceExhaustion(
+          ^^^^^^^^^^^^^^^^^^
+NameError: name 'ResourceExhaustion' is not defined
+2025-02-17 23:09:15 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:09:15 [   ERROR] Error in monitoring loop: name 'ResourceExhaustion' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 68, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 98, in _check_resource_usage
+    raise ResourceExhaustion(
+          ^^^^^^^^^^^^^^^^^^
+NameError: name 'ResourceExhaustion' is not defined
+2025-02-17 23:09:15 [   ERROR] Error in monitoring loop: name 'ResourceExhaustion' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 68, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 98, in _check_resource_usage
+    raise ResourceExhaustion(
+          ^^^^^^^^^^^^^^^^^^
+NameError: name 'ResourceExhaustion' is not defined
+2025-02-17 23:09:15 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:09:15 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:09:15 [    INFO] Stopping clipboard service (workflows.py:134)
+2025-02-17 23:09:15 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:09:15 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:09:15 [    INFO] Stopping clipboard service (workflows.py:134)
+2025-02-17 23:09:15 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:09:15 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:09:15 [    INFO] Stopping clipboard service (workflows.py:134)
+2025-02-17 23:09:15 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:09:15 [    INFO] Stopped monitoring service: NetworkService (base.py:61)
+2025-02-17 23:09:15 [    INFO] Stopped monitoring service: ClipboardService (base.py:61)
+2025-02-17 23:09:15 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:09:15 [    INFO] Stopped monitoring service: NetworkService (base.py:61)
+2025-02-17 23:09:15 [    INFO] Stopped monitoring service: ClipboardService (base.py:61)
+2025-02-17 23:09:15 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:09:15 [    INFO] Stopped monitoring service: NetworkService (base.py:61)
+2025-02-17 23:09:15 [    INFO] Stopped monitoring service: ClipboardService (base.py:61)
+2025-02-17 23:09:15 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:09:15 [   ERROR] Error initializing network service: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:09:15 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:09:15 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:09:15 [   ERROR] Error executing workflow: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:09:15 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:09:15 [   ERROR] Error initializing network service: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:09:15 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:09:15 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:09:15 [   ERROR] Error executing workflow: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:09:15 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:09:15 [   ERROR] Error initializing network service: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:09:15 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:09:15 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:09:15 [   ERROR] Error executing workflow: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:09:15 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:09:15 [   ERROR] Error initializing network service: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:09:15 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:09:15 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:09:15 [   ERROR] Error executing workflow: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:09:16 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:09:16 [   ERROR] Error initializing network service: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:09:16 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:09:16 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:09:16 [   ERROR] Error executing workflow: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:09:16 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:09:16 [   ERROR] Error initializing network service: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:09:16 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:09:16 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:09:16 [   ERROR] Error executing workflow: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:09:16 [   ERROR] Some tests failed. Check the log file: test_logs/test_run_20250217_230910.log (run_tests.py:41)

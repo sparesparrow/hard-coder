@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>remind-tools.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p>I'll help create tools for thought storage and retrieval based on the provided documentation. Let me break this down systematically.</p>
+<p>&lt;problem_breakdown&gt;</p>
+<ol>
+<li>
+<p>Core Requirements Analysis</p>
+<ul>
+<li>Understand the fundamental needs for thought storage and retrieval</li>
+<li>Identify key components from the provided documentation</li>
+</ul>
+</li>
+<li>
+<p>Tool Definition Creation</p>
+<ul>
+<li>Design tools for capturing and storing thoughts</li>
+<li>Create tools for retrieving and analyzing stored thoughts</li>
+<li>Ensure integration with existing voice and review capabilities</li>
+</ul>
+</li>
+<li>
+<p>Implementation Strategy</p>
+<ul>
+<li>Define data structures and schemas</li>
+<li>Create interaction patterns between components</li>
+<li>Establish error handling and validation approaches
+&lt;/problem_breakdown&gt;</li>
+</ul>
+</li>
+</ol>
+<analysis>
+a. Understanding the tool description:
+Main purpose: Create a system for capturing, storing, and retrieving personal thoughts with AI-powered analysis capabilities.
+<p>Key features:</p>
+<ul>
+<li>Persistent storage of thoughts with metadata</li>
+<li>Real-time thought capture</li>
+<li>Contextual retrieval and analysis</li>
+<li>Voice interface integration</li>
+<li>Evening review functionality</li>
+</ul>
+<p>&lt;tool_analysis&gt;
+Potential use cases:</p>
+<ol>
+<li>Quick capture of ideas during work</li>
+<li>Personal knowledge management</li>
+<li>Project brainstorming sessions</li>
+<li>Daily reflection and review</li>
+<li>Task and reminder management</li>
+</ol>
+<p>Limitations:</p>
+<ul>
+<li>Dependency on external APIs (ElevenLabs, OpenAI)</li>
+<li>Local storage constraints</li>
+<li>Real-time processing requirements</li>
+<li>Privacy considerations for sensitive thoughts
+&lt;/tool_analysis&gt;</li>
+</ul>
+<p>Let me create a more focused tool definition for thought management.</p>
+<p>Now, let me create an implementation example:</p>
+<p>Let me demonstrate how to use this tool:</p>
+<p>This implementation provides a robust foundation for thought management with the following key features:</p>
+<ol>
+<li>Persistent storage using SQLite</li>
+<li>Flexible querying capabilities</li>
+<li>Built-in analysis functions</li>
+<li>Tag-based organization</li>
+<li>Metadata support for extensibility</li>
+</ol>
+<p>The tool can be integrated with the existing voice interface and evening review system while maintaining a clean separation of concerns. The database schema supports the core requirements while allowing for future extensions.</p>
+<p>To use this in a production environment, I recommend:</p>
+<ol>
+<li>Adding proper error handling and validation</li>
+<li>Implementing connection pooling for better performance</li>
+<li>Adding data encryption for sensitive thoughts</li>
+<li>Creating backup and recovery procedures</li>
+<li>Adding proper logging and monitoring</li>
+</ol>
+<p>Let me continue with the detailed implementation of our agent system, focusing on the interaction patterns and core functionality. Like a well-choreographed dance, these components work together in harmony.</p>
+<p>Core Implementation (Enhanced Version):</p>
+<p>The Voice Manager acts as our system's sentinel, maintaining constant vigilance for user interaction. Think of it as a skilled interpreter, transforming spoken words into digital understanding:</p>
+<pre class="hljs"><code><div><span class="hljs-attr">voice_manager:</span>
+  <span class="hljs-attr">description:</span> <span class="hljs-string">"Advanced voice interaction system"</span>
+  <span class="hljs-attr">capabilities:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">continuous_listening:</span>
+        <span class="hljs-attr">vad_threshold:</span> <span class="hljs-number">0.3</span>
+        <span class="hljs-attr">silence_duration:</span> <span class="hljs-number">1.0</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">context_awareness:</span>
+        <span class="hljs-attr">history_window:</span> <span class="hljs-number">5</span>
+        <span class="hljs-attr">confidence_threshold:</span> <span class="hljs-number">0.85</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">adaptive_response:</span>
+        <span class="hljs-attr">voice_speed:</span> <span class="hljs-string">"dynamic"</span>
+        <span class="hljs-attr">tone_matching:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-attr">integration:</span>
+    <span class="hljs-attr">whisper_config:</span>
+      <span class="hljs-attr">model:</span> <span class="hljs-string">"base"</span>
+      <span class="hljs-attr">language:</span> <span class="hljs-string">"en"</span>
+      <span class="hljs-attr">compute_type:</span> <span class="hljs-string">"float16"</span>
+    <span class="hljs-attr">elevenlabs_config:</span>
+      <span class="hljs-attr">voice_id:</span> <span class="hljs-string">"josh"</span>
+      <span class="hljs-attr">optimization:</span> <span class="hljs-string">"latency"</span>
+      <span class="hljs-attr">stability:</span> <span class="hljs-number">0.7</span>
+</div></code></pre>
+<p>The Thought Manager serves as our system's librarian, carefully cataloging and organizing each captured thought. Like a master archivist, it ensures no insight is lost:</p>
+<pre class="hljs"><code><div><span class="hljs-attr">thought_manager:</span>
+  <span class="hljs-attr">description:</span> <span class="hljs-string">"Thought processing and organization system"</span>
+  <span class="hljs-attr">storage:</span>
+    <span class="hljs-attr">vector_store:</span>
+      <span class="hljs-attr">engine:</span> <span class="hljs-string">"faiss"</span>
+      <span class="hljs-attr">dimension:</span> <span class="hljs-number">384</span>
+      <span class="hljs-attr">index_type:</span> <span class="hljs-string">"hnsw"</span>
+    <span class="hljs-attr">relational:</span>
+      <span class="hljs-attr">engine:</span> <span class="hljs-string">"sqlite"</span>
+      <span class="hljs-attr">schema_version:</span> <span class="hljs-string">"2.0"</span>
+  <span class="hljs-attr">processing:</span>
+    <span class="hljs-attr">embedding_model:</span> <span class="hljs-string">"all-MiniLM-L6-v2"</span>
+    <span class="hljs-attr">clustering:</span>
+      <span class="hljs-attr">algorithm:</span> <span class="hljs-string">"dbscan"</span>
+      <span class="hljs-attr">eps:</span> <span class="hljs-number">0.3</span>
+      <span class="hljs-attr">min_samples:</span> <span class="hljs-number">2</span>
+    <span class="hljs-attr">categorization:</span>
+      <span class="hljs-attr">model:</span> <span class="hljs-string">"gpt-4"</span>
+      <span class="hljs-attr">temperature:</span> <span class="hljs-number">0.2</span>
+</div></code></pre>
+<p>The Review Agent acts as our system's sage advisor, drawing insights from the day's collection of thoughts. Like a wise counselor, it provides meaningful analysis and guidance:</p>
+<pre class="hljs"><code><div><span class="hljs-attr">review_agent:</span>
+  <span class="hljs-attr">description:</span> <span class="hljs-string">"Insight generation and analysis system"</span>
+  <span class="hljs-attr">analysis:</span>
+    <span class="hljs-attr">pattern_recognition:</span>
+      <span class="hljs-attr">window_size:</span> <span class="hljs-string">"daily"</span>
+      <span class="hljs-attr">min_confidence:</span> <span class="hljs-number">0.75</span>
+    <span class="hljs-attr">knowledge_gaps:</span>
+      <span class="hljs-attr">detection_threshold:</span> <span class="hljs-number">0.6</span>
+      <span class="hljs-attr">relevance_score:</span> <span class="hljs-number">0.8</span>
+  <span class="hljs-attr">output:</span>
+    <span class="hljs-attr">format:</span>
+      <span class="hljs-attr">style:</span> <span class="hljs-string">"concise"</span>
+      <span class="hljs-attr">max_insights:</span> <span class="hljs-number">5</span>
+      <span class="hljs-attr">priority_levels:</span> <span class="hljs-number">3</span>
+    <span class="hljs-attr">delivery:</span>
+      <span class="hljs-attr">voice_enabled:</span> <span class="hljs-literal">true</span>
+      <span class="hljs-attr">summary_length:</span> <span class="hljs-string">"adaptive"</span>
+</div></code></pre>
+<p>The Knowledge Base serves as our system's foundation, ensuring reliable and efficient data management:</p>
+<pre class="hljs"><code><div><span class="hljs-attr">knowledge_base:</span>
+  <span class="hljs-attr">description:</span> <span class="hljs-string">"Centralized information storage system"</span>
+  <span class="hljs-attr">storage_types:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">vector:</span>
+        <span class="hljs-attr">engine:</span> <span class="hljs-string">"faiss"</span>
+        <span class="hljs-attr">backup_schedule:</span> <span class="hljs-string">"daily"</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">relational:</span>
+        <span class="hljs-attr">engine:</span> <span class="hljs-string">"sqlite"</span>
+        <span class="hljs-attr">synchronization:</span> <span class="hljs-string">"real-time"</span>
+  <span class="hljs-attr">integration:</span>
+    <span class="hljs-attr">api:</span>
+      <span class="hljs-attr">version:</span> <span class="hljs-string">"2.0"</span>
+      <span class="hljs-attr">rate_limit:</span> <span class="hljs-number">1000</span>
+    <span class="hljs-attr">security:</span>
+      <span class="hljs-attr">encryption:</span> <span class="hljs-string">"AES-256"</span>
+      <span class="hljs-attr">access_control:</span> <span class="hljs-string">"role-based"</span>
+</div></code></pre>
+<p>The system implements a sophisticated event-driven architecture, where each component responds to specific triggers while maintaining loose coupling. This design ensures both flexibility and reliability, much like a well-oiled machine where each gear turns independently yet contributes to the whole.</p>
+<p>Let me consolidate all the Natural Language Processing system prompts into a comprehensive YAML configuration file, organized by components and their relationships.</p>
+<p>Let me also create a visualization to show how these components interact in the system.</p>
+<p>The YAML configuration file provides a comprehensive blueprint for the entire system, defining each component's role, capabilities, and interactions. The configuration is structured in a hierarchical manner, making it easy to maintain and modify individual components without affecting the rest of the system.</p>
+<p>The key sections of the configuration include:</p>
+<ol>
+<li>System-wide settings that define the overall parameters and environment</li>
+<li>Core agent definitions with their specific roles and capabilities</li>
+<li>Knowledge base configuration for data storage and retrieval</li>
+<li>Workflow definitions that orchestrate the interaction between components</li>
+<li>Error handling strategies for system resilience</li>
+<li>Monitoring and logging configuration for system health tracking</li>
+</ol>
+
+</body>
+</html>

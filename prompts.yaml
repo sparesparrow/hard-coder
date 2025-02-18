@@ -1,0 +1,17 @@
+chat:
+  - Focus on project at {{project}}
+  - Review @Codebase - identify the idea & goal, learn documentation, identify design patterns in source code and list the capabilities of current state of the application, how to build it and run tests, and then Create a plan how to approach further development, prioritizing most critical bug fixes and simple implementations over complex and risky scenarios that usually require further splitting into multiple sequential tasks to implement
+  - Review @Codebase - identify the idea & goal, learn documentation, identify design patterns in source code and list the capabilities of current state of the application, how to build it and run tests, and then update @TODO.txt  TODO.txt file, matching it with@Codebaseand your suggestions. then Create a plan how to approach the tasks described in the file, in form of instructions for the Composer Agent who's task is to actually implement the tasks step-by-step
+composer:
+  - Proceed iteratively on recommended next steps. Ensure proper testing after each new feature is added before continuing to the next feature implementation. However, in case the testing brings struggle that is hard to resolve, then put a note to @TODO.txt file.
+  - Review codebase and reconsider which implementations are missing and are most critical, then prepare a plan for further implementation or refactoring
+  - The @dev folder contains the files in development that were not yet integrated into any project (typically in @Projects folder). Please delete files once integrated into a project
+  - Review @TODO.txt file, match it with actual @Codebase and implement the tasks step-by-step
+  - Proceed with implementation & refactoring, and update documentation with the new changes
+
+
+reasoning:
+    - Break down the current module architecture; identify any circular dependencies, and suggest specific design improvements.
+    - Decompose the monolithic function in module A into smaller, testable units; detail each step to improve maintainability.
+    - Assess how errors propagate in the system; identify inconsistencies and propose corrections for robust handling.
+    - Examine the interaction between {{components}} pinpoint integration issues and outline a step-by-step resolution plan.

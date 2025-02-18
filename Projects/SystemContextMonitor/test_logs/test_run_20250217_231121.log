@@ -1,0 +1,189 @@
+2025-02-17 23:11:21 [    INFO] Starting test execution (run_tests.py:32)
+2025-02-17 23:11:23 [    INFO] Started monitoring service: ScreenshotService (base.py:53)
+2025-02-17 23:11:23 [    INFO] Stopped monitoring service: ScreenshotService (base.py:65)
+2025-02-17 23:11:23 [    INFO] Stopped monitoring service: ScreenshotService (base.py:65)
+2025-02-17 23:11:23 [    INFO] Started monitoring service: NetworkService (base.py:53)
+2025-02-17 23:11:23 [    INFO] Stopped monitoring service: NetworkService (base.py:65)
+2025-02-17 23:11:23 [    INFO] Stopped monitoring service: NetworkService (base.py:65)
+2025-02-17 23:11:23 [    INFO] Started monitoring service: ClipboardService (base.py:53)
+2025-02-17 23:11:24 [    INFO] Stopped monitoring service: ClipboardService (base.py:65)
+2025-02-17 23:11:24 [    INFO] Stopped monitoring service: ClipboardService (base.py:65)
+2025-02-17 23:11:24 [    INFO] Stopped monitoring service: ClipboardService (base.py:65)
+2025-02-17 23:11:24 [   ERROR] monitoring_config must be a dictionary (workflows.py:35)
+2025-02-17 23:11:24 [   ERROR] enabled_services must be a list (workflows.py:40)
+2025-02-17 23:11:24 [   ERROR] Missing configuration for service: screenshot (workflows.py:47)
+2025-02-17 23:11:24 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:11:24 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:11:24 [    INFO] Initialized clipboard service (workflows.py:100)
+2025-02-17 23:11:24 [   ERROR] Error executing workflow: Unknown service: invalid_service (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 90, in _initialize_services
+    raise ValueError(f"Unknown service: {service_name}")
+ValueError: Unknown service: invalid_service
+2025-02-17 23:11:24 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:11:24 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:11:24 [    INFO] Stopping clipboard service (workflows.py:134)
+2025-02-17 23:11:24 [    INFO] Stopped monitoring service: ScreenshotService (base.py:65)
+2025-02-17 23:11:24 [    INFO] Stopped monitoring service: NetworkService (base.py:65)
+2025-02-17 23:11:24 [    INFO] Stopped monitoring service: ClipboardService (base.py:65)
+2025-02-17 23:11:24 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:11:24 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:11:24 [    INFO] Initialized clipboard service (workflows.py:100)
+2025-02-17 23:11:24 [    INFO] Starting screenshot service (workflows.py:117)
+2025-02-17 23:11:24 [    INFO] Starting network service (workflows.py:117)
+2025-02-17 23:11:24 [    INFO] Starting clipboard service (workflows.py:117)
+2025-02-17 23:11:24 [    INFO] Started monitoring service: ScreenshotService (base.py:53)
+2025-02-17 23:11:24 [    INFO] Started monitoring service: NetworkService (base.py:53)
+2025-02-17 23:11:24 [    INFO] Started monitoring service: ClipboardService (base.py:53)
+2025-02-17 23:11:24 [   ERROR] Error in monitoring loop: Resource limit exceeded for memory_mb: 81.1328125 > 1 (base.py:89)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 72, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 102, in _check_resource_usage
+    raise ResourceExhaustion(
+services.monitoring.base.ResourceExhaustion: Resource limit exceeded for memory_mb: 81.1328125 > 1
+2025-02-17 23:11:24 [   ERROR] Error in monitoring loop: Resource limit exceeded for memory_mb: 81.1328125 > 50 (base.py:89)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 72, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 102, in _check_resource_usage
+    raise ResourceExhaustion(
+services.monitoring.base.ResourceExhaustion: Resource limit exceeded for memory_mb: 81.1328125 > 50
+2025-02-17 23:11:24 [   ERROR] Error in monitoring loop: Resource limit exceeded for memory_mb: 81.1328125 > 20 (base.py:89)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 72, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 102, in _check_resource_usage
+    raise ResourceExhaustion(
+services.monitoring.base.ResourceExhaustion: Resource limit exceeded for memory_mb: 81.1328125 > 20
+2025-02-17 23:11:25 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:11:25 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:11:25 [    INFO] Stopping clipboard service (workflows.py:134)
+2025-02-17 23:11:25 [    INFO] Stopped monitoring service: ScreenshotService (base.py:65)
+2025-02-17 23:11:25 [    INFO] Stopped monitoring service: NetworkService (base.py:65)
+2025-02-17 23:11:25 [    INFO] Stopped monitoring service: ClipboardService (base.py:65)
+2025-02-17 23:11:25 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:11:25 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:11:25 [    INFO] Initialized clipboard service (workflows.py:100)
+2025-02-17 23:11:25 [    INFO] Starting screenshot service (workflows.py:117)
+2025-02-17 23:11:25 [    INFO] Starting network service (workflows.py:117)
+2025-02-17 23:11:25 [    INFO] Starting clipboard service (workflows.py:117)
+2025-02-17 23:11:25 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:11:25 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:11:25 [    INFO] Initialized clipboard service (workflows.py:100)
+2025-02-17 23:11:25 [    INFO] Starting screenshot service (workflows.py:117)
+2025-02-17 23:11:25 [    INFO] Starting network service (workflows.py:117)
+2025-02-17 23:11:25 [    INFO] Starting clipboard service (workflows.py:117)
+2025-02-17 23:11:25 [    INFO] Started monitoring service: ScreenshotService (base.py:53)
+2025-02-17 23:11:25 [    INFO] Started monitoring service: NetworkService (base.py:53)
+2025-02-17 23:11:25 [    INFO] Started monitoring service: ClipboardService (base.py:53)
+2025-02-17 23:11:25 [    INFO] Started monitoring service: ScreenshotService (base.py:53)
+2025-02-17 23:11:25 [    INFO] Started monitoring service: NetworkService (base.py:53)
+2025-02-17 23:11:25 [    INFO] Started monitoring service: ClipboardService (base.py:53)
+2025-02-17 23:11:25 [   ERROR] Error in monitoring loop: Resource limit exceeded for memory_mb: 81.64453125 > 50 (base.py:89)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 72, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 102, in _check_resource_usage
+    raise ResourceExhaustion(
+services.monitoring.base.ResourceExhaustion: Resource limit exceeded for memory_mb: 81.64453125 > 50
+2025-02-17 23:11:25 [   ERROR] Error in monitoring loop: Resource limit exceeded for memory_mb: 81.64453125 > 20 (base.py:89)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 72, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 102, in _check_resource_usage
+    raise ResourceExhaustion(
+services.monitoring.base.ResourceExhaustion: Resource limit exceeded for memory_mb: 81.64453125 > 20
+2025-02-17 23:11:25 [   ERROR] Error in monitoring loop: Resource limit exceeded for memory_mb: 81.765625 > 50 (base.py:89)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 72, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 102, in _check_resource_usage
+    raise ResourceExhaustion(
+services.monitoring.base.ResourceExhaustion: Resource limit exceeded for memory_mb: 81.765625 > 50
+2025-02-17 23:11:25 [   ERROR] Error in monitoring loop: Resource limit exceeded for memory_mb: 81.765625 > 20 (base.py:89)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 72, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 102, in _check_resource_usage
+    raise ResourceExhaustion(
+services.monitoring.base.ResourceExhaustion: Resource limit exceeded for memory_mb: 81.765625 > 20
+2025-02-17 23:11:26 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:11:26 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:11:26 [    INFO] Stopping clipboard service (workflows.py:134)
+2025-02-17 23:11:26 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:11:26 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:11:26 [    INFO] Stopping clipboard service (workflows.py:134)
+2025-02-17 23:11:26 [    INFO] Stopped monitoring service: ScreenshotService (base.py:65)
+2025-02-17 23:11:26 [    INFO] Stopped monitoring service: NetworkService (base.py:65)
+2025-02-17 23:11:26 [    INFO] Stopped monitoring service: ClipboardService (base.py:65)
+2025-02-17 23:11:26 [    INFO] Stopped monitoring service: ScreenshotService (base.py:65)
+2025-02-17 23:11:26 [    INFO] Stopped monitoring service: NetworkService (base.py:65)
+2025-02-17 23:11:26 [    INFO] Stopped monitoring service: ClipboardService (base.py:65)
+2025-02-17 23:11:26 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:11:26 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:11:26 [    INFO] Starting screenshot service (workflows.py:117)
+2025-02-17 23:11:26 [    INFO] Starting network service (workflows.py:117)
+2025-02-17 23:11:26 [    INFO] Started monitoring service: ScreenshotService (base.py:53)
+2025-02-17 23:11:26 [    INFO] Started monitoring service: NetworkService (base.py:53)
+2025-02-17 23:11:26 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:11:26 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:11:26 [    INFO] Stopped monitoring service: ScreenshotService (base.py:65)
+2025-02-17 23:11:26 [    INFO] Stopped monitoring service: NetworkService (base.py:65)
+2025-02-17 23:11:26 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:11:26 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:11:26 [    INFO] Starting screenshot service (workflows.py:117)
+2025-02-17 23:11:26 [    INFO] Starting network service (workflows.py:117)
+2025-02-17 23:11:26 [    INFO] Started monitoring service: ScreenshotService (base.py:53)
+2025-02-17 23:11:26 [    INFO] Started monitoring service: NetworkService (base.py:53)
+2025-02-17 23:11:27 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:11:27 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:11:27 [    INFO] Stopped monitoring service: ScreenshotService (base.py:65)
+2025-02-17 23:11:27 [    INFO] Stopped monitoring service: NetworkService (base.py:65)
+2025-02-17 23:11:27 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:11:27 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:11:27 [    INFO] Starting screenshot service (workflows.py:117)
+2025-02-17 23:11:27 [    INFO] Starting network service (workflows.py:117)
+2025-02-17 23:11:27 [    INFO] Started monitoring service: ScreenshotService (base.py:53)
+2025-02-17 23:11:27 [    INFO] Started monitoring service: NetworkService (base.py:53)
+2025-02-17 23:11:28 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:11:28 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:11:28 [    INFO] Stopped monitoring service: ScreenshotService (base.py:65)
+2025-02-17 23:11:28 [    INFO] Stopped monitoring service: NetworkService (base.py:65)
+2025-02-17 23:11:28 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:11:28 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:11:28 [    INFO] Starting screenshot service (workflows.py:117)
+2025-02-17 23:11:28 [    INFO] Starting network service (workflows.py:117)
+2025-02-17 23:11:28 [    INFO] Started monitoring service: ScreenshotService (base.py:53)
+2025-02-17 23:11:28 [    INFO] Started monitoring service: NetworkService (base.py:53)
+2025-02-17 23:11:28 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:11:28 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:11:28 [    INFO] Stopped monitoring service: ScreenshotService (base.py:65)
+2025-02-17 23:11:28 [    INFO] Stopped monitoring service: NetworkService (base.py:65)
+2025-02-17 23:11:28 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:11:28 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:11:28 [    INFO] Starting screenshot service (workflows.py:117)
+2025-02-17 23:11:28 [    INFO] Starting network service (workflows.py:117)
+2025-02-17 23:11:28 [    INFO] Started monitoring service: ScreenshotService (base.py:53)
+2025-02-17 23:11:28 [    INFO] Started monitoring service: NetworkService (base.py:53)
+2025-02-17 23:11:29 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:11:29 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:11:29 [    INFO] Stopped monitoring service: ScreenshotService (base.py:65)
+2025-02-17 23:11:29 [    INFO] Stopped monitoring service: NetworkService (base.py:65)
+2025-02-17 23:11:29 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:11:29 [    INFO] Initialized network service (workflows.py:100)
+2025-02-17 23:11:29 [    INFO] Starting screenshot service (workflows.py:117)
+2025-02-17 23:11:29 [    INFO] Starting network service (workflows.py:117)
+2025-02-17 23:11:29 [    INFO] Started monitoring service: ScreenshotService (base.py:53)
+2025-02-17 23:11:29 [    INFO] Started monitoring service: NetworkService (base.py:53)
+2025-02-17 23:11:30 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:11:30 [    INFO] Stopping network service (workflows.py:134)
+2025-02-17 23:11:30 [   ERROR] Task was destroyed but it is pending!
+task: <Task cancelling name='Task-173' coro=<MonitoringService._monitoring_loop() running at /home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py:92> wait_for=<Future cancelled> cb=[Task.task_wakeup()]> (base_events.py:1821)
+2025-02-17 23:11:30 [   ERROR] Task was destroyed but it is pending!
+task: <Task cancelling name='Task-172' coro=<MonitoringService._monitoring_loop() running at /home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py:92> wait_for=<Future cancelled> cb=[Task.task_wakeup()]> (base_events.py:1821)
+2025-02-17 23:11:30 [   ERROR] Task was destroyed but it is pending!
+task: <Task pending name='Task-174' coro=<SystemMonitoringWorkflow._cleanup() running at /home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py:139> wait_for=<_GatheringFuture pending cb=[Task.task_wakeup()]>> (base_events.py:1821)
+2025-02-17 23:11:30 [   ERROR] Some tests failed. Check the log file: test_logs/test_run_20250217_231121.log (run_tests.py:41)

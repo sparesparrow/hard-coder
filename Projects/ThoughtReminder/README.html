@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p>my idea is to make the assistant talk on his own,  needing no more than my agreement or disagreement to continue. the assistant will have two main functions:</p>
+<ol>
+<li>
+<p>be (always) ready to write down my ideas or questions. but no need to answer them now. just store them for later, so that I (meaning I as a user) won't forget them, making me I iteratively add updates to my thoughts even while travelling or in a hurry</p>
+</li>
+<li>
+<p>at the evening, assistant will remind me my thoughts and propose suggestions for improvements or what deserves a proper explanation and additional knowledge learning</p>
+</li>
+</ol>
+<h2 id="architektura-asistenta">Architektura Asistenta</h2>
+<h2 id="hlavn%C3%AD-funkce">Hlavní Funkce</h2>
+<p><strong>Sběrač Myšlenek</strong></p>
+<ul>
+<li>Nepřetržitě naslouchá hlasovým vstupům</li>
+<li>Automaticky detekuje když uživatel začne mluvit</li>
+<li>Minimální latence (cíl ~600ms)</li>
+<li>Ukládá myšlenky do strukturované databáze</li>
+<li>Přidává časové značky a kontext</li>
+</ul>
+<p><strong>Večerní Revize</strong></p>
+<ul>
+<li>Proaktivně připomíná uložené myšlenky</li>
+<li>Analyzuje souvislosti mezi myšlenkami</li>
+<li>Navrhuje oblasti pro další rozvoj</li>
+<li>Identifikuje znalostní mezery</li>
+<li>Generuje akční plán</li>
+</ul>
+<h2 id="agenti-a-n%C3%A1stroje">Agenti a Nástroje</h2>
+<p><strong>VoiceAgent</strong></p>
+<pre class="hljs"><code><div><span class="hljs-attr">name:</span> <span class="hljs-string">voice_agent</span>
+<span class="hljs-attr">description:</span> <span class="hljs-string">Zpracování</span> <span class="hljs-string">hlasové</span> <span class="hljs-string">komunikace</span>
+<span class="hljs-attr">capabilities:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">continuous_listening</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">interrupt_handling</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">context_awareness</span>
+<span class="hljs-attr">tools:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">whisper_stt</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">elevenlabs_tts</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">vad_detector</span>
+</div></code></pre>
+<p><strong>ThoughtAgent</strong></p>
+<pre class="hljs"><code><div><span class="hljs-attr">name:</span> <span class="hljs-string">thought_agent</span>
+<span class="hljs-attr">description:</span> <span class="hljs-string">Správa</span> <span class="hljs-string">a</span> <span class="hljs-string">organizace</span> <span class="hljs-string">myšlenek</span>
+<span class="hljs-attr">capabilities:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">thought_categorization</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">context_tracking</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">relationship_mapping</span>
+<span class="hljs-attr">tools:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">vector_database</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">knowledge_graph</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">semantic_search</span>
+</div></code></pre>
+<p><strong>ReviewAgent</strong></p>
+<pre class="hljs"><code><div><span class="hljs-attr">name:</span> <span class="hljs-string">review_agent</span>
+<span class="hljs-attr">description:</span> <span class="hljs-string">Večerní</span> <span class="hljs-string">revize</span> <span class="hljs-string">a</span> <span class="hljs-string">analýza</span>
+<span class="hljs-attr">capabilities:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">pattern_recognition</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">knowledge_gap_analysis</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">action_planning</span>
+<span class="hljs-attr">tools:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">llm_analyzer</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">recommendation_engine</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">task_scheduler</span>
+</div></code></pre>
+<h2 id="interak%C4%8Dn%C3%AD-sc%C3%A9n%C3%A1%C5%99e">Interakční Scénáře</h2>
+<p><strong>Zachycení Myšlenky</strong></p>
+<ol>
+<li>Uživatel začne mluvit</li>
+<li>Systém automaticky aktivuje naslouchání</li>
+<li>Myšlenka je přepsána a uložena</li>
+<li>Minimální potvrzení pro nerušivý průběh</li>
+</ol>
+<p><strong>Večerní Revize</strong></p>
+<ol>
+<li>Systém proaktivně zahájí revizi</li>
+<li>Prezentuje souvislosti mezi myšlenkami</li>
+<li>Navrhuje oblasti pro hlubší prozkoumání</li>
+<li>Vytváří akční plány pro další den</li>
+</ol>
+<h2 id="technick%C3%A9-po%C5%BEadavky">Technické Požadavky</h2>
+<p><strong>Latence a Výkon</strong></p>
+<ul>
+<li>Maximální latence první odpovědi: 600ms</li>
+<li>Průběžné streamování audio vstupu/výstupu</li>
+<li>Efektivní VAD pro přesnou detekci řeči</li>
+<li>Optimalizované TTS pro přirozenou konverzaci</li>
+</ul>
+<p><strong>Soukromí a Bezpečnost</strong></p>
+<ul>
+<li>Lokální zpracování citlivých dat</li>
+<li>Šifrování uložených myšlenek</li>
+<li>Transparentní správa dat</li>
+<li>Možnost exportu a smazání dat</li>
+</ul>
+<p><strong>Základní Komponenty</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Core system architecture</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AssistantCore</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        self.thought_collector = ThoughtCollector()
+        self.evening_reviewer = EveningReviewer()
+        self.voice_interface = VoiceInterface(
+            stt_config=WhisperConfig(vad_enabled=<span class="hljs-literal">True</span>),
+            tts_config=ElevenLabsConfig(latency_optimized=<span class="hljs-literal">True</span>)
+        )
+</div></code></pre>
+<h2 id="implementation"><a href="implementation.md">Implementation</a></h2>
+<h1 id="english">English</h1>
+<h2 id="technical-challenges">Technical Challenges</h2>
+<p><strong>Speech Recognition Issues</strong></p>
+<ul>
+<li>Background noise interference significantly affects transcription accuracy.</li>
+<li>Accents and dialects pose a challenge in accurately recognizing and transcribing speech.</li>
+<li>Speaker identification and tracking in multi-speaker scenarios become problematic.</li>
+<li>Poor audio quality and cross-talk impede accurate conversion.</li>
+</ul>
+<p><strong>Latency Optimization</strong></p>
+<ul>
+<li>Network latency between the application and speech recognition resources is a significant concern for real-time interaction.</li>
+<li>Real-time streaming and processing of audio chunks are necessary for efficient operation.</li>
+<li>Maintaining low latency (around 600ms) while ensuring high accuracy is challenging.</li>
+<li>Audio output format and payload size need optimization for network efficiency.</li>
+</ul>
+<p><strong>Privacy and Security</strong></p>
+<ul>
+<li>Managing sensitive personal data for personalization raises concerns about data storage and potential exploitation.</li>
+<li>Ensuring secure handling of user information while maintaining functionality is crucial.</li>
+</ul>
+<h2 id="user-experience-challenges">User Experience Challenges</h2>
+<p><strong>Natural Conversation Flow</strong></p>
+<ul>
+<li>Maintaining context and handling multi-turn conversations is difficult.</li>
+<li>Seamless interruption handling and proper timing of responses are essential for natural interaction.</li>
+<li>Interactions should feel unobtrusive and natural, resembling human conversation.</li>
+<li>Support for both single-turn and multi-turn conversations is necessary.</li>
+</ul>
+<p><strong>User-Centric Design</strong></p>
+<ul>
+<li>The AI assistant must be designed around user needs, preferences, and limitations.</li>
+<li>Understanding user intentions and creating intuitive conversational flows require extensive user research.</li>
+<li>The interface should support multiple interaction modes (voice, text, gestures) to cater to different preferences and accessibility needs.</li>
+</ul>
+<h2 id="implementation-recommendations">Implementation Recommendations</h2>
+<p><strong>Technical Solutions</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Example of optimized speech recognition setup</span>
+speech_recognizer = speechsdk.SpeechRecognizer(
+    speech_config=speech_config,
+    audio_config=audio_config,
+    auto_detect_source_language_config=auto_detect_source_language_config
+)
+
+<span class="hljs-comment"># Use asynchronous methods for non-blocking operations</span>
+<span class="hljs-keyword">await</span> speech_recognizer.start_continuous_recognition_async()
+</div></code></pre>
+<p><strong>Architecture Considerations</strong></p>
+<ul>
+<li>Implement real-time streaming with small audio chunks to reduce latency.</li>
+<li>Use compressed audio formats to minimize network bandwidth.</li>
+<li>Deploy neural networks for improved speech understanding.</li>
+<li>Utilize machine learning algorithms like CTC and HMMs for better speech recognition.</li>
+</ul>
+<p><strong>User Experience Design</strong></p>
+<ul>
+<li>Focus on utility and natural interaction patterns.</li>
+<li>Design both single and multi-turn conversation flows.</li>
+<li>Implement proactive assistance while ensuring the system remains unobtrusive.</li>
+<li>Ensure the assistant can complete tasks through voice alone.</li>
+</ul>
+<p><strong>Links:</strong>
+[1] https://ai.meta.com/blog/project-cairaoke/
+[2] https://uxplanet.org/a-comprehensive-guide-to-ai-assistant-design-edf01a590d23?gi=762dbe40cab7
+[3] https://www.smashingmagazine.com/2022/02/voice-user-interfaces-guide/
+[4] https://www.algorithma.se/our-latest-thinking/overcoming-barriers-to-scaling-ai-assistants
+[5] https://dialzara.com/blog/ai-personal-assistant-for-business-task-automation/
+[6] https://www.reddit.com/r/SideProject/comments/1bwwh4u/i_built_a_voice_agent_that_can_hold_a_natural/
+[7] https://mindos.com/blog/post/personal-ai-challenges/
+[8] https://designlab.com/blog/voice-user-interface-design-best-practices
+[9] https://thefrangipanicreative.com/the-best-apps-to-capture-ideas-wherever-you-are/</p>
+
+</body>
+</html>

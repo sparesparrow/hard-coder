@@ -164,16 +164,16 @@ class MCPClient:
         if coordinates:
             args["coordinate"] = coordinates
         
-        return await self.execute_tool("custom_computer_use", args)
+        return await self.execute_tool("anthropic_computer_use", args)
 
     async def execute_bash_command(self, command: str):
         """Execute a bash command"""
-        return await self.execute_tool("custom_bash", {"command": command})
+        return await self.execute_tool("anthropic_bash", {"command": command})
 
     async def edit_text_file(self, path: str, command: str, **kwargs):
         """Interact with the text editor"""
         args = {"path": path, "command": command, **kwargs}
-        return await self.execute_tool("custom_text_editor", args)
+        return await self.execute_tool("anthropic_text_editor", args)
 
     def get_tool_stats(self) -> Dict[str, Dict[str, Union[int, float]]]:
         """Get statistics about tool usage"""

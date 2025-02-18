@@ -1,0 +1,262 @@
+2025-02-17 23:07:31 [    INFO] Starting test execution (run_tests.py:32)
+2025-02-17 23:07:33 [    INFO] Started monitoring service: ScreenshotService (base.py:49)
+2025-02-17 23:07:33 [   ERROR] Error capturing screenshot: module 'PIL.Image' has no attribute 'Resampling' (service.py:118)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 75, in collect_metric
+    image = image.resize(new_size, Image.Resampling.LANCZOS)
+                                   ^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/.venv/lib/python3.12/site-packages/PIL/Image.py", line 77, in __getattr__
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+AttributeError: module 'PIL.Image' has no attribute 'Resampling'
+2025-02-17 23:07:33 [   ERROR] Error in monitoring loop: module 'PIL.Image' has no attribute 'Resampling' (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 71, in _monitoring_loop
+    metric = await self.collect_metric()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 75, in collect_metric
+    image = image.resize(new_size, Image.Resampling.LANCZOS)
+                                   ^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/.venv/lib/python3.12/site-packages/PIL/Image.py", line 77, in __getattr__
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+AttributeError: module 'PIL.Image' has no attribute 'Resampling'
+2025-02-17 23:07:33 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:07:33 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:07:33 [    INFO] Started monitoring service: NetworkService (base.py:49)
+2025-02-17 23:07:34 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:07:34 [    INFO] Stopped monitoring service: NetworkService (base.py:61)
+2025-02-17 23:07:34 [    INFO] Stopped monitoring service: NetworkService (base.py:61)
+2025-02-17 23:07:34 [    INFO] Started monitoring service: ClipboardService (base.py:49)
+2025-02-17 23:07:34 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:07:34 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:07:34 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:07:34 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:07:34 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:07:34 [   ERROR] Error in monitoring loop: name 'timedelta' is not defined (base.py:85)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 82, in _monitoring_loop
+    await self._cleanup_old_metrics()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 117, in _cleanup_old_metrics
+    retention_delta = timedelta(hours=self._config.retention_hours)
+                      ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-02-17 23:07:34 [    INFO] Stopped monitoring service: ClipboardService (base.py:61)
+2025-02-17 23:07:34 [    INFO] Stopped monitoring service: ClipboardService (base.py:61)
+2025-02-17 23:07:34 [    INFO] Stopped monitoring service: ClipboardService (base.py:61)
+2025-02-17 23:07:35 [   ERROR] monitoring_config must be a dictionary (workflows.py:35)
+2025-02-17 23:07:35 [   ERROR] enabled_services must be a list (workflows.py:40)
+2025-02-17 23:07:35 [   ERROR] Missing configuration for service: screenshot (workflows.py:47)
+2025-02-17 23:07:35 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:07:35 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:07:35 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:07:35 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:07:35 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:07:35 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:07:35 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:07:35 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:07:35 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:07:35 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:07:35 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:07:35 [   ERROR] Error initializing network service: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:07:35 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:07:35 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:07:35 [   ERROR] Error executing workflow: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:07:35 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:07:35 [   ERROR] Error initializing network service: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:07:35 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:07:35 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:07:35 [   ERROR] Error executing workflow: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:07:35 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:07:35 [   ERROR] Error initializing network service: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:07:35 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:07:35 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:07:35 [   ERROR] Error executing workflow: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:07:35 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:07:35 [   ERROR] Error initializing network service: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:07:35 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:07:35 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:07:35 [   ERROR] Error executing workflow: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:07:35 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:07:35 [   ERROR] Error initializing network service: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:07:35 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:07:35 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:07:35 [   ERROR] Error executing workflow: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:07:35 [    INFO] Initialized screenshot service (workflows.py:100)
+2025-02-17 23:07:35 [   ERROR] Error initializing network service: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:07:35 [    INFO] Stopping screenshot service (workflows.py:134)
+2025-02-17 23:07:35 [    INFO] Stopped monitoring service: ScreenshotService (base.py:61)
+2025-02-17 23:07:35 [   ERROR] Error executing workflow: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: NetworkConfig.__init__() got an unexpected keyword argument 'capture_size'
+2025-02-17 23:07:36 [   ERROR] Some tests failed. Check the log file: test_logs/test_run_20250217_230731.log (run_tests.py:41)

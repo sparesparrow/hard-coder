@@ -1,0 +1,216 @@
+{
+    "rules": {
+      "typescript_standards": {
+        "naming_conventions": {
+          "classes": "PascalCase",
+          "interfaces": "PascalCase with 'I' prefix for MCP interfaces",
+          "types": "PascalCase with 'T' prefix for complex MCP types",
+          "enums": "PascalCase",
+          "variables": "camelCase",
+          "functions": "camelCase",
+          "constants": "UPPERCASE_SNAKE_CASE",
+          "files": "kebab-case.ts",
+          "test_files": "kebab-case.spec.ts",
+          "directories": "kebab-case"
+        },
+        "code_organization": {
+          "imports": [
+            "Group imports by external, internal, and types",
+            "Sort imports alphabetically",
+            "Use named imports instead of namespace imports",
+            "Import types separately with 'type' keyword"
+          ],
+          "exports": [
+            "One export per file",
+            "Export types separately",
+            "Use barrel exports (index.ts) for public API"
+          ],
+          "type_declarations": [
+            "Prefer interfaces over type aliases for public API",
+            "Use type aliases for unions and complex types",
+            "Keep type declarations close to their usage"
+          ]
+        }
+      },
+      "mcp_protocol": {
+        "implementation_requirements": {
+          "version_handling": [
+            "Always specify protocol version explicitly",
+            "Support protocol version negotiation",
+            "Handle version mismatches gracefully"
+          ],
+          "transport_layer": [
+            "Implement proper lifecycle management",
+            "Handle connection errors robustly",
+            "Support multiple transport types",
+            "Clean up resources properly"
+          ],
+          "message_handling": [
+            "Validate all messages against protocol schema",
+            "Handle message ordering correctly",
+            "Support message cancellation",
+            "Implement proper error responses"
+          ]
+        },
+        "capabilities": {
+          "declaration": {
+            "required": [
+              "Explicit capability declarations",
+              "Version requirements",
+              "Feature flags",
+              "Transport requirements"
+            ],
+            "optional": [
+              "Experimental features",
+              "Custom capabilities",
+              "Transport-specific features"
+            ]
+          }
+        }
+      },
+      "code_quality": {
+        "documentation": {
+          "required": [
+            "JSDoc for all public APIs",
+            "Protocol compatibility notes",
+            "Version requirements",
+            "Transport requirements",
+            "Error handling documentation"
+          ],
+          "format": {
+            "jsdoc": [
+              "@description - Clear description of functionality",
+              "@param - Document all parameters",
+              "@returns - Document return values",
+              "@throws - Document possible errors",
+              "@example - Provide usage examples"
+            ]
+          }
+        },
+        "testing": {
+          "unit_tests": [
+            "Test each public API",
+            "Test error conditions",
+            "Test protocol compliance",
+            "Test transport layer",
+            "Mock external dependencies"
+          ],
+          "integration_tests": [
+            "Test full message flow",
+            "Test capability negotiation",
+            "Test version negotiation",
+            "Test error handling",
+            "Test resource cleanup"
+          ]
+        }
+      },
+      "error_handling": {
+        "patterns": [
+          "Use custom error classes for MCP errors",
+          "Include error codes in responses",
+          "Provide detailed error messages",
+          "Handle transport errors separately",
+          "Clean up resources on error"
+        ],
+        "error_categories": {
+          "protocol": [
+            "Version mismatch",
+            "Invalid message",
+            "Unsupported capability",
+            "Invalid state"
+          ],
+          "transport": [
+            "Connection error",
+            "Timeout",
+            "Invalid state",
+            "Resource error"
+          ],
+          "application": [
+            "Invalid request",
+            "Resource not found",
+            "Permission denied",
+            "Internal error"
+          ]
+        }
+      },
+      "performance": {
+        "guidelines": [
+          "Minimize memory allocations",
+          "Use async operations appropriately",
+          "Implement proper cleanup",
+          "Handle backpressure",
+          "Cache when appropriate"
+        ],
+        "monitoring": [
+          "Track message processing time",
+          "Monitor memory usage",
+          "Log transport metrics",
+          "Track error rates"
+        ]
+      },
+      "security": {
+        "requirements": [
+          "Validate all input",
+          "Sanitize resource paths",
+          "Implement proper authentication",
+          "Handle sensitive data appropriately",
+          "Validate message integrity"
+        ],
+        "best_practices": [
+          "Use secure transport options",
+          "Implement rate limiting",
+          "Log security events",
+          "Clean up sensitive data",
+          "Validate capabilities"
+        ]
+      }
+    },
+    "preferred_packages": {
+      "core": [
+        "@modelcontextprotocol/sdk",
+        "zod",
+        "typescript"
+      ],
+      "testing": [
+        "jest",
+        "@types/jest",
+        "ts-jest"
+      ],
+      "development": [
+        "prettier",
+        "eslint",
+        "typescript-eslint"
+      ],
+      "transport": [
+        "node:stream",
+        "eventsource",
+        "ws"
+      ]
+    },
+    "file_structure": {
+      "src": {
+        "client": [
+          "index.ts",
+          "transport/",
+          "protocol/",
+          "types/"
+        ],
+        "server": [
+          "index.ts",
+          "transport/",
+          "protocol/",
+          "types/"
+        ],
+        "common": [
+          "types.ts",
+          "constants.ts",
+          "errors.ts"
+        ]
+      },
+      "test": {
+        "unit/": "Unit tests",
+        "integration/": "Integration tests",
+        "fixtures/": "Test data"
+      }
+    }
+  }

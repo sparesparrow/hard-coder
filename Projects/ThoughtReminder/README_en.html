@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README_en.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="dictassist">DictAssist</h1>
+<p>A sophisticated AI-powered personal assistant designed to capture, analyze, and remind you of your thoughts and ideas throughout the day. DictAssist combines voice interaction, natural language processing, and intelligent analysis to help you maintain and develop your ideas effectively.</p>
+<h2 id="%F0%9F%8C%9F-key-features">🌟 Key Features</h2>
+<h3 id="%F0%9F%93%9D-thought-capture">📝 Thought Capture</h3>
+<ul>
+<li>Real-time voice-to-text conversion using Whisper</li>
+<li>Continuous listening mode with wake word detection</li>
+<li>Background noise reduction and voice activity detection</li>
+<li>Minimal latency (~600ms) for natural interaction</li>
+</ul>
+<h3 id="%F0%9F%A4%96-evening-analysis">🤖 Evening Analysis</h3>
+<ul>
+<li>Automated thought clustering and theme identification</li>
+<li>Pattern recognition across captured ideas</li>
+<li>Knowledge gap identification</li>
+<li>AI-generated insights and recommendations</li>
+<li>Semantic relationship mapping between thoughts</li>
+</ul>
+<h3 id="%E2%8F%B0-smart-reminders">⏰ Smart Reminders</h3>
+<ul>
+<li>Context-aware reminder system</li>
+<li>Priority-based notification scheduling</li>
+<li>Recurring reminders support</li>
+<li>Voice-controlled reminder creation</li>
+<li>Related thought suggestions</li>
+</ul>
+<h3 id="%F0%9F%97%A3%EF%B8%8F-natural-voice-interaction">🗣️ Natural Voice Interaction</h3>
+<ul>
+<li>High-quality text-to-speech using ElevenLabs</li>
+<li>Natural language command processing</li>
+<li>Multi-turn conversation support</li>
+<li>Contextual responses</li>
+</ul>
+<h2 id="%F0%9F%9B%A0%EF%B8%8F-technical-architecture">🛠️ Technical Architecture</h2>
+<pre class="hljs"><code><div>DictAssist/
+├── core/
+│   ├── thought_manager.py
+│   ├── voice_interface.py
+│   └── reminder_manager.py
+├── analysis/
+│   ├── thought_analyzer.py
+│   └── evening_review.py
+├── voice/
+│   ├── stt_processor.py
+│   └── tts_processor.py
+├── utils/
+│   ├── database.py
+│   └── config.py
+└── main.py
+</div></code></pre>
+<h2 id="%F0%9F%93%8B-requirements">📋 Requirements</h2>
+<h3 id="system-requirements">System Requirements</h3>
+<ul>
+<li>Python 3.8+</li>
+<li>SQLite3</li>
+<li>CUDA-compatible GPU (recommended for Whisper)</li>
+</ul>
+<h3 id="api-keys">API Keys</h3>
+<ul>
+<li>OpenAI API key (for GPT-4)</li>
+<li>ElevenLabs API key (for TTS)</li>
+</ul>
+<h3 id="python-dependencies">Python Dependencies</h3>
+<pre class="hljs"><code><div>pip install -r requirements.txt
+</div></code></pre>
+<h2 id="%F0%9F%9A%80-quick-start">🚀 Quick Start</h2>
+<ol>
+<li>Clone the repository:</li>
+</ol>
+<pre class="hljs"><code><div>git <span class="hljs-built_in">clone</span> https://github.com/yourusername/DictAssist.git
+<span class="hljs-built_in">cd</span> DictAssist
+</div></code></pre>
+<ol start="2">
+<li>Install dependencies:</li>
+</ol>
+<pre class="hljs"><code><div>pip install -r requirements.txt
+</div></code></pre>
+<ol start="3">
+<li>Set up environment variables:</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-built_in">export</span> OPENAI_API_KEY=<span class="hljs-string">"your-openai-key"</span>
+<span class="hljs-built_in">export</span> ELEVENLABS_API_KEY=<span class="hljs-string">"your-elevenlabs-key"</span>
+</div></code></pre>
+<ol start="4">
+<li>Run the assistant:</li>
+</ol>
+<pre class="hljs"><code><div>python main.py
+</div></code></pre>
+<h2 id="%F0%9F%92%A1-usage-examples">💡 Usage Examples</h2>
+<h3 id="capturing-thoughts">Capturing Thoughts</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Voice command</span>
+<span class="hljs-string">"Start capture"</span>
+<span class="hljs-string">"Here's my idea about improving the project architecture..."</span>
+<span class="hljs-string">"End capture"</span>
+</div></code></pre>
+<h3 id="setting-reminders">Setting Reminders</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Voice command</span>
+<span class="hljs-string">"Remind me to review the project proposal at 3 PM"</span>
+<span class="hljs-string">"Set a daily reminder to check emails at 9 AM"</span>
+</div></code></pre>
+<h3 id="evening-review">Evening Review</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Voice command</span>
+<span class="hljs-string">"Start evening review"</span>
+<span class="hljs-comment"># Assistant will provide:</span>
+<span class="hljs-comment"># - Thought clusters and themes</span>
+<span class="hljs-comment"># - Key patterns identified</span>
+<span class="hljs-comment"># - Knowledge gaps</span>
+<span class="hljs-comment"># - Action items</span>
+<span class="hljs-comment"># - Learning opportunities</span>
+</div></code></pre>
+<h2 id="%F0%9F%94%A7-configuration">🔧 Configuration</h2>
+<h3 id="configpy">config.py</h3>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Config</span>:</span>
+    ELEVENLABS_VOICE_ID = <span class="hljs-string">"josh"</span>
+    WHISPER_MODEL = <span class="hljs-string">"base"</span>
+    SAMPLE_RATE = <span class="hljs-number">16000</span>
+    VAD_THRESHOLD = <span class="hljs-number">0.3</span>
+    SILENCE_DURATION = <span class="hljs-number">1.0</span>
+    
+    <span class="hljs-comment"># Wake words and commands</span>
+    WAKE_WORDS = [<span class="hljs-string">"hey assistant"</span>, <span class="hljs-string">"start capture"</span>]
+    END_CAPTURE_COMMANDS = [<span class="hljs-string">"end capture"</span>, <span class="hljs-string">"stop capture"</span>]
+    REVIEW_COMMANDS = [<span class="hljs-string">"evening review"</span>, <span class="hljs-string">"daily review"</span>]
+</div></code></pre>
+<h2 id="%F0%9F%8E%AF-features-in-detail">🎯 Features in Detail</h2>
+<h3 id="thought-analysis">Thought Analysis</h3>
+<ul>
+<li>Embedding-based thought clustering</li>
+<li>Theme identification using GPT-4</li>
+<li>Pattern recognition across thoughts</li>
+<li>Knowledge gap identification</li>
+<li>Action item generation</li>
+</ul>
+<h3 id="reminder-system">Reminder System</h3>
+<ul>
+<li>Priority levels (1-5)</li>
+<li>Recurring schedules (daily, weekly, monthly)</li>
+<li>Context-aware notifications</li>
+<li>Related thought suggestions</li>
+<li>AI-generated follow-up actions</li>
+</ul>
+<h3 id="voice-interface">Voice Interface</h3>
+<ul>
+<li>Wake word detection</li>
+<li>Continuous listening mode</li>
+<li>Background noise reduction</li>
+<li>Natural language understanding</li>
+<li>Multi-turn conversations</li>
+</ul>
+<h2 id="%F0%9F%94%92-privacy--security">🔒 Privacy &amp; Security</h2>
+<ul>
+<li>Local processing of sensitive data</li>
+<li>Encrypted storage of thoughts and reminders</li>
+<li>Optional cloud backup</li>
+<li>Data export functionality</li>
+<li>GDPR-compliant data handling</li>
+</ul>
+<h2 id="%F0%9F%9B%A3%EF%B8%8F-roadmap">🛣️ Roadmap</h2>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">Mobile app integration</label></li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">Multi-language support</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">Custom wake word training</label></li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">Cloud sync capabilities</label></li>
+<li><input type="checkbox" id="checkbox4"><label for="checkbox4">Collaborative thought sharing</label></li>
+<li><input type="checkbox" id="checkbox5"><label for="checkbox5">Advanced analytics dashboard</label></li>
+</ul>
+<h2 id="%F0%9F%A4%9D-contributing">🤝 Contributing</h2>
+<ol>
+<li>Fork the repository</li>
+<li>Create your feature branch (<code>git checkout -b feature/AmazingFeature</code>)</li>
+<li>Commit your changes (<code>git commit -m 'Add some AmazingFeature'</code>)</li>
+<li>Push to the branch (<code>git push origin feature/AmazingFeature</code>)</li>
+<li>Open a Pull Request</li>
+</ol>
+<h2 id="%F0%9F%93%9D-license">📝 License</h2>
+<p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
+<h2 id="%F0%9F%99%8F-acknowledgments">🙏 Acknowledgments</h2>
+<ul>
+<li>OpenAI for Whisper and GPT-4</li>
+<li>ElevenLabs for TTS capabilities</li>
+<li>SentenceTransformers for semantic analysis</li>
+<li>The open-source community for various tools and libraries</li>
+</ul>
+<h2 id="%F0%9F%93%9E-support">📞 Support</h2>
+<p>For support, please open an issue in the GitHub repository or contact the maintainers at support@dictassist.com</p>
+<h2 id="%F0%9F%94%97-links">🔗 Links</h2>
+<ul>
+<li><a href="https://dictassist.readthedocs.io/">Documentation</a></li>
+<li><a href="https://dictassist.readthedocs.io/api">API Reference</a></li>
+<li><a href="https://dictassist.readthedocs.io/examples">Examples</a></li>
+<li><a href="CONTRIBUTING.md">Contributing Guide</a></li>
+</ul>
+<hr>
+<p>Made with ❤️ by sparesparrow</p>
+
+</body>
+</html>

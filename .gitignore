@@ -2,3 +2,9 @@ db/
 __pycache__/
 workspace/*
 .venv
+node_modules/
+*/node_modules/
+*/*/node_modules/
+*/*/*/node_modules/
+Projects/SystemContextMonitor/screenshots/
+Projects/SystemContextMonitor/venv/

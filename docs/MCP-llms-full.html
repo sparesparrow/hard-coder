@@ -1,0 +1,4936 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MCP-llms-full.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="example-clients">Example Clients</h1>
+<p>A list of applications that support MCP integrations</p>
+<p>This page provides an overview of applications that support the Model Context Protocol (MCP). Each client may support different MCP features, allowing for varying levels of integration with MCP servers.</p>
+<h2 id="feature-support-matrix">Feature support matrix</h2>
+<table>
+<thead>
+<tr>
+<th>Client</th>
+<th><a href="https://modelcontextprotocol.io/docs/concepts/resources">Resources</a></th>
+<th><a href="https://modelcontextprotocol.io/docs/concepts/prompts">Prompts</a></th>
+<th><a href="https://modelcontextprotocol.io/docs/concepts/tools">Tools</a></th>
+<th><a href="https://modelcontextprotocol.io/docs/concepts/sampling">Sampling</a></th>
+<th>Roots</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://claude.ai/download">Claude Desktop App</a></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>Full support for all MCP features</td>
+</tr>
+<tr>
+<td><a href="https://zed.dev">Zed</a></td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>Prompts appear as slash commands</td>
+</tr>
+<tr>
+<td><a href="https://sourcegraph.com/cody">Sourcegraph Cody</a></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>Supports resources through OpenCTX</td>
+</tr>
+<tr>
+<td><a href="https://github.com/firebase/genkit">Firebase Genkit</a></td>
+<td>⚠️</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>Supports resource list and lookup through tools.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/continuedev/continue">Continue</a></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>Full support for all MCP features</td>
+</tr>
+<tr>
+<td><a href="https://microsoft.github.io/genaiscript/reference/scripts/mcp-tools/">GenAIScript</a></td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>Supports tools.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cline/cline">Cline</a></td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>Supports tools and resources.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/danny-avila/LibreChat">LibreChat</a></td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>Supports tools for Agents</td>
+</tr>
+<tr>
+<td><a href="https://eclipsesource.com/blogs/2024/12/19/theia-ide-and-theia-ai-support-mcp/">TheiaAI/TheiaIDE</a></td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>Supports tools for Agents in Theia AI and the AI-powered Theia IDE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="client-details">Client details</h2>
+<h3 id="claude-desktop-app">Claude Desktop App</h3>
+<p>The Claude desktop application provides comprehensive support for MCP, enabling deep integration with local tools and data sources.</p>
+<p><strong>Key features:</strong></p>
+<ul>
+<li>Full support for resources, allowing attachment of local files and data</li>
+<li>Support for prompt templates</li>
+<li>Tool integration for executing commands and scripts</li>
+<li>Local server connections for enhanced privacy and security</li>
+</ul>
+<blockquote>
+<p>ⓘ Note: The Claude.ai web application does not currently support MCP. MCP features are only available in the desktop application.</p>
+</blockquote>
+<h3 id="zed">Zed</h3>
+<p><a href="https://zed.dev/docs/assistant/model-context-protocol">Zed</a> is a high-performance code editor with built-in MCP support, focusing on prompt templates and tool integration.</p>
+<p><strong>Key features:</strong></p>
+<ul>
+<li>Prompt templates surface as slash commands in the editor</li>
+<li>Tool integration for enhanced coding workflows</li>
+<li>Tight integration with editor features and workspace context</li>
+<li>Does not support MCP resources</li>
+</ul>
+<h3 id="sourcegraph-cody">Sourcegraph Cody</h3>
+<p><a href="https://openctx.org/docs/providers/modelcontextprotocol">Cody</a> is Sourcegraph's AI coding assistant, which implements MCP through OpenCTX.</p>
+<p><strong>Key features:</strong></p>
+<ul>
+<li>Support for MCP resources</li>
+<li>Integration with Sourcegraph's code intelligence</li>
+<li>Uses OpenCTX as an abstraction layer</li>
+<li>Future support planned for additional MCP features</li>
+</ul>
+<h3 id="firebase-genkit">Firebase Genkit</h3>
+<p><a href="https://github.com/firebase/genkit">Genkit</a> is Firebase's SDK for building and integrating GenAI features into applications. The <a href="https://github.com/firebase/genkit/tree/main/js/plugins/mcp">genkitx-mcp</a> plugin enables consuming MCP servers as a client or creating MCP servers from Genkit tools and prompts.</p>
+<p><strong>Key features:</strong></p>
+<ul>
+<li>Client support for tools and prompts (resources partially supported)</li>
+<li>Rich discovery with support in Genkit's Dev UI playground</li>
+<li>Seamless interoperability with Genkit's existing tools and prompts</li>
+<li>Works across a wide variety of GenAI models from top providers</li>
+</ul>
+<h3 id="continue">Continue</h3>
+<p><a href="https://github.com/continuedev/continue">Continue</a> is an open-source AI code assistant, with built-in support for all MCP features.</p>
+<p><strong>Key features</strong></p>
+<ul>
+<li>Type &quot;@&quot; to mention MCP resources</li>
+<li>Prompt templates surface as slash commands</li>
+<li>Use both built-in and MCP tools directly in chat</li>
+<li>Supports VS Code and JetBrains IDEs, with any LLM</li>
+</ul>
+<h3 id="genaiscript">GenAIScript</h3>
+<p>Programmatically assemble prompts for LLMs using <a href="https://microsoft.github.io/genaiscript/">GenAIScript</a> (in JavaScript). Orchestrate LLMs, tools, and data in JavaScript.</p>
+<p><strong>Key features:</strong></p>
+<ul>
+<li>JavaScript toolbox to work with prompts</li>
+<li>Abstraction to make it easy and productive</li>
+<li>Seamless Visual Studio Code integration</li>
+</ul>
+<h3 id="cline">Cline</h3>
+<p><a href="https://github.com/cline/cline">Cline</a> is an autonomous coding agent in VS Code that edits files, runs commands, uses a browser, and more–with your permission at each step.</p>
+<p><strong>Key features:</strong></p>
+<ul>
+<li>Create and add tools through natural language (e.g. &quot;add a tool that searches the web&quot;)</li>
+<li>Share custom MCP servers Cline creates with others via the <code>~/Documents/Cline/MCP</code> directory</li>
+<li>Displays configured MCP servers along with their tools, resources, and any error logs</li>
+</ul>
+<h3 id="librechat">LibreChat</h3>
+<p><a href="https://github.com/danny-avila/LibreChat">LibreChat</a> is an open-source, customizable AI chat UI that supports multiple AI providers, now including MCP integration.</p>
+<p><strong>Key features:</strong></p>
+<ul>
+<li>Extend current tool ecosystem, including <a href="https://www.librechat.ai/docs/features/code_interpreter">Code Interpreter</a> and Image generation tools, through MCP servers</li>
+<li>Add tools to customizable <a href="https://www.librechat.ai/docs/features/agents">Agents</a>, using a variety of LLMs from top providers</li>
+<li>Open-source and self-hostable, with secure multi-user support</li>
+<li>Future roadmap includes expanded MCP feature support</li>
+</ul>
+<h3 id="theiaaitheiaide">TheiaAI/TheiaIDE</h3>
+<p><a href="https://eclipsesource.com/blogs/2024/10/07/introducing-theia-ai/">Theia AI</a> is a framework for building AI-enhanced tools and IDEs. The <a href="https://eclipsesource.com/blogs/2024/10/08/introducting-ai-theia-ide/">AI-powered Theia IDE</a> is an open and flexible development environment built on Theia AI.</p>
+<p><strong>Key features:</strong></p>
+<ul>
+<li><strong>Tool Integration</strong>: Theia AI enables AI agents, including those in the Theia IDE, to utilize MCP servers for seamless tool interaction.</li>
+<li><strong>Customizable Prompts</strong>: The Theia IDE allows users to define and adapt prompts, dynamically integrating MCP servers for tailored workflows.</li>
+<li><strong>Custom agents</strong>: The Theia IDE supports creating custom agents that leverage MCP capabilities, enabling users to design dedicated workflows on the fly.</li>
+</ul>
+<p>Theia AI and Theia IDE's MCP integration provide users with flexibility, making them powerful platforms for exploring and adapting MCP.</p>
+<p><strong>Learn more:</strong></p>
+<ul>
+<li><a href="https://eclipsesource.com/blogs/2024/12/19/theia-ide-and-theia-ai-support-mcp/">Theia IDE and Theia AI MCP Announcement</a></li>
+<li><a href="https://theia-ide.org/">Download the AI-powered Theia IDE</a></li>
+</ul>
+<h2 id="adding-mcp-support-to-your-application">Adding MCP support to your application</h2>
+<p>If you've added MCP support to your application, we encourage you to submit a pull request to add it to this list. MCP integration can provide your users with powerful contextual AI capabilities and make your application part of the growing MCP ecosystem.</p>
+<p>Benefits of adding MCP support:</p>
+<ul>
+<li>Enable users to bring their own context and tools</li>
+<li>Join a growing ecosystem of interoperable AI applications</li>
+<li>Provide users with flexible integration options</li>
+<li>Support local-first AI workflows</li>
+</ul>
+<p>To get started with implementing MCP in your application, check out our <a href="https://github.com/modelcontextprotocol/python-sdk">Python</a> or <a href="https://github.com/modelcontextprotocol/typescript-sdk">TypeScript SDK Documentation</a></p>
+<h2 id="updates-and-corrections">Updates and corrections</h2>
+<p>This list is maintained by the community. If you notice any inaccuracies or would like to update information about MCP support in your application, please submit a pull request or <a href="https://github.com/modelcontextprotocol/docs/issues">open an issue in our documentation repository</a>.</p>
+<h1 id="contributing">Contributing</h1>
+<p>How to participate in Model Context Protocol development</p>
+<p>We welcome contributions from the community! Please review our <a href="https://github.com/modelcontextprotocol/.github/blob/main/CONTRIBUTING.md">contributing guidelines</a> for details on how to submit changes.</p>
+<p>All contributors must adhere to our <a href="https://github.com/modelcontextprotocol/.github/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a>.</p>
+<p>For questions and discussions, please use <a href="https://github.com/orgs/modelcontextprotocol/discussions">GitHub Discussions</a>.</p>
+<h1 id="roadmap">Roadmap</h1>
+<p>Our plans for evolving Model Context Protocol (H1 2025)</p>
+<p>The Model Context Protocol is rapidly evolving. This page outlines our current thinking on key priorities and future direction for <strong>the first half of 2025</strong>, though these may change significantly as the project develops.</p>
+<p><Note>The ideas presented here are not commitments—we may solve these challenges differently than described, or some may not materialize at all. This is also not an <em>exhaustive</em> list; we may incorporate work that isn't mentioned here.</Note></p>
+<p>We encourage community participation! Each section links to relevant discussions where you can learn more and contribute your thoughts.</p>
+<h2 id="remote-mcp-support">Remote MCP Support</h2>
+<p>Our top priority is enabling <a href="https://github.com/modelcontextprotocol/specification/discussions/102">remote MCP connections</a>, allowing clients to securely connect to MCP servers over the internet. Key initiatives include:</p>
+<ul>
+<li>
+<p><a href="https://github.com/modelcontextprotocol/specification/discussions/64"><strong>Authentication &amp; Authorization</strong></a>: Adding standardized auth capabilities, particularly focused on OAuth 2.0 support.</p>
+</li>
+<li>
+<p><a href="https://github.com/modelcontextprotocol/specification/discussions/69"><strong>Service Discovery</strong></a>: Defining how clients can discover and connect to remote MCP servers.</p>
+</li>
+<li>
+<p><a href="https://github.com/modelcontextprotocol/specification/discussions/102"><strong>Stateless Operations</strong></a>: Thinking about whether MCP could encompass serverless environments too, where they will need to be mostly stateless.</p>
+</li>
+</ul>
+<h2 id="reference-implementations">Reference Implementations</h2>
+<p>To help developers build with MCP, we want to offer documentation for:</p>
+<ul>
+<li><strong>Client Examples</strong>: Comprehensive reference client implementation(s), demonstrating all protocol features</li>
+<li><strong>Protocol Drafting</strong>: Streamlined process for proposing and incorporating new protocol features</li>
+</ul>
+<h2 id="distribution--discovery">Distribution &amp; Discovery</h2>
+<p>Looking ahead, we're exploring ways to make MCP servers more accessible. Some areas we may investigate include:</p>
+<ul>
+<li><strong>Package Management</strong>: Standardized packaging format for MCP servers</li>
+<li><strong>Installation Tools</strong>: Simplified server installation across MCP clients</li>
+<li><strong>Sandboxing</strong>: Improved security through server isolation</li>
+<li><strong>Server Registry</strong>: A common directory for discovering available MCP servers</li>
+</ul>
+<h2 id="agent-support">Agent Support</h2>
+<p>We're expanding MCP's capabilities for <a href="https://github.com/modelcontextprotocol/specification/discussions/111">complex agentic workflows</a>, particularly focusing on:</p>
+<ul>
+<li>
+<p><a href="https://github.com/modelcontextprotocol/specification/discussions/94"><strong>Hierarchical Agent Systems</strong></a>: Improved support for trees of agents through namespacing and topology awareness.</p>
+</li>
+<li>
+<p><a href="https://github.com/modelcontextprotocol/specification/issues/97"><strong>Interactive Workflows</strong></a>: Better handling of user permissions and information requests across agent hierarchies, and ways to send output to users instead of models.</p>
+</li>
+<li>
+<p><a href="https://github.com/modelcontextprotocol/specification/issues/117"><strong>Streaming Results</strong></a>: Real-time updates from long-running agent operations.</p>
+</li>
+</ul>
+<h2 id="broader-ecosystem">Broader Ecosystem</h2>
+<p>We're also invested in:</p>
+<ul>
+<li><strong>Community-Led Standards Development</strong>: Fostering a collaborative ecosystem where all AI providers can help shape MCP as an open standard through equal participation and shared governance, ensuring it meets the needs of diverse AI applications and use cases.</li>
+<li><a href="https://github.com/modelcontextprotocol/specification/discussions/88"><strong>Additional Modalities</strong></a>: Expanding beyond text to support audio, video, and other formats.</li>
+<li>[<strong>Standardization</strong>] Considering standardization through a standardization body.</li>
+</ul>
+<h2 id="get-involved">Get Involved</h2>
+<p>We welcome community participation in shaping MCP's future. Visit our <a href="https://github.com/orgs/modelcontextprotocol/discussions">GitHub Discussions</a> to join the conversation and contribute your ideas.</p>
+<h1 id="core-architecture">Core architecture</h1>
+<p>Understand how MCP connects clients, servers, and LLMs</p>
+<p>The Model Context Protocol (MCP) is built on a flexible, extensible architecture that enables seamless communication between LLM applications and integrations. This document covers the core architectural components and concepts.</p>
+<h2 id="overview">Overview</h2>
+<p>MCP follows a client-server architecture where:</p>
+<ul>
+<li><strong>Hosts</strong> are LLM applications (like Claude Desktop or IDEs) that initiate connections</li>
+<li><strong>Clients</strong> maintain 1:1 connections with servers, inside the host application</li>
+<li><strong>Servers</strong> provide context, tools, and prompts to clients</li>
+</ul>
+<pre><code class="language-mermaid"><div class="mermaid">flowchart LR
+    subgraph "&nbsp;Host (e.g., Claude Desktop)&nbsp;"
+        client1[MCP Client]
+        client2[MCP Client]
+    end
+    subgraph "Server Process"
+        server1[MCP Server]
+    end
+    subgraph "Server Process"
+        server2[MCP Server]
+    end
+
+    client1 <-->|Transport Layer| server1
+    client2 <-->|Transport Layer| server2
+</div></code></pre>
+<h2 id="core-components">Core components</h2>
+<h3 id="protocol-layer">Protocol layer</h3>
+<p>The protocol layer handles message framing, request/response linking, and high-level communication patterns.</p>
+<Tabs>
+  <Tab title="TypeScript">
+    ```typescript
+    class Protocol<Request, Notification, Result> {
+        // Handle incoming requests
+        setRequestHandler<T>(schema: T, handler: (request: T, extra: RequestHandlerExtra) => Promise<Result>): void
+<pre><code>    // Handle incoming notifications
+    setNotificationHandler&lt;T&gt;(schema: T, handler: (notification: T) =&gt; Promise&lt;void&gt;): void
+
+    // Send requests and await responses
+    request&lt;T&gt;(request: Request, schema: T, options?: RequestOptions): Promise&lt;T&gt;
+
+    // Send one-way notifications
+    notification(notification: Notification): Promise&lt;void&gt;
+}
+```
+</code></pre>
+  </Tab>
+  <Tab title="Python">
+    ```python
+    class Session(BaseSession[RequestT, NotificationT, ResultT]):
+        async def send_request(
+            self,
+            request: RequestT,
+            result_type: type[Result]
+        ) -> Result:
+            """
+            Send request and wait for response. Raises McpError if response contains error.
+            """
+            # Request handling implementation
+<pre><code>    async def send_notification(
+        self,
+        notification: NotificationT
+    ) -&gt; None:
+        &quot;&quot;&quot;Send one-way notification that doesn't expect response.&quot;&quot;&quot;
+        # Notification handling implementation
+
+    async def _received_request(
+        self,
+        responder: RequestResponder[ReceiveRequestT, ResultT]
+    ) -&gt; None:
+        &quot;&quot;&quot;Handle incoming request from other side.&quot;&quot;&quot;
+        # Request handling implementation
+
+    async def _received_notification(
+        self,
+        notification: ReceiveNotificationT
+    ) -&gt; None:
+        &quot;&quot;&quot;Handle incoming notification from other side.&quot;&quot;&quot;
+        # Notification handling implementation
+```
+</code></pre>
+  </Tab>
+</Tabs>
+<p>Key classes include:</p>
+<ul>
+<li><code>Protocol</code></li>
+<li><code>Client</code></li>
+<li><code>Server</code></li>
+</ul>
+<h3 id="transport-layer">Transport layer</h3>
+<p>The transport layer handles the actual communication between clients and servers. MCP supports multiple transport mechanisms:</p>
+<ol>
+<li>
+<p><strong>Stdio transport</strong></p>
+<ul>
+<li>Uses standard input/output for communication</li>
+<li>Ideal for local processes</li>
+</ul>
+</li>
+<li>
+<p><strong>HTTP with SSE transport</strong></p>
+<ul>
+<li>Uses Server-Sent Events for server-to-client messages</li>
+<li>HTTP POST for client-to-server messages</li>
+</ul>
+</li>
+</ol>
+<p>All transports use <a href="https://www.jsonrpc.org/">JSON-RPC</a> 2.0 to exchange messages. See the <a href="https://spec.modelcontextprotocol.io">specification</a> for detailed information about the Model Context Protocol message format.</p>
+<h3 id="message-types">Message types</h3>
+<p>MCP has these main types of messages:</p>
+<ol>
+<li>
+<p><strong>Requests</strong> expect a response from the other side:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">interface</span> Request {
+  method: <span class="hljs-built_in">string</span>;
+  params?: { ... };
+}
+</div></code></pre>
+</li>
+<li>
+<p><strong>Results</strong> are successful responses to requests:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">interface</span> Result {
+  [key: <span class="hljs-built_in">string</span>]: unknown;
+}
+</div></code></pre>
+</li>
+<li>
+<p><strong>Errors</strong> indicate that a request failed:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">interface</span> Error {
+  code: <span class="hljs-built_in">number</span>;
+  message: <span class="hljs-built_in">string</span>;
+  data?: unknown;
+}
+</div></code></pre>
+</li>
+<li>
+<p><strong>Notifications</strong> are one-way messages that don't expect a response:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">interface</span> Notification {
+  method: <span class="hljs-built_in">string</span>;
+  params?: { ... };
+}
+</div></code></pre>
+</li>
+</ol>
+<h2 id="connection-lifecycle">Connection lifecycle</h2>
+<h3 id="1-initialization">1. Initialization</h3>
+<pre><code class="language-mermaid"><div class="mermaid">sequenceDiagram
+    participant Client
+    participant Server
+
+    Client->>Server: initialize request
+    Server->>Client: initialize response
+    Client->>Server: initialized notification
+
+    Note over Client,Server: Connection ready for use
+</div></code></pre>
+<ol>
+<li>Client sends <code>initialize</code> request with protocol version and capabilities</li>
+<li>Server responds with its protocol version and capabilities</li>
+<li>Client sends <code>initialized</code> notification as acknowledgment</li>
+<li>Normal message exchange begins</li>
+</ol>
+<h3 id="2-message-exchange">2. Message exchange</h3>
+<p>After initialization, the following patterns are supported:</p>
+<ul>
+<li><strong>Request-Response</strong>: Client or server sends requests, the other responds</li>
+<li><strong>Notifications</strong>: Either party sends one-way messages</li>
+</ul>
+<h3 id="3-termination">3. Termination</h3>
+<p>Either party can terminate the connection:</p>
+<ul>
+<li>Clean shutdown via <code>close()</code></li>
+<li>Transport disconnection</li>
+<li>Error conditions</li>
+</ul>
+<h2 id="error-handling">Error handling</h2>
+<p>MCP defines these standard error codes:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">enum</span> ErrorCode {
+  <span class="hljs-comment">// Standard JSON-RPC error codes</span>
+  ParseError = <span class="hljs-number">-32700</span>,
+  InvalidRequest = <span class="hljs-number">-32600</span>,
+  MethodNotFound = <span class="hljs-number">-32601</span>,
+  InvalidParams = <span class="hljs-number">-32602</span>,
+  <span class="hljs-built_in">InternalError</span> = <span class="hljs-number">-32603</span>
+}
+</div></code></pre>
+<p>SDKs and applications can define their own error codes above -32000.</p>
+<p>Errors are propagated through:</p>
+<ul>
+<li>Error responses to requests</li>
+<li>Error events on transports</li>
+<li>Protocol-level error handlers</li>
+</ul>
+<h2 id="implementation-example">Implementation example</h2>
+<p>Here's a basic example of implementing an MCP server:</p>
+<Tabs>
+  <Tab title="TypeScript">
+    ```typescript
+    import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+    import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+<pre><code>const server = new Server({
+  name: &quot;example-server&quot;,
+  version: &quot;1.0.0&quot;
+}, {
+  capabilities: {
+    resources: {}
+  }
+});
+
+// Handle requests
+server.setRequestHandler(ListResourcesRequestSchema, async () =&gt; {
+  return {
+    resources: [
+      {
+        uri: &quot;example://resource&quot;,
+        name: &quot;Example Resource&quot;
+      }
+    ]
+  };
+});
+
+// Connect transport
+const transport = new StdioServerTransport();
+await server.connect(transport);
+```
+</code></pre>
+  </Tab>
+  <Tab title="Python">
+    ```python
+    import asyncio
+    import mcp.types as types
+    from mcp.server import Server
+    from mcp.server.stdio import stdio_server
+<pre><code>app = Server(&quot;example-server&quot;)
+
+@app.list_resources()
+async def list_resources() -&gt; list[types.Resource]:
+    return [
+        types.Resource(
+            uri=&quot;example://resource&quot;,
+            name=&quot;Example Resource&quot;
+        )
+    ]
+
+async def main():
+    async with stdio_server() as streams:
+        await app.run(
+            streams[0],
+            streams[1],
+            app.create_initialization_options()
+        )
+
+if __name__ == &quot;__main__&quot;:
+    asyncio.run(main)
+```
+</code></pre>
+  </Tab>
+</Tabs>
+<h2 id="best-practices">Best practices</h2>
+<h3 id="transport-selection">Transport selection</h3>
+<ol>
+<li>
+<p><strong>Local communication</strong></p>
+<ul>
+<li>Use stdio transport for local processes</li>
+<li>Efficient for same-machine communication</li>
+<li>Simple process management</li>
+</ul>
+</li>
+<li>
+<p><strong>Remote communication</strong></p>
+<ul>
+<li>Use SSE for scenarios requiring HTTP compatibility</li>
+<li>Consider security implications including authentication and authorization</li>
+</ul>
+</li>
+</ol>
+<h3 id="message-handling">Message handling</h3>
+<ol>
+<li>
+<p><strong>Request processing</strong></p>
+<ul>
+<li>Validate inputs thoroughly</li>
+<li>Use type-safe schemas</li>
+<li>Handle errors gracefully</li>
+<li>Implement timeouts</li>
+</ul>
+</li>
+<li>
+<p><strong>Progress reporting</strong></p>
+<ul>
+<li>Use progress tokens for long operations</li>
+<li>Report progress incrementally</li>
+<li>Include total progress when known</li>
+</ul>
+</li>
+<li>
+<p><strong>Error management</strong></p>
+<ul>
+<li>Use appropriate error codes</li>
+<li>Include helpful error messages</li>
+<li>Clean up resources on errors</li>
+</ul>
+</li>
+</ol>
+<h2 id="security-considerations">Security considerations</h2>
+<ol>
+<li>
+<p><strong>Transport security</strong></p>
+<ul>
+<li>Use TLS for remote connections</li>
+<li>Validate connection origins</li>
+<li>Implement authentication when needed</li>
+</ul>
+</li>
+<li>
+<p><strong>Message validation</strong></p>
+<ul>
+<li>Validate all incoming messages</li>
+<li>Sanitize inputs</li>
+<li>Check message size limits</li>
+<li>Verify JSON-RPC format</li>
+</ul>
+</li>
+<li>
+<p><strong>Resource protection</strong></p>
+<ul>
+<li>Implement access controls</li>
+<li>Validate resource paths</li>
+<li>Monitor resource usage</li>
+<li>Rate limit requests</li>
+</ul>
+</li>
+<li>
+<p><strong>Error handling</strong></p>
+<ul>
+<li>Don't leak sensitive information</li>
+<li>Log security-relevant errors</li>
+<li>Implement proper cleanup</li>
+<li>Handle DoS scenarios</li>
+</ul>
+</li>
+</ol>
+<h2 id="debugging-and-monitoring">Debugging and monitoring</h2>
+<ol>
+<li>
+<p><strong>Logging</strong></p>
+<ul>
+<li>Log protocol events</li>
+<li>Track message flow</li>
+<li>Monitor performance</li>
+<li>Record errors</li>
+</ul>
+</li>
+<li>
+<p><strong>Diagnostics</strong></p>
+<ul>
+<li>Implement health checks</li>
+<li>Monitor connection state</li>
+<li>Track resource usage</li>
+<li>Profile performance</li>
+</ul>
+</li>
+<li>
+<p><strong>Testing</strong></p>
+<ul>
+<li>Test different transports</li>
+<li>Verify error handling</li>
+<li>Check edge cases</li>
+<li>Load test servers</li>
+</ul>
+</li>
+</ol>
+<h1 id="prompts">Prompts</h1>
+<p>Create reusable prompt templates and workflows</p>
+<p>Prompts enable servers to define reusable prompt templates and workflows that clients can easily surface to users and LLMs. They provide a powerful way to standardize and share common LLM interactions.</p>
+<Note>
+  Prompts are designed to be **user-controlled**, meaning they are exposed from servers to clients with the intention of the user being able to explicitly select them for use.
+</Note>
+<h2 id="overview">Overview</h2>
+<p>Prompts in MCP are predefined templates that can:</p>
+<ul>
+<li>Accept dynamic arguments</li>
+<li>Include context from resources</li>
+<li>Chain multiple interactions</li>
+<li>Guide specific workflows</li>
+<li>Surface as UI elements (like slash commands)</li>
+</ul>
+<h2 id="prompt-structure">Prompt structure</h2>
+<p>Each prompt is defined with:</p>
+<pre class="hljs"><code><div>{
+  name: <span class="hljs-built_in">string</span>;              <span class="hljs-comment">// Unique identifier for the prompt</span>
+  description?: <span class="hljs-built_in">string</span>;      <span class="hljs-comment">// Human-readable description</span>
+  <span class="hljs-built_in">arguments</span>?: [              <span class="hljs-comment">// Optional list of arguments</span>
+    {
+      name: <span class="hljs-built_in">string</span>;          <span class="hljs-comment">// Argument identifier</span>
+      description?: <span class="hljs-built_in">string</span>;  <span class="hljs-comment">// Argument description</span>
+      required?: <span class="hljs-built_in">boolean</span>;    <span class="hljs-comment">// Whether argument is required</span>
+    }
+  ]
+}
+</div></code></pre>
+<h2 id="discovering-prompts">Discovering prompts</h2>
+<p>Clients can discover available prompts through the <code>prompts/list</code> endpoint:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Request</span>
+{
+  method: <span class="hljs-string">"prompts/list"</span>
+}
+
+<span class="hljs-comment">// Response</span>
+{
+  prompts: [
+    {
+      name: <span class="hljs-string">"analyze-code"</span>,
+      description: <span class="hljs-string">"Analyze code for potential improvements"</span>,
+      <span class="hljs-built_in">arguments</span>: [
+        {
+          name: <span class="hljs-string">"language"</span>,
+          description: <span class="hljs-string">"Programming language"</span>,
+          required: <span class="hljs-literal">true</span>
+        }
+      ]
+    }
+  ]
+}
+</div></code></pre>
+<h2 id="using-prompts">Using prompts</h2>
+<p>To use a prompt, clients make a <code>prompts/get</code> request:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Request</span>
+{
+  method: <span class="hljs-string">"prompts/get"</span>,
+  params: {
+    name: <span class="hljs-string">"analyze-code"</span>,
+    <span class="hljs-built_in">arguments</span>: {
+      language: <span class="hljs-string">"python"</span>
+    }
+  }
+}
+
+<span class="hljs-comment">// Response</span>
+{
+  description: <span class="hljs-string">"Analyze Python code for potential improvements"</span>,
+  messages: [
+    {
+      role: <span class="hljs-string">"user"</span>,
+      content: {
+        <span class="hljs-keyword">type</span>: <span class="hljs-string">"text"</span>,
+        text: <span class="hljs-string">"Please analyze the following Python code for potential improvements:\n\n```python\ndef calculate_sum(numbers):\n    total = 0\n    for num in numbers:\n        total = total + num\n    return total\n\nresult = calculate_sum([1, 2, 3, 4, 5])\nprint(result)\n```"</span>
+      }
+    }
+  ]
+}
+</div></code></pre>
+<h2 id="dynamic-prompts">Dynamic prompts</h2>
+<p>Prompts can be dynamic and include:</p>
+<h3 id="embedded-resource-context">Embedded resource context</h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"analyze-project"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Analyze project logs and code"</span>,
+  <span class="hljs-attr">"arguments"</span>: [
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"timeframe"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Time period to analyze logs"</span>,
+      <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"fileUri"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"URI of code file to review"</span>,
+      <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>
+    }
+  ]
+}
+</div></code></pre>
+<p>When handling the <code>prompts/get</code> request:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"messages"</span>: [
+    {
+      <span class="hljs-attr">"role"</span>: <span class="hljs-string">"user"</span>,
+      <span class="hljs-attr">"content"</span>: {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"text"</span>,
+        <span class="hljs-attr">"text"</span>: <span class="hljs-string">"Analyze these system logs and the code file for any issues:"</span>
+      }
+    },
+    {
+      <span class="hljs-attr">"role"</span>: <span class="hljs-string">"user"</span>,
+      <span class="hljs-attr">"content"</span>: {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"resource"</span>,
+        <span class="hljs-attr">"resource"</span>: {
+          <span class="hljs-attr">"uri"</span>: <span class="hljs-string">"logs://recent?timeframe=1h"</span>,
+          <span class="hljs-attr">"text"</span>: <span class="hljs-string">"[2024-03-14 15:32:11] ERROR: Connection timeout in network.py:127\n[2024-03-14 15:32:15] WARN: Retrying connection (attempt 2/3)\n[2024-03-14 15:32:20] ERROR: Max retries exceeded"</span>,
+          <span class="hljs-attr">"mimeType"</span>: <span class="hljs-string">"text/plain"</span>
+        }
+      }
+    },
+    {
+      <span class="hljs-attr">"role"</span>: <span class="hljs-string">"user"</span>,
+      <span class="hljs-attr">"content"</span>: {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"resource"</span>,
+        <span class="hljs-attr">"resource"</span>: {
+          <span class="hljs-attr">"uri"</span>: <span class="hljs-string">"file:///path/to/code.py"</span>,
+          <span class="hljs-attr">"text"</span>: <span class="hljs-string">"def connect_to_service(timeout=30):\n    retries = 3\n    for attempt in range(retries):\n        try:\n            return establish_connection(timeout)\n        except TimeoutError:\n            if attempt == retries - 1:\n                raise\n            time.sleep(5)\n\ndef establish_connection(timeout):\n    # Connection implementation\n    pass"</span>,
+          <span class="hljs-attr">"mimeType"</span>: <span class="hljs-string">"text/x-python"</span>
+        }
+      }
+    }
+  ]
+}
+</div></code></pre>
+<h3 id="multi-step-workflows">Multi-step workflows</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> debugWorkflow = {
+  name: <span class="hljs-string">"debug-error"</span>,
+  <span class="hljs-keyword">async</span> getMessages(error: <span class="hljs-built_in">string</span>) {
+    <span class="hljs-keyword">return</span> [
+      {
+        role: <span class="hljs-string">"user"</span>,
+        content: {
+          <span class="hljs-keyword">type</span>: <span class="hljs-string">"text"</span>,
+          text: <span class="hljs-string">`Here's an error I'm seeing: <span class="hljs-subst">${error}</span>`</span>
+        }
+      },
+      {
+        role: <span class="hljs-string">"assistant"</span>,
+        content: {
+          <span class="hljs-keyword">type</span>: <span class="hljs-string">"text"</span>,
+          text: <span class="hljs-string">"I'll help analyze this error. What have you tried so far?"</span>
+        }
+      },
+      {
+        role: <span class="hljs-string">"user"</span>,
+        content: {
+          <span class="hljs-keyword">type</span>: <span class="hljs-string">"text"</span>,
+          text: <span class="hljs-string">"I've tried restarting the service, but the error persists."</span>
+        }
+      }
+    ];
+  }
+};
+</div></code></pre>
+<h2 id="example-implementation">Example implementation</h2>
+<p>Here's a complete example of implementing prompts in an MCP server:</p>
+<Tabs>
+  <Tab title="TypeScript">
+    ```typescript
+    import { Server } from "@modelcontextprotocol/sdk/server";
+    import {
+      ListPromptsRequestSchema,
+      GetPromptRequestSchema
+    } from "@modelcontextprotocol/sdk/types";
+<pre><code>const PROMPTS = {
+  &quot;git-commit&quot;: {
+    name: &quot;git-commit&quot;,
+    description: &quot;Generate a Git commit message&quot;,
+    arguments: [
+      {
+        name: &quot;changes&quot;,
+        description: &quot;Git diff or description of changes&quot;,
+        required: true
+      }
+    ]
+  },
+  &quot;explain-code&quot;: {
+    name: &quot;explain-code&quot;,
+    description: &quot;Explain how code works&quot;,
+    arguments: [
+      {
+        name: &quot;code&quot;,
+        description: &quot;Code to explain&quot;,
+        required: true
+      },
+      {
+        name: &quot;language&quot;,
+        description: &quot;Programming language&quot;,
+        required: false
+      }
+    ]
+  }
+};
+
+const server = new Server({
+  name: &quot;example-prompts-server&quot;,
+  version: &quot;1.0.0&quot;
+}, {
+  capabilities: {
+    prompts: {}
+  }
+});
+
+// List available prompts
+server.setRequestHandler(ListPromptsRequestSchema, async () =&gt; {
+  return {
+    prompts: Object.values(PROMPTS)
+  };
+});
+
+// Get specific prompt
+server.setRequestHandler(GetPromptRequestSchema, async (request) =&gt; {
+  const prompt = PROMPTS[request.params.name];
+  if (!prompt) {
+    throw new Error(`Prompt not found: ${request.params.name}`);
+  }
+
+  if (request.params.name === &quot;git-commit&quot;) {
+    return {
+      messages: [
+        {
+          role: &quot;user&quot;,
+          content: {
+            type: &quot;text&quot;,
+            text: `Generate a concise but descriptive commit message for these changes:\n\n${request.params.arguments?.changes}`
+          }
+        }
+      ]
+    };
+  }
+
+  if (request.params.name === &quot;explain-code&quot;) {
+    const language = request.params.arguments?.language || &quot;Unknown&quot;;
+    return {
+      messages: [
+        {
+          role: &quot;user&quot;,
+          content: {
+            type: &quot;text&quot;,
+            text: `Explain how this ${language} code works:\n\n${request.params.arguments?.code}`
+          }
+        }
+      ]
+    };
+  }
+
+  throw new Error(&quot;Prompt implementation not found&quot;);
+});
+```
+</code></pre>
+  </Tab>
+  <Tab title="Python">
+    ```python
+    from mcp.server import Server
+    import mcp.types as types
+<pre><code># Define available prompts
+PROMPTS = {
+    &quot;git-commit&quot;: types.Prompt(
+        name=&quot;git-commit&quot;,
+        description=&quot;Generate a Git commit message&quot;,
+        arguments=[
+            types.PromptArgument(
+                name=&quot;changes&quot;,
+                description=&quot;Git diff or description of changes&quot;,
+                required=True
+            )
+        ],
+    ),
+    &quot;explain-code&quot;: types.Prompt(
+        name=&quot;explain-code&quot;,
+        description=&quot;Explain how code works&quot;,
+        arguments=[
+            types.PromptArgument(
+                name=&quot;code&quot;,
+                description=&quot;Code to explain&quot;,
+                required=True
+            ),
+            types.PromptArgument(
+                name=&quot;language&quot;,
+                description=&quot;Programming language&quot;,
+                required=False
+            )
+        ],
+    )
+}
+
+# Initialize server
+app = Server(&quot;example-prompts-server&quot;)
+
+@app.list_prompts()
+async def list_prompts() -&gt; list[types.Prompt]:
+    return list(PROMPTS.values())
+
+@app.get_prompt()
+async def get_prompt(
+    name: str, arguments: dict[str, str] | None = None
+) -&gt; types.GetPromptResult:
+    if name not in PROMPTS:
+        raise ValueError(f&quot;Prompt not found: {name}&quot;)
+
+    if name == &quot;git-commit&quot;:
+        changes = arguments.get(&quot;changes&quot;) if arguments else &quot;&quot;
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role=&quot;user&quot;,
+                    content=types.TextContent(
+                        type=&quot;text&quot;,
+                        text=f&quot;Generate a concise but descriptive commit message &quot;
+                        f&quot;for these changes:\n\n{changes}&quot;
+                    )
+                )
+            ]
+        )
+
+    if name == &quot;explain-code&quot;:
+        code = arguments.get(&quot;code&quot;) if arguments else &quot;&quot;
+        language = arguments.get(&quot;language&quot;, &quot;Unknown&quot;) if arguments else &quot;Unknown&quot;
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role=&quot;user&quot;,
+                    content=types.TextContent(
+                        type=&quot;text&quot;,
+                        text=f&quot;Explain how this {language} code works:\n\n{code}&quot;
+                    )
+                )
+            ]
+        )
+
+    raise ValueError(&quot;Prompt implementation not found&quot;)
+```
+</code></pre>
+  </Tab>
+</Tabs>
+<h2 id="best-practices">Best practices</h2>
+<p>When implementing prompts:</p>
+<ol>
+<li>Use clear, descriptive prompt names</li>
+<li>Provide detailed descriptions for prompts and arguments</li>
+<li>Validate all required arguments</li>
+<li>Handle missing arguments gracefully</li>
+<li>Consider versioning for prompt templates</li>
+<li>Cache dynamic content when appropriate</li>
+<li>Implement error handling</li>
+<li>Document expected argument formats</li>
+<li>Consider prompt composability</li>
+<li>Test prompts with various inputs</li>
+</ol>
+<h2 id="ui-integration">UI integration</h2>
+<p>Prompts can be surfaced in client UIs as:</p>
+<ul>
+<li>Slash commands</li>
+<li>Quick actions</li>
+<li>Context menu items</li>
+<li>Command palette entries</li>
+<li>Guided workflows</li>
+<li>Interactive forms</li>
+</ul>
+<h2 id="updates-and-changes">Updates and changes</h2>
+<p>Servers can notify clients about prompt changes:</p>
+<ol>
+<li>Server capability: <code>prompts.listChanged</code></li>
+<li>Notification: <code>notifications/prompts/list_changed</code></li>
+<li>Client re-fetches prompt list</li>
+</ol>
+<h2 id="security-considerations">Security considerations</h2>
+<p>When implementing prompts:</p>
+<ul>
+<li>Validate all arguments</li>
+<li>Sanitize user input</li>
+<li>Consider rate limiting</li>
+<li>Implement access controls</li>
+<li>Audit prompt usage</li>
+<li>Handle sensitive data appropriately</li>
+<li>Validate generated content</li>
+<li>Implement timeouts</li>
+<li>Consider prompt injection risks</li>
+<li>Document security requirements</li>
+</ul>
+<h1 id="resources">Resources</h1>
+<p>Expose data and content from your servers to LLMs</p>
+<p>Resources are a core primitive in the Model Context Protocol (MCP) that allow servers to expose data and content that can be read by clients and used as context for LLM interactions.</p>
+<Note>
+  Resources are designed to be **application-controlled**, meaning that the client application can decide how and when they should be used.
+  Different MCP clients may handle resources differently. For example:
+<ul>
+<li>Claude Desktop currently requires users to explicitly select resources before they can be used</li>
+<li>Other clients might automatically select resources based on heuristics</li>
+<li>Some implementations may even allow the AI model itself to determine which resources to use</li>
+</ul>
+<p>Server authors should be prepared to handle any of these interaction patterns when implementing resource support. In order to expose data to models automatically, server authors should use a <strong>model-controlled</strong> primitive such as <a href="./tools">Tools</a>.
+</Note></p>
+<h2 id="overview">Overview</h2>
+<p>Resources represent any kind of data that an MCP server wants to make available to clients. This can include:</p>
+<ul>
+<li>File contents</li>
+<li>Database records</li>
+<li>API responses</li>
+<li>Live system data</li>
+<li>Screenshots and images</li>
+<li>Log files</li>
+<li>And more</li>
+</ul>
+<p>Each resource is identified by a unique URI and can contain either text or binary data.</p>
+<h2 id="resource-uris">Resource URIs</h2>
+<p>Resources are identified using URIs that follow this format:</p>
+<pre class="hljs"><code><div>[protocol]://[host]/[path]
+</div></code></pre>
+<p>For example:</p>
+<ul>
+<li><code>file:///home/user/documents/report.pdf</code></li>
+<li><code>postgres://database/customers/schema</code></li>
+<li><code>screen://localhost/display1</code></li>
+</ul>
+<p>The protocol and path structure is defined by the MCP server implementation. Servers can define their own custom URI schemes.</p>
+<h2 id="resource-types">Resource types</h2>
+<p>Resources can contain two types of content:</p>
+<h3 id="text-resources">Text resources</h3>
+<p>Text resources contain UTF-8 encoded text data. These are suitable for:</p>
+<ul>
+<li>Source code</li>
+<li>Configuration files</li>
+<li>Log files</li>
+<li>JSON/XML data</li>
+<li>Plain text</li>
+</ul>
+<h3 id="binary-resources">Binary resources</h3>
+<p>Binary resources contain raw binary data encoded in base64. These are suitable for:</p>
+<ul>
+<li>Images</li>
+<li>PDFs</li>
+<li>Audio files</li>
+<li>Video files</li>
+<li>Other non-text formats</li>
+</ul>
+<h2 id="resource-discovery">Resource discovery</h2>
+<p>Clients can discover available resources through two main methods:</p>
+<h3 id="direct-resources">Direct resources</h3>
+<p>Servers expose a list of concrete resources via the <code>resources/list</code> endpoint. Each resource includes:</p>
+<pre class="hljs"><code><div>{
+  uri: <span class="hljs-built_in">string</span>;           <span class="hljs-comment">// Unique identifier for the resource</span>
+  name: <span class="hljs-built_in">string</span>;          <span class="hljs-comment">// Human-readable name</span>
+  description?: <span class="hljs-built_in">string</span>;  <span class="hljs-comment">// Optional description</span>
+  mimeType?: <span class="hljs-built_in">string</span>;     <span class="hljs-comment">// Optional MIME type</span>
+}
+</div></code></pre>
+<h3 id="resource-templates">Resource templates</h3>
+<p>For dynamic resources, servers can expose <a href="https://datatracker.ietf.org/doc/html/rfc6570">URI templates</a> that clients can use to construct valid resource URIs:</p>
+<pre class="hljs"><code><div>{
+  uriTemplate: <span class="hljs-built_in">string</span>;   <span class="hljs-comment">// URI template following RFC 6570</span>
+  name: <span class="hljs-built_in">string</span>;          <span class="hljs-comment">// Human-readable name for this type</span>
+  description?: <span class="hljs-built_in">string</span>;  <span class="hljs-comment">// Optional description</span>
+  mimeType?: <span class="hljs-built_in">string</span>;     <span class="hljs-comment">// Optional MIME type for all matching resources</span>
+}
+</div></code></pre>
+<h2 id="reading-resources">Reading resources</h2>
+<p>To read a resource, clients make a <code>resources/read</code> request with the resource URI.</p>
+<p>The server responds with a list of resource contents:</p>
+<pre class="hljs"><code><div>{
+  contents: [
+    {
+      uri: <span class="hljs-built_in">string</span>;        <span class="hljs-comment">// The URI of the resource</span>
+      mimeType?: <span class="hljs-built_in">string</span>;  <span class="hljs-comment">// Optional MIME type</span>
+
+      <span class="hljs-comment">// One of:</span>
+      text?: <span class="hljs-built_in">string</span>;      <span class="hljs-comment">// For text resources</span>
+      blob?: <span class="hljs-built_in">string</span>;      <span class="hljs-comment">// For binary resources (base64 encoded)</span>
+    }
+  ]
+}
+</div></code></pre>
+<Tip>
+  Servers may return multiple resources in response to one `resources/read` request. This could be used, for example, to return a list of files inside a directory when the directory is read.
+</Tip>
+<h2 id="resource-updates">Resource updates</h2>
+<p>MCP supports real-time updates for resources through two mechanisms:</p>
+<h3 id="list-changes">List changes</h3>
+<p>Servers can notify clients when their list of available resources changes via the <code>notifications/resources/list_changed</code> notification.</p>
+<h3 id="content-changes">Content changes</h3>
+<p>Clients can subscribe to updates for specific resources:</p>
+<ol>
+<li>Client sends <code>resources/subscribe</code> with resource URI</li>
+<li>Server sends <code>notifications/resources/updated</code> when the resource changes</li>
+<li>Client can fetch latest content with <code>resources/read</code></li>
+<li>Client can unsubscribe with <code>resources/unsubscribe</code></li>
+</ol>
+<h2 id="example-implementation">Example implementation</h2>
+<p>Here's a simple example of implementing resource support in an MCP server:</p>
+<Tabs>
+  <Tab title="TypeScript">
+    ```typescript
+    const server = new Server({
+      name: "example-server",
+      version: "1.0.0"
+    }, {
+      capabilities: {
+        resources: {}
+      }
+    });
+<pre><code>// List available resources
+server.setRequestHandler(ListResourcesRequestSchema, async () =&gt; {
+  return {
+    resources: [
+      {
+        uri: &quot;file:///logs/app.log&quot;,
+        name: &quot;Application Logs&quot;,
+        mimeType: &quot;text/plain&quot;
+      }
+    ]
+  };
+});
+
+// Read resource contents
+server.setRequestHandler(ReadResourceRequestSchema, async (request) =&gt; {
+  const uri = request.params.uri;
+
+  if (uri === &quot;file:///logs/app.log&quot;) {
+    const logContents = await readLogFile();
+    return {
+      contents: [
+        {
+          uri,
+          mimeType: &quot;text/plain&quot;,
+          text: logContents
+        }
+      ]
+    };
+  }
+
+  throw new Error(&quot;Resource not found&quot;);
+});
+```
+</code></pre>
+  </Tab>
+  <Tab title="Python">
+    ```python
+    app = Server("example-server")
+<pre><code>@app.list_resources()
+async def list_resources() -&gt; list[types.Resource]:
+    return [
+        types.Resource(
+            uri=&quot;file:///logs/app.log&quot;,
+            name=&quot;Application Logs&quot;,
+            mimeType=&quot;text/plain&quot;
+        )
+    ]
+
+@app.read_resource()
+async def read_resource(uri: AnyUrl) -&gt; str:
+    if str(uri) == &quot;file:///logs/app.log&quot;:
+        log_contents = await read_log_file()
+        return log_contents
+
+    raise ValueError(&quot;Resource not found&quot;)
+
+# Start server
+async with stdio_server() as streams:
+    await app.run(
+        streams[0],
+        streams[1],
+        app.create_initialization_options()
+    )
+```
+</code></pre>
+  </Tab>
+</Tabs>
+<h2 id="best-practices">Best practices</h2>
+<p>When implementing resource support:</p>
+<ol>
+<li>Use clear, descriptive resource names and URIs</li>
+<li>Include helpful descriptions to guide LLM understanding</li>
+<li>Set appropriate MIME types when known</li>
+<li>Implement resource templates for dynamic content</li>
+<li>Use subscriptions for frequently changing resources</li>
+<li>Handle errors gracefully with clear error messages</li>
+<li>Consider pagination for large resource lists</li>
+<li>Cache resource contents when appropriate</li>
+<li>Validate URIs before processing</li>
+<li>Document your custom URI schemes</li>
+</ol>
+<h2 id="security-considerations">Security considerations</h2>
+<p>When exposing resources:</p>
+<ul>
+<li>Validate all resource URIs</li>
+<li>Implement appropriate access controls</li>
+<li>Sanitize file paths to prevent directory traversal</li>
+<li>Be cautious with binary data handling</li>
+<li>Consider rate limiting for resource reads</li>
+<li>Audit resource access</li>
+<li>Encrypt sensitive data in transit</li>
+<li>Validate MIME types</li>
+<li>Implement timeouts for long-running reads</li>
+<li>Handle resource cleanup appropriately</li>
+</ul>
+<h1 id="roots">Roots</h1>
+<p>Understanding roots in MCP</p>
+<p>Roots are a concept in MCP that define the boundaries where servers can operate. They provide a way for clients to inform servers about relevant resources and their locations.</p>
+<h2 id="what-are-roots">What are Roots?</h2>
+<p>A root is a URI that a client suggests a server should focus on. When a client connects to a server, it declares which roots the server should work with. While primarily used for filesystem paths, roots can be any valid URI including HTTP URLs.</p>
+<p>For example, roots could be:</p>
+<pre class="hljs"><code><div>file:///home/user/projects/myapp
+https://api.example.com/v1
+</div></code></pre>
+<h2 id="why-use-roots">Why Use Roots?</h2>
+<p>Roots serve several important purposes:</p>
+<ol>
+<li><strong>Guidance</strong>: They inform servers about relevant resources and locations</li>
+<li><strong>Clarity</strong>: Roots make it clear which resources are part of your workspace</li>
+<li><strong>Organization</strong>: Multiple roots let you work with different resources simultaneously</li>
+</ol>
+<h2 id="how-roots-work">How Roots Work</h2>
+<p>When a client supports roots, it:</p>
+<ol>
+<li>Declares the <code>roots</code> capability during connection</li>
+<li>Provides a list of suggested roots to the server</li>
+<li>Notifies the server when roots change (if supported)</li>
+</ol>
+<p>While roots are informational and not strictly enforcing, servers should:</p>
+<ol>
+<li>Respect the provided roots</li>
+<li>Use root URIs to locate and access resources</li>
+<li>Prioritize operations within root boundaries</li>
+</ol>
+<h2 id="common-use-cases">Common Use Cases</h2>
+<p>Roots are commonly used to define:</p>
+<ul>
+<li>Project directories</li>
+<li>Repository locations</li>
+<li>API endpoints</li>
+<li>Configuration locations</li>
+<li>Resource boundaries</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<p>When working with roots:</p>
+<ol>
+<li>Only suggest necessary resources</li>
+<li>Use clear, descriptive names for roots</li>
+<li>Monitor root accessibility</li>
+<li>Handle root changes gracefully</li>
+</ol>
+<h2 id="example">Example</h2>
+<p>Here's how a typical MCP client might expose roots:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"roots"</span>: [
+    {
+      <span class="hljs-attr">"uri"</span>: <span class="hljs-string">"file:///home/user/projects/frontend"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Frontend Repository"</span>
+    },
+    {
+      <span class="hljs-attr">"uri"</span>: <span class="hljs-string">"https://api.example.com/v1"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"API Endpoint"</span>
+    }
+  ]
+}
+</div></code></pre>
+<p>This configuration suggests the server focus on both a local repository and an API endpoint while keeping them logically separated.</p>
+<h1 id="sampling">Sampling</h1>
+<p>Let your servers request completions from LLMs</p>
+<p>Sampling is a powerful MCP feature that allows servers to request LLM completions through the client, enabling sophisticated agentic behaviors while maintaining security and privacy.</p>
+<Info>
+  This feature of MCP is not yet supported in the Claude Desktop client.
+</Info>
+<h2 id="how-sampling-works">How sampling works</h2>
+<p>The sampling flow follows these steps:</p>
+<ol>
+<li>Server sends a <code>sampling/createMessage</code> request to the client</li>
+<li>Client reviews the request and can modify it</li>
+<li>Client samples from an LLM</li>
+<li>Client reviews the completion</li>
+<li>Client returns the result to the server</li>
+</ol>
+<p>This human-in-the-loop design ensures users maintain control over what the LLM sees and generates.</p>
+<h2 id="message-format">Message format</h2>
+<p>Sampling requests use a standardized message format:</p>
+<pre class="hljs"><code><div>{
+  messages: [
+    {
+      role: <span class="hljs-string">"user"</span> | <span class="hljs-string">"assistant"</span>,
+      content: {
+        <span class="hljs-keyword">type</span>: <span class="hljs-string">"text"</span> | <span class="hljs-string">"image"</span>,
+
+        <span class="hljs-comment">// For text:</span>
+        text?: <span class="hljs-built_in">string</span>,
+
+        <span class="hljs-comment">// For images:</span>
+        data?: <span class="hljs-built_in">string</span>,             <span class="hljs-comment">// base64 encoded</span>
+        mimeType?: <span class="hljs-built_in">string</span>
+      }
+    }
+  ],
+  modelPreferences?: {
+    hints?: [{
+      name?: <span class="hljs-built_in">string</span>                <span class="hljs-comment">// Suggested model name/family</span>
+    }],
+    costPriority?: <span class="hljs-built_in">number</span>,         <span class="hljs-comment">// 0-1, importance of minimizing cost</span>
+    speedPriority?: <span class="hljs-built_in">number</span>,        <span class="hljs-comment">// 0-1, importance of low latency</span>
+    intelligencePriority?: <span class="hljs-built_in">number</span>  <span class="hljs-comment">// 0-1, importance of capabilities</span>
+  },
+  systemPrompt?: <span class="hljs-built_in">string</span>,
+  includeContext?: <span class="hljs-string">"none"</span> | <span class="hljs-string">"thisServer"</span> | <span class="hljs-string">"allServers"</span>,
+  temperature?: <span class="hljs-built_in">number</span>,
+  maxTokens: <span class="hljs-built_in">number</span>,
+  stopSequences?: <span class="hljs-built_in">string</span>[],
+  metadata?: Record&lt;<span class="hljs-built_in">string</span>, unknown&gt;
+}
+</div></code></pre>
+<h2 id="request-parameters">Request parameters</h2>
+<h3 id="messages">Messages</h3>
+<p>The <code>messages</code> array contains the conversation history to send to the LLM. Each message has:</p>
+<ul>
+<li><code>role</code>: Either &quot;user&quot; or &quot;assistant&quot;</li>
+<li><code>content</code>: The message content, which can be:
+<ul>
+<li>Text content with a <code>text</code> field</li>
+<li>Image content with <code>data</code> (base64) and <code>mimeType</code> fields</li>
+</ul>
+</li>
+</ul>
+<h3 id="model-preferences">Model preferences</h3>
+<p>The <code>modelPreferences</code> object allows servers to specify their model selection preferences:</p>
+<ul>
+<li>
+<p><code>hints</code>: Array of model name suggestions that clients can use to select an appropriate model:</p>
+<ul>
+<li><code>name</code>: String that can match full or partial model names (e.g. &quot;claude-3&quot;, &quot;sonnet&quot;)</li>
+<li>Clients may map hints to equivalent models from different providers</li>
+<li>Multiple hints are evaluated in preference order</li>
+</ul>
+</li>
+<li>
+<p>Priority values (0-1 normalized):</p>
+<ul>
+<li><code>costPriority</code>: Importance of minimizing costs</li>
+<li><code>speedPriority</code>: Importance of low latency response</li>
+<li><code>intelligencePriority</code>: Importance of advanced model capabilities</li>
+</ul>
+</li>
+</ul>
+<p>Clients make the final model selection based on these preferences and their available models.</p>
+<h3 id="system-prompt">System prompt</h3>
+<p>An optional <code>systemPrompt</code> field allows servers to request a specific system prompt. The client may modify or ignore this.</p>
+<h3 id="context-inclusion">Context inclusion</h3>
+<p>The <code>includeContext</code> parameter specifies what MCP context to include:</p>
+<ul>
+<li><code>&quot;none&quot;</code>: No additional context</li>
+<li><code>&quot;thisServer&quot;</code>: Include context from the requesting server</li>
+<li><code>&quot;allServers&quot;</code>: Include context from all connected MCP servers</li>
+</ul>
+<p>The client controls what context is actually included.</p>
+<h3 id="sampling-parameters">Sampling parameters</h3>
+<p>Fine-tune the LLM sampling with:</p>
+<ul>
+<li><code>temperature</code>: Controls randomness (0.0 to 1.0)</li>
+<li><code>maxTokens</code>: Maximum tokens to generate</li>
+<li><code>stopSequences</code>: Array of sequences that stop generation</li>
+<li><code>metadata</code>: Additional provider-specific parameters</li>
+</ul>
+<h2 id="response-format">Response format</h2>
+<p>The client returns a completion result:</p>
+<pre class="hljs"><code><div>{
+  model: <span class="hljs-built_in">string</span>,  <span class="hljs-comment">// Name of the model used</span>
+  stopReason?: <span class="hljs-string">"endTurn"</span> | <span class="hljs-string">"stopSequence"</span> | <span class="hljs-string">"maxTokens"</span> | <span class="hljs-built_in">string</span>,
+  role: <span class="hljs-string">"user"</span> | <span class="hljs-string">"assistant"</span>,
+  content: {
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">"text"</span> | <span class="hljs-string">"image"</span>,
+    text?: <span class="hljs-built_in">string</span>,
+    data?: <span class="hljs-built_in">string</span>,
+    mimeType?: <span class="hljs-built_in">string</span>
+  }
+}
+</div></code></pre>
+<h2 id="example-request">Example request</h2>
+<p>Here's an example of requesting sampling from a client:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"method"</span>: <span class="hljs-string">"sampling/createMessage"</span>,
+  <span class="hljs-attr">"params"</span>: {
+    <span class="hljs-attr">"messages"</span>: [
+      {
+        <span class="hljs-attr">"role"</span>: <span class="hljs-string">"user"</span>,
+        <span class="hljs-attr">"content"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"text"</span>,
+          <span class="hljs-attr">"text"</span>: <span class="hljs-string">"What files are in the current directory?"</span>
+        }
+      }
+    ],
+    <span class="hljs-attr">"systemPrompt"</span>: <span class="hljs-string">"You are a helpful file system assistant."</span>,
+    <span class="hljs-attr">"includeContext"</span>: <span class="hljs-string">"thisServer"</span>,
+    <span class="hljs-attr">"maxTokens"</span>: <span class="hljs-number">100</span>
+  }
+}
+</div></code></pre>
+<h2 id="best-practices">Best practices</h2>
+<p>When implementing sampling:</p>
+<ol>
+<li>Always provide clear, well-structured prompts</li>
+<li>Handle both text and image content appropriately</li>
+<li>Set reasonable token limits</li>
+<li>Include relevant context through <code>includeContext</code></li>
+<li>Validate responses before using them</li>
+<li>Handle errors gracefully</li>
+<li>Consider rate limiting sampling requests</li>
+<li>Document expected sampling behavior</li>
+<li>Test with various model parameters</li>
+<li>Monitor sampling costs</li>
+</ol>
+<h2 id="human-in-the-loop-controls">Human in the loop controls</h2>
+<p>Sampling is designed with human oversight in mind:</p>
+<h3 id="for-prompts">For prompts</h3>
+<ul>
+<li>Clients should show users the proposed prompt</li>
+<li>Users should be able to modify or reject prompts</li>
+<li>System prompts can be filtered or modified</li>
+<li>Context inclusion is controlled by the client</li>
+</ul>
+<h3 id="for-completions">For completions</h3>
+<ul>
+<li>Clients should show users the completion</li>
+<li>Users should be able to modify or reject completions</li>
+<li>Clients can filter or modify completions</li>
+<li>Users control which model is used</li>
+</ul>
+<h2 id="security-considerations">Security considerations</h2>
+<p>When implementing sampling:</p>
+<ul>
+<li>Validate all message content</li>
+<li>Sanitize sensitive information</li>
+<li>Implement appropriate rate limits</li>
+<li>Monitor sampling usage</li>
+<li>Encrypt data in transit</li>
+<li>Handle user data privacy</li>
+<li>Audit sampling requests</li>
+<li>Control cost exposure</li>
+<li>Implement timeouts</li>
+<li>Handle model errors gracefully</li>
+</ul>
+<h2 id="common-patterns">Common patterns</h2>
+<h3 id="agentic-workflows">Agentic workflows</h3>
+<p>Sampling enables agentic patterns like:</p>
+<ul>
+<li>Reading and analyzing resources</li>
+<li>Making decisions based on context</li>
+<li>Generating structured data</li>
+<li>Handling multi-step tasks</li>
+<li>Providing interactive assistance</li>
+</ul>
+<h3 id="context-management">Context management</h3>
+<p>Best practices for context:</p>
+<ul>
+<li>Request minimal necessary context</li>
+<li>Structure context clearly</li>
+<li>Handle context size limits</li>
+<li>Update context as needed</li>
+<li>Clean up stale context</li>
+</ul>
+<h3 id="error-handling">Error handling</h3>
+<p>Robust error handling should:</p>
+<ul>
+<li>Catch sampling failures</li>
+<li>Handle timeout errors</li>
+<li>Manage rate limits</li>
+<li>Validate responses</li>
+<li>Provide fallback behaviors</li>
+<li>Log errors appropriately</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<p>Be aware of these limitations:</p>
+<ul>
+<li>Sampling depends on client capabilities</li>
+<li>Users control sampling behavior</li>
+<li>Context size has limits</li>
+<li>Rate limits may apply</li>
+<li>Costs should be considered</li>
+<li>Model availability varies</li>
+<li>Response times vary</li>
+<li>Not all content types supported</li>
+</ul>
+<h1 id="tools">Tools</h1>
+<p>Enable LLMs to perform actions through your server</p>
+<p>Tools are a powerful primitive in the Model Context Protocol (MCP) that enable servers to expose executable functionality to clients. Through tools, LLMs can interact with external systems, perform computations, and take actions in the real world.</p>
+<Note>
+  Tools are designed to be **model-controlled**, meaning that tools are exposed from servers to clients with the intention of the AI model being able to automatically invoke them (with a human in the loop to grant approval).
+</Note>
+<h2 id="overview">Overview</h2>
+<p>Tools in MCP allow servers to expose executable functions that can be invoked by clients and used by LLMs to perform actions. Key aspects of tools include:</p>
+<ul>
+<li><strong>Discovery</strong>: Clients can list available tools through the <code>tools/list</code> endpoint</li>
+<li><strong>Invocation</strong>: Tools are called using the <code>tools/call</code> endpoint, where servers perform the requested operation and return results</li>
+<li><strong>Flexibility</strong>: Tools can range from simple calculations to complex API interactions</li>
+</ul>
+<p>Like <a href="/docs/concepts/resources">resources</a>, tools are identified by unique names and can include descriptions to guide their usage. However, unlike resources, tools represent dynamic operations that can modify state or interact with external systems.</p>
+<h2 id="tool-definition-structure">Tool definition structure</h2>
+<p>Each tool is defined with the following structure:</p>
+<pre class="hljs"><code><div>{
+  name: <span class="hljs-built_in">string</span>;          <span class="hljs-comment">// Unique identifier for the tool</span>
+  description?: <span class="hljs-built_in">string</span>;  <span class="hljs-comment">// Human-readable description</span>
+  inputSchema: {         <span class="hljs-comment">// JSON Schema for the tool's parameters</span>
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">"object"</span>,
+    properties: { ... }  <span class="hljs-comment">// Tool-specific parameters</span>
+  }
+}
+</div></code></pre>
+<h2 id="implementing-tools">Implementing tools</h2>
+<p>Here's an example of implementing a basic tool in an MCP server:</p>
+<Tabs>
+  <Tab title="TypeScript">
+    ```typescript
+    const server = new Server({
+      name: "example-server",
+      version: "1.0.0"
+    }, {
+      capabilities: {
+        tools: {}
+      }
+    });
+<pre><code>// Define available tools
+server.setRequestHandler(ListToolsRequestSchema, async () =&gt; {
+  return {
+    tools: [{
+      name: &quot;calculate_sum&quot;,
+      description: &quot;Add two numbers together&quot;,
+      inputSchema: {
+        type: &quot;object&quot;,
+        properties: {
+          a: { type: &quot;number&quot; },
+          b: { type: &quot;number&quot; }
+        },
+        required: [&quot;a&quot;, &quot;b&quot;]
+      }
+    }]
+  };
+});
+
+// Handle tool execution
+server.setRequestHandler(CallToolRequestSchema, async (request) =&gt; {
+  if (request.params.name === &quot;calculate_sum&quot;) {
+    const { a, b } = request.params.arguments;
+    return {
+      content: [
+        {
+          type: &quot;text&quot;,
+          text: String(a + b)
+        }
+      ]
+    };
+  }
+  throw new Error(&quot;Tool not found&quot;);
+});
+```
+</code></pre>
+  </Tab>
+  <Tab title="Python">
+    ```python
+    app = Server("example-server")
+<pre><code>@app.list_tools()
+async def list_tools() -&gt; list[types.Tool]:
+    return [
+        types.Tool(
+            name=&quot;calculate_sum&quot;,
+            description=&quot;Add two numbers together&quot;,
+            inputSchema={
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;properties&quot;: {
+                    &quot;a&quot;: {&quot;type&quot;: &quot;number&quot;},
+                    &quot;b&quot;: {&quot;type&quot;: &quot;number&quot;}
+                },
+                &quot;required&quot;: [&quot;a&quot;, &quot;b&quot;]
+            }
+        )
+    ]
+
+@app.call_tool()
+async def call_tool(
+    name: str,
+    arguments: dict
+) -&gt; list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
+    if name == &quot;calculate_sum&quot;:
+        a = arguments[&quot;a&quot;]
+        b = arguments[&quot;b&quot;]
+        result = a + b
+        return [types.TextContent(type=&quot;text&quot;, text=str(result))]
+    raise ValueError(f&quot;Tool not found: {name}&quot;)
+```
+</code></pre>
+  </Tab>
+</Tabs>
+<h2 id="example-tool-patterns">Example tool patterns</h2>
+<p>Here are some examples of types of tools that a server could provide:</p>
+<h3 id="system-operations">System operations</h3>
+<p>Tools that interact with the local system:</p>
+<pre class="hljs"><code><div>{
+  name: <span class="hljs-string">"execute_command"</span>,
+  description: <span class="hljs-string">"Run a shell command"</span>,
+  inputSchema: {
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">"object"</span>,
+    properties: {
+      command: { <span class="hljs-keyword">type</span>: <span class="hljs-string">"string"</span> },
+      args: { <span class="hljs-keyword">type</span>: <span class="hljs-string">"array"</span>, items: { <span class="hljs-keyword">type</span>: <span class="hljs-string">"string"</span> } }
+    }
+  }
+}
+</div></code></pre>
+<h3 id="api-integrations">API integrations</h3>
+<p>Tools that wrap external APIs:</p>
+<pre class="hljs"><code><div>{
+  name: <span class="hljs-string">"github_create_issue"</span>,
+  description: <span class="hljs-string">"Create a GitHub issue"</span>,
+  inputSchema: {
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">"object"</span>,
+    properties: {
+      title: { <span class="hljs-keyword">type</span>: <span class="hljs-string">"string"</span> },
+      body: { <span class="hljs-keyword">type</span>: <span class="hljs-string">"string"</span> },
+      labels: { <span class="hljs-keyword">type</span>: <span class="hljs-string">"array"</span>, items: { <span class="hljs-keyword">type</span>: <span class="hljs-string">"string"</span> } }
+    }
+  }
+}
+</div></code></pre>
+<h3 id="data-processing">Data processing</h3>
+<p>Tools that transform or analyze data:</p>
+<pre class="hljs"><code><div>{
+  name: <span class="hljs-string">"analyze_csv"</span>,
+  description: <span class="hljs-string">"Analyze a CSV file"</span>,
+  inputSchema: {
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">"object"</span>,
+    properties: {
+      filepath: { <span class="hljs-keyword">type</span>: <span class="hljs-string">"string"</span> },
+      operations: {
+        <span class="hljs-keyword">type</span>: <span class="hljs-string">"array"</span>,
+        items: {
+          <span class="hljs-keyword">enum</span>: [<span class="hljs-string">"sum"</span>, <span class="hljs-string">"average"</span>, <span class="hljs-string">"count"</span>]
+        }
+      }
+    }
+  }
+}
+</div></code></pre>
+<h2 id="best-practices">Best practices</h2>
+<p>When implementing tools:</p>
+<ol>
+<li>Provide clear, descriptive names and descriptions</li>
+<li>Use detailed JSON Schema definitions for parameters</li>
+<li>Include examples in tool descriptions to demonstrate how the model should use them</li>
+<li>Implement proper error handling and validation</li>
+<li>Use progress reporting for long operations</li>
+<li>Keep tool operations focused and atomic</li>
+<li>Document expected return value structures</li>
+<li>Implement proper timeouts</li>
+<li>Consider rate limiting for resource-intensive operations</li>
+<li>Log tool usage for debugging and monitoring</li>
+</ol>
+<h2 id="security-considerations">Security considerations</h2>
+<p>When exposing tools:</p>
+<h3 id="input-validation">Input validation</h3>
+<ul>
+<li>Validate all parameters against the schema</li>
+<li>Sanitize file paths and system commands</li>
+<li>Validate URLs and external identifiers</li>
+<li>Check parameter sizes and ranges</li>
+<li>Prevent command injection</li>
+</ul>
+<h3 id="access-control">Access control</h3>
+<ul>
+<li>Implement authentication where needed</li>
+<li>Use appropriate authorization checks</li>
+<li>Audit tool usage</li>
+<li>Rate limit requests</li>
+<li>Monitor for abuse</li>
+</ul>
+<h3 id="error-handling">Error handling</h3>
+<ul>
+<li>Don't expose internal errors to clients</li>
+<li>Log security-relevant errors</li>
+<li>Handle timeouts appropriately</li>
+<li>Clean up resources after errors</li>
+<li>Validate return values</li>
+</ul>
+<h2 id="tool-discovery-and-updates">Tool discovery and updates</h2>
+<p>MCP supports dynamic tool discovery:</p>
+<ol>
+<li>Clients can list available tools at any time</li>
+<li>Servers can notify clients when tools change using <code>notifications/tools/list_changed</code></li>
+<li>Tools can be added or removed during runtime</li>
+<li>Tool definitions can be updated (though this should be done carefully)</li>
+</ol>
+<h2 id="error-handling">Error handling</h2>
+<p>Tool errors should be reported within the result object, not as MCP protocol-level errors. This allows the LLM to see and potentially handle the error. When a tool encounters an error:</p>
+<ol>
+<li>Set <code>isError</code> to <code>true</code> in the result</li>
+<li>Include error details in the <code>content</code> array</li>
+</ol>
+<p>Here's an example of proper error handling for tools:</p>
+<Tabs>
+  <Tab title="TypeScript">
+    ```typescript
+    try {
+      // Tool operation
+      const result = performOperation();
+      return {
+        content: [
+          {
+            type: "text",
+            text: `Operation successful: ${result}`
+          }
+        ]
+      };
+    } catch (error) {
+      return {
+        isError: true,
+        content: [
+          {
+            type: "text",
+            text: `Error: ${error.message}`
+          }
+        ]
+      };
+    }
+    ```
+  </Tab>
+  <Tab title="Python">
+    ```python
+    try:
+        # Tool operation
+        result = perform_operation()
+        return types.CallToolResult(
+            content=[
+                types.TextContent(
+                    type="text",
+                    text=f"Operation successful: {result}"
+                )
+            ]
+        )
+    except Exception as error:
+        return types.CallToolResult(
+            isError=True,
+            content=[
+                types.TextContent(
+                    type="text",
+                    text=f"Error: {str(error)}"
+                )
+            ]
+        )
+    ```
+  </Tab>
+</Tabs>
+<p>This approach allows the LLM to see that an error occurred and potentially take corrective action or request human intervention.</p>
+<h2 id="testing-tools">Testing tools</h2>
+<p>A comprehensive testing strategy for MCP tools should cover:</p>
+<ul>
+<li><strong>Functional testing</strong>: Verify tools execute correctly with valid inputs and handle invalid inputs appropriately</li>
+<li><strong>Integration testing</strong>: Test tool interaction with external systems using both real and mocked dependencies</li>
+<li><strong>Security testing</strong>: Validate authentication, authorization, input sanitization, and rate limiting</li>
+<li><strong>Performance testing</strong>: Check behavior under load, timeout handling, and resource cleanup</li>
+<li><strong>Error handling</strong>: Ensure tools properly report errors through the MCP protocol and clean up resources</li>
+</ul>
+<h1 id="transports">Transports</h1>
+<p>Learn about MCP's communication mechanisms</p>
+<p>Transports in the Model Context Protocol (MCP) provide the foundation for communication between clients and servers. A transport handles the underlying mechanics of how messages are sent and received.</p>
+<h2 id="message-format">Message Format</h2>
+<p>MCP uses <a href="https://www.jsonrpc.org/">JSON-RPC</a> 2.0 as its wire format. The transport layer is responsible for converting MCP protocol messages into JSON-RPC format for transmission and converting received JSON-RPC messages back into MCP protocol messages.</p>
+<p>There are three types of JSON-RPC messages used:</p>
+<h3 id="requests">Requests</h3>
+<pre class="hljs"><code><div>{
+  jsonrpc: <span class="hljs-string">"2.0"</span>,
+  id: <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span>,
+  method: <span class="hljs-built_in">string</span>,
+  params?: object
+}
+</div></code></pre>
+<h3 id="responses">Responses</h3>
+<pre class="hljs"><code><div>{
+  jsonrpc: <span class="hljs-string">"2.0"</span>,
+  id: <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span>,
+  result?: object,
+  error?: {
+    code: <span class="hljs-built_in">number</span>,
+    message: <span class="hljs-built_in">string</span>,
+    data?: unknown
+  }
+}
+</div></code></pre>
+<h3 id="notifications">Notifications</h3>
+<pre class="hljs"><code><div>{
+  jsonrpc: <span class="hljs-string">"2.0"</span>,
+  method: <span class="hljs-built_in">string</span>,
+  params?: object
+}
+</div></code></pre>
+<h2 id="built-in-transport-types">Built-in Transport Types</h2>
+<p>MCP includes two standard transport implementations:</p>
+<h3 id="standard-inputoutput-stdio">Standard Input/Output (stdio)</h3>
+<p>The stdio transport enables communication through standard input and output streams. This is particularly useful for local integrations and command-line tools.</p>
+<p>Use stdio when:</p>
+<ul>
+<li>Building command-line tools</li>
+<li>Implementing local integrations</li>
+<li>Needing simple process communication</li>
+<li>Working with shell scripts</li>
+</ul>
+<Tabs>
+  <Tab title="TypeScript (Server)">
+    ```typescript
+    const server = new Server({
+      name: "example-server",
+      version: "1.0.0"
+    }, {
+      capabilities: {}
+    });
+<pre><code>const transport = new StdioServerTransport();
+await server.connect(transport);
+```
+</code></pre>
+  </Tab>
+  <Tab title="TypeScript (Client)">
+    ```typescript
+    const client = new Client({
+      name: "example-client",
+      version: "1.0.0"
+    }, {
+      capabilities: {}
+    });
+<pre><code>const transport = new StdioClientTransport({
+  command: &quot;./server&quot;,
+  args: [&quot;--option&quot;, &quot;value&quot;]
+});
+await client.connect(transport);
+```
+</code></pre>
+  </Tab>
+  <Tab title="Python (Server)">
+    ```python
+    app = Server("example-server")
+<pre><code>async with stdio_server() as streams:
+    await app.run(
+        streams[0],
+        streams[1],
+        app.create_initialization_options()
+    )
+```
+</code></pre>
+  </Tab>
+  <Tab title="Python (Client)">
+    ```python
+    params = StdioServerParameters(
+        command="./server",
+        args=["--option", "value"]
+    )
+<pre><code>async with stdio_client(params) as streams:
+    async with ClientSession(streams[0], streams[1]) as session:
+        await session.initialize()
+```
+</code></pre>
+  </Tab>
+</Tabs>
+<h3 id="server-sent-events-sse">Server-Sent Events (SSE)</h3>
+<p>SSE transport enables server-to-client streaming with HTTP POST requests for client-to-server communication.</p>
+<p>Use SSE when:</p>
+<ul>
+<li>Only server-to-client streaming is needed</li>
+<li>Working with restricted networks</li>
+<li>Implementing simple updates</li>
+</ul>
+<Tabs>
+  <Tab title="TypeScript (Server)">
+    ```typescript
+    const server = new Server({
+      name: "example-server",
+      version: "1.0.0"
+    }, {
+      capabilities: {}
+    });
+<pre><code>const transport = new SSEServerTransport(&quot;/message&quot;, response);
+await server.connect(transport);
+```
+</code></pre>
+  </Tab>
+  <Tab title="TypeScript (Client)">
+    ```typescript
+    const client = new Client({
+      name: "example-client",
+      version: "1.0.0"
+    }, {
+      capabilities: {}
+    });
+<pre><code>const transport = new SSEClientTransport(
+  new URL(&quot;http://localhost:3000/sse&quot;)
+);
+await client.connect(transport);
+```
+</code></pre>
+  </Tab>
+  <Tab title="Python (Server)">
+    ```python
+    from mcp.server.sse import SseServerTransport
+    from starlette.applications import Starlette
+    from starlette.routing import Route
+<pre><code>app = Server(&quot;example-server&quot;)
+sse = SseServerTransport(&quot;/messages&quot;)
+
+async def handle_sse(scope, receive, send):
+    async with sse.connect_sse(scope, receive, send) as streams:
+        await app.run(streams[0], streams[1], app.create_initialization_options())
+
+async def handle_messages(scope, receive, send):
+    await sse.handle_post_message(scope, receive, send)
+
+starlette_app = Starlette(
+    routes=[
+        Route(&quot;/sse&quot;, endpoint=handle_sse),
+        Route(&quot;/messages&quot;, endpoint=handle_messages, methods=[&quot;POST&quot;]),
+    ]
+)
+```
+</code></pre>
+  </Tab>
+  <Tab title="Python (Client)">
+    ```python
+    async with sse_client("http://localhost:8000/sse") as streams:
+        async with ClientSession(streams[0], streams[1]) as session:
+            await session.initialize()
+    ```
+  </Tab>
+</Tabs>
+<h2 id="custom-transports">Custom Transports</h2>
+<p>MCP makes it easy to implement custom transports for specific needs. Any transport implementation just needs to conform to the Transport interface:</p>
+<p>You can implement custom transports for:</p>
+<ul>
+<li>Custom network protocols</li>
+<li>Specialized communication channels</li>
+<li>Integration with existing systems</li>
+<li>Performance optimization</li>
+</ul>
+<Tabs>
+  <Tab title="TypeScript">
+    ```typescript
+    interface Transport {
+      // Start processing messages
+      start(): Promise<void>;
+<pre><code>  // Send a JSON-RPC message
+  send(message: JSONRPCMessage): Promise&lt;void&gt;;
+
+  // Close the connection
+  close(): Promise&lt;void&gt;;
+
+  // Callbacks
+  onclose?: () =&gt; void;
+  onerror?: (error: Error) =&gt; void;
+  onmessage?: (message: JSONRPCMessage) =&gt; void;
+}
+```
+</code></pre>
+  </Tab>
+  <Tab title="Python">
+    Note that while MCP Servers are often implemented with asyncio, we recommend
+    implementing low-level interfaces like transports with `anyio` for wider compatibility.
+<pre><code>```python
+@contextmanager
+async def create_transport(
+    read_stream: MemoryObjectReceiveStream[JSONRPCMessage | Exception],
+    write_stream: MemoryObjectSendStream[JSONRPCMessage]
+):
+    &quot;&quot;&quot;
+    Transport interface for MCP.
+
+    Args:
+        read_stream: Stream to read incoming messages from
+        write_stream: Stream to write outgoing messages to
+    &quot;&quot;&quot;
+    async with anyio.create_task_group() as tg:
+        try:
+            # Start processing messages
+            tg.start_soon(lambda: process_messages(read_stream))
+
+            # Send messages
+            async with write_stream:
+                yield write_stream
+
+        except Exception as exc:
+            # Handle errors
+            raise exc
+        finally:
+            # Clean up
+            tg.cancel_scope.cancel()
+            await write_stream.aclose()
+            await read_stream.aclose()
+```
+</code></pre>
+  </Tab>
+</Tabs>
+<h2 id="error-handling">Error Handling</h2>
+<p>Transport implementations should handle various error scenarios:</p>
+<ol>
+<li>Connection errors</li>
+<li>Message parsing errors</li>
+<li>Protocol errors</li>
+<li>Network timeouts</li>
+<li>Resource cleanup</li>
+</ol>
+<p>Example error handling:</p>
+<Tabs>
+  <Tab title="TypeScript">
+    ```typescript
+    class ExampleTransport implements Transport {
+      async start() {
+        try {
+          // Connection logic
+        } catch (error) {
+          this.onerror?.(new Error(`Failed to connect: ${error}`));
+          throw error;
+        }
+      }
+<pre><code>  async send(message: JSONRPCMessage) {
+    try {
+      // Sending logic
+    } catch (error) {
+      this.onerror?.(new Error(`Failed to send message: ${error}`));
+      throw error;
+    }
+  }
+}
+```
+</code></pre>
+  </Tab>
+  <Tab title="Python">
+    Note that while MCP Servers are often implemented with asyncio, we recommend
+    implementing low-level interfaces like transports with `anyio` for wider compatibility.
+<pre><code>```python
+@contextmanager
+async def example_transport(scope: Scope, receive: Receive, send: Send):
+    try:
+        # Create streams for bidirectional communication
+        read_stream_writer, read_stream = anyio.create_memory_object_stream(0)
+        write_stream, write_stream_reader = anyio.create_memory_object_stream(0)
+
+        async def message_handler():
+            try:
+                async with read_stream_writer:
+                    # Message handling logic
+                    pass
+            except Exception as exc:
+                logger.error(f&quot;Failed to handle message: {exc}&quot;)
+                raise exc
+
+        async with anyio.create_task_group() as tg:
+            tg.start_soon(message_handler)
+            try:
+                # Yield streams for communication
+                yield read_stream, write_stream
+            except Exception as exc:
+                logger.error(f&quot;Transport error: {exc}&quot;)
+                raise exc
+            finally:
+                tg.cancel_scope.cancel()
+                await write_stream.aclose()
+                await read_stream.aclose()
+    except Exception as exc:
+        logger.error(f&quot;Failed to initialize transport: {exc}&quot;)
+        raise exc
+```
+</code></pre>
+  </Tab>
+</Tabs>
+<h2 id="best-practices">Best Practices</h2>
+<p>When implementing or using MCP transport:</p>
+<ol>
+<li>Handle connection lifecycle properly</li>
+<li>Implement proper error handling</li>
+<li>Clean up resources on connection close</li>
+<li>Use appropriate timeouts</li>
+<li>Validate messages before sending</li>
+<li>Log transport events for debugging</li>
+<li>Implement reconnection logic when appropriate</li>
+<li>Handle backpressure in message queues</li>
+<li>Monitor connection health</li>
+<li>Implement proper security measures</li>
+</ol>
+<h2 id="security-considerations">Security Considerations</h2>
+<p>When implementing transport:</p>
+<h3 id="authentication-and-authorization">Authentication and Authorization</h3>
+<ul>
+<li>Implement proper authentication mechanisms</li>
+<li>Validate client credentials</li>
+<li>Use secure token handling</li>
+<li>Implement authorization checks</li>
+</ul>
+<h3 id="data-security">Data Security</h3>
+<ul>
+<li>Use TLS for network transport</li>
+<li>Encrypt sensitive data</li>
+<li>Validate message integrity</li>
+<li>Implement message size limits</li>
+<li>Sanitize input data</li>
+</ul>
+<h3 id="network-security">Network Security</h3>
+<ul>
+<li>Implement rate limiting</li>
+<li>Use appropriate timeouts</li>
+<li>Handle denial of service scenarios</li>
+<li>Monitor for unusual patterns</li>
+<li>Implement proper firewall rules</li>
+</ul>
+<h2 id="debugging-transport">Debugging Transport</h2>
+<p>Tips for debugging transport issues:</p>
+<ol>
+<li>Enable debug logging</li>
+<li>Monitor message flow</li>
+<li>Check connection states</li>
+<li>Validate message formats</li>
+<li>Test error scenarios</li>
+<li>Use network analysis tools</li>
+<li>Implement health checks</li>
+<li>Monitor resource usage</li>
+<li>Test edge cases</li>
+<li>Use proper error tracking</li>
+</ol>
+<h1 id="debugging">Debugging</h1>
+<p>A comprehensive guide to debugging Model Context Protocol (MCP) integrations</p>
+<p>Effective debugging is essential when developing MCP servers or integrating them with applications. This guide covers the debugging tools and approaches available in the MCP ecosystem.</p>
+<Info>
+  This guide is for macOS. Guides for other platforms are coming soon.
+</Info>
+<h2 id="debugging-tools-overview">Debugging tools overview</h2>
+<p>MCP provides several tools for debugging at different levels:</p>
+<ol>
+<li>
+<p><strong>MCP Inspector</strong></p>
+<ul>
+<li>Interactive debugging interface</li>
+<li>Direct server testing</li>
+<li>See the <a href="/docs/tools/inspector">Inspector guide</a> for details</li>
+</ul>
+</li>
+<li>
+<p><strong>Claude Desktop Developer Tools</strong></p>
+<ul>
+<li>Integration testing</li>
+<li>Log collection</li>
+<li>Chrome DevTools integration</li>
+</ul>
+</li>
+<li>
+<p><strong>Server Logging</strong></p>
+<ul>
+<li>Custom logging implementations</li>
+<li>Error tracking</li>
+<li>Performance monitoring</li>
+</ul>
+</li>
+</ol>
+<h2 id="debugging-in-claude-desktop">Debugging in Claude Desktop</h2>
+<h3 id="checking-server-status">Checking server status</h3>
+<p>The Claude.app interface provides basic server status information:</p>
+<ol>
+<li>
+<p>Click the &lt;img src=&quot;https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/claude-desktop-mcp-plug-icon.svg&quot; style={{display: 'inline', margin: 0, height: '1.3em'}} /&gt; icon to view:</p>
+<ul>
+<li>Connected servers</li>
+<li>Available prompts and resources</li>
+</ul>
+</li>
+<li>
+<p>Click the &lt;img src=&quot;https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/claude-desktop-mcp-hammer-icon.svg&quot; style={{display: 'inline', margin: 0, height: '1.3em'}} /&gt; icon to view:</p>
+<ul>
+<li>Tools made available to the model</li>
+</ul>
+</li>
+</ol>
+<h3 id="viewing-logs">Viewing logs</h3>
+<p>Review detailed MCP logs from Claude Desktop:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Follow logs in real-time</span>
+tail -n 20 -f ~/Library/Logs/Claude/mcp*.<span class="hljs-built_in">log</span>
+</div></code></pre>
+<p>The logs capture:</p>
+<ul>
+<li>Server connection events</li>
+<li>Configuration issues</li>
+<li>Runtime errors</li>
+<li>Message exchanges</li>
+</ul>
+<h3 id="using-chrome-devtools">Using Chrome DevTools</h3>
+<p>Access Chrome's developer tools inside Claude Desktop to investigate client-side errors:</p>
+<ol>
+<li>Enable DevTools:</li>
+</ol>
+<pre class="hljs"><code><div>jq <span class="hljs-string">'.allowDevTools = true'</span> ~/Library/Application\ Support/Claude/developer_settings.json &gt; tmp.json \
+  &amp;&amp; mv tmp.json ~/Library/Application\ Support/Claude/developer_settings.json
+</div></code></pre>
+<ol start="2">
+<li>Open DevTools: <code>Command-Option-Shift-i</code></li>
+</ol>
+<p>Note: You'll see two DevTools windows:</p>
+<ul>
+<li>Main content window</li>
+<li>App title bar window</li>
+</ul>
+<p>Use the Console panel to inspect client-side errors.</p>
+<p>Use the Network panel to inspect:</p>
+<ul>
+<li>Message payloads</li>
+<li>Connection timing</li>
+</ul>
+<h2 id="common-issues">Common issues</h2>
+<h3 id="working-directory">Working directory</h3>
+<p>When using MCP servers with Claude Desktop:</p>
+<ul>
+<li>The working directory for servers launched via <code>claude_desktop_config.json</code> may be undefined (like <code>/</code> on macOS) since Claude Desktop could be started from anywhere</li>
+<li>Always use absolute paths in your configuration and <code>.env</code> files to ensure reliable operation</li>
+<li>For testing servers directly via command line, the working directory will be where you run the command</li>
+</ul>
+<p>For example in <code>claude_desktop_config.json</code>, use:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"command"</span>: <span class="hljs-string">"npx"</span>,
+  <span class="hljs-attr">"args"</span>: [<span class="hljs-string">"-y"</span>, <span class="hljs-string">"@modelcontextprotocol/server-filesystem"</span>, <span class="hljs-string">"/Users/username/data"</span>]
+}
+</div></code></pre>
+<p>Instead of relative paths like <code>./data</code></p>
+<h3 id="environment-variables">Environment variables</h3>
+<p>MCP servers inherit only a subset of environment variables automatically, like <code>USER</code>, <code>HOME</code>, and <code>PATH</code>.</p>
+<p>To override the default variables or provide your own, you can specify an <code>env</code> key in <code>claude_desktop_config.json</code>:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"myserver"</span>: {
+    <span class="hljs-attr">"command"</span>: <span class="hljs-string">"mcp-server-myapp"</span>,
+    <span class="hljs-attr">"env"</span>: {
+      <span class="hljs-attr">"MYAPP_API_KEY"</span>: <span class="hljs-string">"some_key"</span>,
+    }
+  }
+}
+</div></code></pre>
+<h3 id="server-initialization">Server initialization</h3>
+<p>Common initialization problems:</p>
+<ol>
+<li>
+<p><strong>Path Issues</strong></p>
+<ul>
+<li>Incorrect server executable path</li>
+<li>Missing required files</li>
+<li>Permission problems</li>
+<li>Try using an absolute path for <code>command</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Configuration Errors</strong></p>
+<ul>
+<li>Invalid JSON syntax</li>
+<li>Missing required fields</li>
+<li>Type mismatches</li>
+</ul>
+</li>
+<li>
+<p><strong>Environment Problems</strong></p>
+<ul>
+<li>Missing environment variables</li>
+<li>Incorrect variable values</li>
+<li>Permission restrictions</li>
+</ul>
+</li>
+</ol>
+<h3 id="connection-problems">Connection problems</h3>
+<p>When servers fail to connect:</p>
+<ol>
+<li>Check Claude Desktop logs</li>
+<li>Verify server process is running</li>
+<li>Test standalone with <a href="/docs/tools/inspector">Inspector</a></li>
+<li>Verify protocol compatibility</li>
+</ol>
+<h2 id="implementing-logging">Implementing logging</h2>
+<h3 id="server-side-logging">Server-side logging</h3>
+<p>When building a server that uses the local stdio <a href="/docs/concepts/transports">transport</a>, all messages logged to stderr (standard error) will be captured by the host application (e.g., Claude Desktop) automatically.</p>
+<Warning>
+  Local MCP servers should not log messages to stdout (standard out), as this will interfere with protocol operation.
+</Warning>
+<p>For all <a href="/docs/concepts/transports">transports</a>, you can also provide logging to the client by sending a log message notification:</p>
+<Tabs>
+  <Tab title="Python">
+    ```python
+    server.request_context.session.send_log_message(
+      level="info",
+      data="Server started successfully",
+    )
+    ```
+  </Tab>
+  <Tab title="TypeScript">
+    ```typescript
+    server.sendLoggingMessage({
+      level: "info",
+      data: "Server started successfully",
+    });
+    ```
+  </Tab>
+</Tabs>
+<p>Important events to log:</p>
+<ul>
+<li>Initialization steps</li>
+<li>Resource access</li>
+<li>Tool execution</li>
+<li>Error conditions</li>
+<li>Performance metrics</li>
+</ul>
+<h3 id="client-side-logging">Client-side logging</h3>
+<p>In client applications:</p>
+<ol>
+<li>Enable debug logging</li>
+<li>Monitor network traffic</li>
+<li>Track message exchanges</li>
+<li>Record error states</li>
+</ol>
+<h2 id="debugging-workflow">Debugging workflow</h2>
+<h3 id="development-cycle">Development cycle</h3>
+<ol>
+<li>
+<p>Initial Development</p>
+<ul>
+<li>Use <a href="/docs/tools/inspector">Inspector</a> for basic testing</li>
+<li>Implement core functionality</li>
+<li>Add logging points</li>
+</ul>
+</li>
+<li>
+<p>Integration Testing</p>
+<ul>
+<li>Test in Claude Desktop</li>
+<li>Monitor logs</li>
+<li>Check error handling</li>
+</ul>
+</li>
+</ol>
+<h3 id="testing-changes">Testing changes</h3>
+<p>To test changes efficiently:</p>
+<ul>
+<li><strong>Configuration changes</strong>: Restart Claude Desktop</li>
+<li><strong>Server code changes</strong>: Use Command-R to reload</li>
+<li><strong>Quick iteration</strong>: Use <a href="/docs/tools/inspector">Inspector</a> during development</li>
+</ul>
+<h2 id="best-practices">Best practices</h2>
+<h3 id="logging-strategy">Logging strategy</h3>
+<ol>
+<li>
+<p><strong>Structured Logging</strong></p>
+<ul>
+<li>Use consistent formats</li>
+<li>Include context</li>
+<li>Add timestamps</li>
+<li>Track request IDs</li>
+</ul>
+</li>
+<li>
+<p><strong>Error Handling</strong></p>
+<ul>
+<li>Log stack traces</li>
+<li>Include error context</li>
+<li>Track error patterns</li>
+<li>Monitor recovery</li>
+</ul>
+</li>
+<li>
+<p><strong>Performance Tracking</strong></p>
+<ul>
+<li>Log operation timing</li>
+<li>Monitor resource usage</li>
+<li>Track message sizes</li>
+<li>Measure latency</li>
+</ul>
+</li>
+</ol>
+<h3 id="security-considerations">Security considerations</h3>
+<p>When debugging:</p>
+<ol>
+<li>
+<p><strong>Sensitive Data</strong></p>
+<ul>
+<li>Sanitize logs</li>
+<li>Protect credentials</li>
+<li>Mask personal information</li>
+</ul>
+</li>
+<li>
+<p><strong>Access Control</strong></p>
+<ul>
+<li>Verify permissions</li>
+<li>Check authentication</li>
+<li>Monitor access patterns</li>
+</ul>
+</li>
+</ol>
+<h2 id="getting-help">Getting help</h2>
+<p>When encountering issues:</p>
+<ol>
+<li>
+<p><strong>First Steps</strong></p>
+<ul>
+<li>Check server logs</li>
+<li>Test with <a href="/docs/tools/inspector">Inspector</a></li>
+<li>Review configuration</li>
+<li>Verify environment</li>
+</ul>
+</li>
+<li>
+<p><strong>Support Channels</strong></p>
+<ul>
+<li>GitHub issues</li>
+<li>GitHub discussions</li>
+</ul>
+</li>
+<li>
+<p><strong>Providing Information</strong></p>
+<ul>
+<li>Log excerpts</li>
+<li>Configuration files</li>
+<li>Steps to reproduce</li>
+<li>Environment details</li>
+</ul>
+</li>
+</ol>
+<h2 id="next-steps">Next steps</h2>
+<CardGroup cols={2}>
+  <Card title="MCP Inspector" icon="magnifying-glass" href="/docs/tools/inspector">
+    Learn to use the MCP Inspector
+  </Card>
+</CardGroup>
+<h1 id="inspector">Inspector</h1>
+<p>In-depth guide to using the MCP Inspector for testing and debugging Model Context Protocol servers</p>
+<p>The <a href="https://github.com/modelcontextprotocol/inspector">MCP Inspector</a> is an interactive developer tool for testing and debugging MCP servers. While the <a href="/docs/tools/debugging">Debugging Guide</a> covers the Inspector as part of the overall debugging toolkit, this document provides a detailed exploration of the Inspector's features and capabilities.</p>
+<h2 id="getting-started">Getting started</h2>
+<h3 id="installation-and-basic-usage">Installation and basic usage</h3>
+<p>The Inspector runs directly through <code>npx</code> without requiring installation:</p>
+<pre class="hljs"><code><div>npx @modelcontextprotocol/inspector &lt;<span class="hljs-built_in">command</span>&gt;
+</div></code></pre>
+<pre class="hljs"><code><div>npx @modelcontextprotocol/inspector &lt;<span class="hljs-built_in">command</span>&gt; &lt;arg1&gt; &lt;arg2&gt;
+</div></code></pre>
+<h4 id="inspecting-servers-from-npm-or-pypi">Inspecting servers from NPM or PyPi</h4>
+<p>A common way to start server packages from <a href="https://npmjs.com">NPM</a> or <a href="https://pypi.com">PyPi</a>.</p>
+<Tabs>
+  <Tab title="NPM package">
+    ```bash
+    npx -y @modelcontextprotocol/inspector npx <package-name> <args>
+    # For example
+    npx -y @modelcontextprotocol/inspector npx server-postgres postgres://127.0.0.1/testdb
+    ```
+  </Tab>
+  <Tab title="PyPi package">
+    ```bash
+    npx @modelcontextprotocol/inspector uvx <package-name> <args>
+    # For example
+    npx @modelcontextprotocol/inspector uvx mcp-server-git --repository ~/code/mcp/servers.git
+    ```
+  </Tab>
+</Tabs>
+<h4 id="inspecting-locally-developed-servers">Inspecting locally developed servers</h4>
+<p>To inspect servers locally developed or downloaded as a repository, the most common
+way is:</p>
+<Tabs>
+  <Tab title="TypeScript">
+    ```bash
+    npx @modelcontextprotocol/inspector node path/to/server/index.js args...
+    ```
+  </Tab>
+  <Tab title="Python">
+    ```bash
+    npx @modelcontextprotocol/inspector \
+      uv \
+      --directory path/to/server \
+      run \
+      package-name \
+      args...
+    ```
+  </Tab>
+</Tabs>
+<p>Please carefully read any attached README for the most accurate instructions.</p>
+<h2 id="feature-overview">Feature overview</h2>
+<Frame caption="The MCP Inspector interface">
+  <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/mcp-inspector.png" />
+</Frame>
+<p>The Inspector provides several features for interacting with your MCP server:</p>
+<h3 id="server-connection-pane">Server connection pane</h3>
+<ul>
+<li>Allows selecting the <a href="/docs/concepts/transports">transport</a> for connecting to the server</li>
+<li>For local servers, supports customizing the command-line arguments and environment</li>
+</ul>
+<h3 id="resources-tab">Resources tab</h3>
+<ul>
+<li>Lists all available resources</li>
+<li>Shows resource metadata (MIME types, descriptions)</li>
+<li>Allows resource content inspection</li>
+<li>Supports subscription testing</li>
+</ul>
+<h3 id="prompts-tab">Prompts tab</h3>
+<ul>
+<li>Displays available prompt templates</li>
+<li>Shows prompt arguments and descriptions</li>
+<li>Enables prompt testing with custom arguments</li>
+<li>Previews generated messages</li>
+</ul>
+<h3 id="tools-tab">Tools tab</h3>
+<ul>
+<li>Lists available tools</li>
+<li>Shows tool schemas and descriptions</li>
+<li>Enables tool testing with custom inputs</li>
+<li>Displays tool execution results</li>
+</ul>
+<h3 id="notifications-pane">Notifications pane</h3>
+<ul>
+<li>Presents all logs recorded from the server</li>
+<li>Shows notifications received from the server</li>
+</ul>
+<h2 id="best-practices">Best practices</h2>
+<h3 id="development-workflow">Development workflow</h3>
+<ol>
+<li>
+<p>Start Development</p>
+<ul>
+<li>Launch Inspector with your server</li>
+<li>Verify basic connectivity</li>
+<li>Check capability negotiation</li>
+</ul>
+</li>
+<li>
+<p>Iterative testing</p>
+<ul>
+<li>Make server changes</li>
+<li>Rebuild the server</li>
+<li>Reconnect the Inspector</li>
+<li>Test affected features</li>
+<li>Monitor messages</li>
+</ul>
+</li>
+<li>
+<p>Test edge cases</p>
+<ul>
+<li>Invalid inputs</li>
+<li>Missing prompt arguments</li>
+<li>Concurrent operations</li>
+<li>Verify error handling and error responses</li>
+</ul>
+</li>
+</ol>
+<h2 id="next-steps">Next steps</h2>
+<CardGroup cols={2}>
+  <Card title="Inspector Repository" icon="github" href="https://github.com/modelcontextprotocol/inspector">
+    Check out the MCP Inspector source code
+  </Card>
+  <Card title="Debugging Guide" icon="bug" href="/docs/tools/debugging">
+    Learn about broader debugging strategies
+  </Card>
+</CardGroup>
+<h1 id="example-servers">Example Servers</h1>
+<p>A list of example servers and implementations</p>
+<p>This page showcases various Model Context Protocol (MCP) servers that demonstrate the protocol's capabilities and versatility. These servers enable Large Language Models (LLMs) to securely access tools and data sources.</p>
+<h2 id="reference-implementations">Reference implementations</h2>
+<p>These official reference servers demonstrate core MCP features and SDK usage:</p>
+<h3 id="data-and-file-systems">Data and file systems</h3>
+<ul>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem">Filesystem</a></strong> - Secure file operations with configurable access controls</li>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/postgres">PostgreSQL</a></strong> - Read-only database access with schema inspection capabilities</li>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/sqlite">SQLite</a></strong> - Database interaction and business intelligence features</li>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/gdrive">Google Drive</a></strong> - File access and search capabilities for Google Drive</li>
+</ul>
+<h3 id="development-tools">Development tools</h3>
+<ul>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/git">Git</a></strong> - Tools to read, search, and manipulate Git repositories</li>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/github">GitHub</a></strong> - Repository management, file operations, and GitHub API integration</li>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/gitlab">GitLab</a></strong> - GitLab API integration enabling project management</li>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/sentry">Sentry</a></strong> - Retrieving and analyzing issues from Sentry.io</li>
+</ul>
+<h3 id="web-and-browser-automation">Web and browser automation</h3>
+<ul>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/brave-search">Brave Search</a></strong> - Web and local search using Brave's Search API</li>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/fetch">Fetch</a></strong> - Web content fetching and conversion optimized for LLM usage</li>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/puppeteer">Puppeteer</a></strong> - Browser automation and web scraping capabilities</li>
+</ul>
+<h3 id="productivity-and-communication">Productivity and communication</h3>
+<ul>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/slack">Slack</a></strong> - Channel management and messaging capabilities</li>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/google-maps">Google Maps</a></strong> - Location services, directions, and place details</li>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/memory">Memory</a></strong> - Knowledge graph-based persistent memory system</li>
+</ul>
+<h3 id="ai-and-specialized-tools">AI and specialized tools</h3>
+<ul>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/everart">EverArt</a></strong> - AI image generation using various models</li>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking">Sequential Thinking</a></strong> - Dynamic problem-solving through thought sequences</li>
+<li><strong><a href="https://github.com/modelcontextprotocol/servers/tree/main/src/aws-kb-retrieval-server">AWS KB Retrieval</a></strong> - Retrieval from AWS Knowledge Base using Bedrock Agent Runtime</li>
+</ul>
+<h2 id="official-integrations">Official integrations</h2>
+<p>These MCP servers are maintained by companies for their platforms:</p>
+<ul>
+<li><strong><a href="https://github.com/axiomhq/mcp-server-axiom">Axiom</a></strong> - Query and analyze logs, traces, and event data using natural language</li>
+<li><strong><a href="https://github.com/browserbase/mcp-server-browserbase">Browserbase</a></strong> - Automate browser interactions in the cloud</li>
+<li><strong><a href="https://github.com/cloudflare/mcp-server-cloudflare">Cloudflare</a></strong> - Deploy and manage resources on the Cloudflare developer platform</li>
+<li><strong><a href="https://github.com/e2b-dev/mcp-server">E2B</a></strong> - Execute code in secure cloud sandboxes</li>
+<li><strong><a href="https://github.com/neondatabase/mcp-server-neon">Neon</a></strong> - Interact with the Neon serverless Postgres platform</li>
+<li><strong><a href="https://github.com/calclavia/mcp-obsidian">Obsidian Markdown Notes</a></strong> - Read and search through Markdown notes in Obsidian vaults</li>
+<li><strong><a href="https://github.com/qdrant/mcp-server-qdrant/">Qdrant</a></strong> - Implement semantic memory using the Qdrant vector search engine</li>
+<li><strong><a href="https://github.com/MindscapeHQ/mcp-server-raygun">Raygun</a></strong> - Access crash reporting and monitoring data</li>
+<li><strong><a href="https://github.com/fatwang2/search1api-mcp">Search1API</a></strong> - Unified API for search, crawling, and sitemaps</li>
+<li><strong><a href="https://github.com/tinybirdco/mcp-tinybird">Tinybird</a></strong> - Interface with the Tinybird serverless ClickHouse platform</li>
+</ul>
+<h2 id="community-highlights">Community highlights</h2>
+<p>A growing ecosystem of community-developed servers extends MCP's capabilities:</p>
+<ul>
+<li><strong><a href="https://github.com/ckreiling/mcp-server-docker">Docker</a></strong> - Manage containers, images, volumes, and networks</li>
+<li><strong><a href="https://github.com/Flux159/mcp-server-kubernetes">Kubernetes</a></strong> - Manage pods, deployments, and services</li>
+<li><strong><a href="https://github.com/jerhadf/linear-mcp-server">Linear</a></strong> - Project management and issue tracking</li>
+<li><strong><a href="https://github.com/datawiz168/mcp-snowflake-service">Snowflake</a></strong> - Interact with Snowflake databases</li>
+<li><strong><a href="https://github.com/varunneal/spotify-mcp">Spotify</a></strong> - Control Spotify playback and manage playlists</li>
+<li><strong><a href="https://github.com/abhiz123/todoist-mcp-server">Todoist</a></strong> - Task management integration</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> Community servers are untested and should be used at your own risk. They are not affiliated with or endorsed by Anthropic.</p>
+</blockquote>
+<p>For a complete list of community servers, visit the <a href="https://github.com/modelcontextprotocol/servers">MCP Servers Repository</a>.</p>
+<h2 id="getting-started">Getting started</h2>
+<h3 id="using-reference-servers">Using reference servers</h3>
+<p>TypeScript-based servers can be used directly with <code>npx</code>:</p>
+<pre class="hljs"><code><div>npx -y @modelcontextprotocol/server-memory
+</div></code></pre>
+<p>Python-based servers can be used with <code>uvx</code> (recommended) or <code>pip</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Using uvx</span>
+uvx mcp-server-git
+
+<span class="hljs-comment"># Using pip</span>
+pip install mcp-server-git
+python -m mcp_server_git
+</div></code></pre>
+<h3 id="configuring-with-claude">Configuring with Claude</h3>
+<p>To use an MCP server with Claude, add it to your configuration:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"mcpServers"</span>: {
+    <span class="hljs-attr">"memory"</span>: {
+      <span class="hljs-attr">"command"</span>: <span class="hljs-string">"npx"</span>,
+      <span class="hljs-attr">"args"</span>: [<span class="hljs-string">"-y"</span>, <span class="hljs-string">"@modelcontextprotocol/server-memory"</span>]
+    },
+    <span class="hljs-attr">"filesystem"</span>: {
+      <span class="hljs-attr">"command"</span>: <span class="hljs-string">"npx"</span>,
+      <span class="hljs-attr">"args"</span>: [<span class="hljs-string">"-y"</span>, <span class="hljs-string">"@modelcontextprotocol/server-filesystem"</span>, <span class="hljs-string">"/path/to/allowed/files"</span>]
+    },
+    <span class="hljs-attr">"github"</span>: {
+      <span class="hljs-attr">"command"</span>: <span class="hljs-string">"npx"</span>,
+      <span class="hljs-attr">"args"</span>: [<span class="hljs-string">"-y"</span>, <span class="hljs-string">"@modelcontextprotocol/server-github"</span>],
+      <span class="hljs-attr">"env"</span>: {
+        <span class="hljs-attr">"GITHUB_PERSONAL_ACCESS_TOKEN"</span>: <span class="hljs-string">"&lt;YOUR_TOKEN&gt;"</span>
+      }
+    }
+  }
+}
+</div></code></pre>
+<h2 id="additional-resources">Additional resources</h2>
+<ul>
+<li><a href="https://github.com/modelcontextprotocol/servers">MCP Servers Repository</a> - Complete collection of reference implementations and community servers</li>
+<li><a href="https://github.com/punkpeye/awesome-mcp-servers">Awesome MCP Servers</a> - Curated list of MCP servers</li>
+<li><a href="https://github.com/wong2/mcp-cli">MCP CLI</a> - Command-line inspector for testing MCP servers</li>
+<li><a href="https://mcp-get.com">MCP Get</a> - Tool for installing and managing MCP servers</li>
+</ul>
+<p>Visit our <a href="https://github.com/orgs/modelcontextprotocol/discussions">GitHub Discussions</a> to engage with the MCP community.</p>
+<h1 id="introduction">Introduction</h1>
+<p>Get started with the Model Context Protocol (MCP)</p>
+<p>MCP is an open protocol that standardizes how applications provide context to LLMs. Think of MCP like a USB-C port for AI applications. Just as USB-C provides a standardized way to connect your devices to various peripherals and accessories, MCP provides a standardized way to connect AI models to different data sources and tools.</p>
+<h2 id="why-mcp">Why MCP?</h2>
+<p>MCP helps you build agents and complex workflows on top of LLMs. LLMs frequently need to integrate with data and tools, and MCP provides:</p>
+<ul>
+<li>A growing list of pre-built integrations that your LLM can directly plug into</li>
+<li>The flexibility to switch between LLM providers and vendors</li>
+<li>Best practices for securing your data within your infrastructure</li>
+</ul>
+<h3 id="general-architecture">General architecture</h3>
+<p>At its core, MCP follows a client-server architecture where a host application can connect to multiple servers:</p>
+<pre><code class="language-mermaid"><div class="mermaid">flowchart LR
+    subgraph "Your Computer"
+        Host["Host with MCP Client\n(Claude, IDEs, Tools)"]
+        S1["MCP Server A"]
+        S2["MCP Server B"]
+        S3["MCP Server C"]
+        Host <-->|"MCP Protocol"| S1
+        Host <-->|"MCP Protocol"| S2
+        Host <-->|"MCP Protocol"| S3
+        S1 <--> D1[("Local\nData Source A")]
+        S2 <--> D2[("Local\nData Source B")]
+    end
+    subgraph "Internet"
+        S3 <-->|"Web APIs"| D3[("Remote\nService C")]
+    end
+</div></code></pre>
+<ul>
+<li><strong>MCP Hosts</strong>: Programs like Claude Desktop, IDEs, or AI tools that want to access data through MCP</li>
+<li><strong>MCP Clients</strong>: Protocol clients that maintain 1:1 connections with servers</li>
+<li><strong>MCP Servers</strong>: Lightweight programs that each expose specific capabilities through the standardized Model Context Protocol</li>
+<li><strong>Local Data Sources</strong>: Your computer's files, databases, and services that MCP servers can securely access</li>
+<li><strong>Remote Services</strong>: External systems available over the internet (e.g., through APIs) that MCP servers can connect to</li>
+</ul>
+<h2 id="get-started">Get started</h2>
+<p>Choose the path that best fits your needs:</p>
+<h4 id="quick-starts">Quick Starts</h4>
+<CardGroup cols={2}>
+  <Card title="For Server Developers" icon="bolt" href="/quickstart/server">
+    Get started building your own server to use in Claude for Desktop and other clients
+  </Card>
+  <Card title="For Client Developers" icon="bolt" href="/quickstart/client">
+    Get started building your own client that can integrate with all MCP servers
+  </Card>
+  <Card title="For Claude Desktop Users" icon="bolt" href="/quickstart/user">
+    Get started using pre-built servers in Claude for Desktop
+  </Card>
+</CardGroup>
+<h4 id="examples">Examples</h4>
+<CardGroup cols={2}>
+  <Card title="Example Servers" icon="grid" href="/examples">
+    Check out our gallery of official MCP servers and implementations
+  </Card>
+  <Card title="Example Clients" icon="cubes" href="/clients">
+    View the list of clients that support MCP integrations
+  </Card>
+</CardGroup>
+<h2 id="tutorials">Tutorials</h2>
+<CardGroup cols={2}>
+  <Card title="Building MCP with LLMs" icon="comments" href="/tutorials/building-mcp-with-llms">
+    Learn how to use LLMs like Claude to speed up your MCP development
+  </Card>
+  <Card title="Debugging Guide" icon="bug" href="/docs/tools/debugging">
+    Learn how to effectively debug MCP servers and integrations
+  </Card>
+  <Card title="MCP Inspector" icon="magnifying-glass" href="/docs/tools/inspector">
+    Test and inspect your MCP servers with our interactive debugging tool
+  </Card>
+</CardGroup>
+<h2 id="explore-mcp">Explore MCP</h2>
+<p>Dive deeper into MCP's core concepts and capabilities:</p>
+<CardGroup cols={2}>
+  <Card title="Core architecture" icon="sitemap" href="/docs/concepts/architecture">
+    Understand how MCP connects clients, servers, and LLMs
+  </Card>
+  <Card title="Resources" icon="database" href="/docs/concepts/resources">
+    Expose data and content from your servers to LLMs
+  </Card>
+  <Card title="Prompts" icon="message" href="/docs/concepts/prompts">
+    Create reusable prompt templates and workflows
+  </Card>
+  <Card title="Tools" icon="wrench" href="/docs/concepts/tools">
+    Enable LLMs to perform actions through your server
+  </Card>
+  <Card title="Sampling" icon="robot" href="/docs/concepts/sampling">
+    Let your servers request completions from LLMs
+  </Card>
+  <Card title="Transports" icon="network-wired" href="/docs/concepts/transports">
+    Learn about MCP's communication mechanism
+  </Card>
+</CardGroup>
+<h2 id="contributing">Contributing</h2>
+<p>Want to contribute? Check out our <a href="/development/contributing">Contributing Guide</a> to learn how you can help improve MCP.</p>
+<h1 id="for-client-developers">For Client Developers</h1>
+<p>Get started building your own client that can integrate with all MCP servers.</p>
+<p>In this tutorial, you'll learn how to build a LLM-powered chatbot client that connects to MCP servers. It helps to have gone through the <a href="/quickstart/server">Server quickstart</a> that guides you through the basic of building your first server.</p>
+<Tabs>
+  <Tab title="Python">
+    [You can find the complete code for this tutorial here.](https://github.com/modelcontextprotocol/quickstart-resources/tree/main/mcp-client)
+<pre><code>## System Requirements
+
+Before starting, ensure your system meets these requirements:
+
+*   Mac or Windows computer
+*   Latest Python version installed
+*   Latest version of `uv` installed
+
+## Setting Up Your Environment
+
+First, create a new Python project with `uv`:
+
+```bash
+# Create project directory
+uv init mcp-client
+cd mcp-client
+
+# Create virtual environment
+uv venv
+
+# Activate virtual environment
+# On Windows:
+.venv\Scripts\activate
+# On Unix or MacOS:
+source .venv/bin/activate
+
+# Install required packages
+uv add mcp anthropic python-dotenv
+
+# Remove boilerplate files
+rm hello.py
+
+# Create our main file
+touch client.py
+```
+
+## Setting Up Your API Key
+
+You'll need an Anthropic API key from the [Anthropic Console](https://console.anthropic.com/settings/keys).
+
+Create a `.env` file to store it:
+
+```bash
+# Create .env file
+touch .env
+```
+
+Add your key to the `.env` file:
+
+```bash
+ANTHROPIC_API_KEY=&lt;your key here&gt;
+```
+
+Add `.env` to your `.gitignore`:
+
+```bash
+echo &quot;.env&quot; &gt;&gt; .gitignore
+```
+
+&lt;Warning&gt;
+  Make sure you keep your `ANTHROPIC_API_KEY` secure!
+&lt;/Warning&gt;
+
+## Creating the Client
+
+### Basic Client Structure
+
+First, let's set up our imports and create the basic client class:
+
+```python
+import asyncio
+from typing import Optional
+from contextlib import AsyncExitStack
+
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+
+from anthropic import Anthropic
+from dotenv import load_dotenv
+
+load_dotenv()  # load environment variables from .env
+
+class MCPClient:
+    def __init__(self):
+        # Initialize session and client objects
+        self.session: Optional[ClientSession] = None
+        self.exit_stack = AsyncExitStack()
+        self.anthropic = Anthropic()
+    # methods will go here
+```
+
+### Server Connection Management
+
+Next, we'll implement the method to connect to an MCP server:
+
+```python
+async def connect_to_server(self, server_script_path: str):
+    &quot;&quot;&quot;Connect to an MCP server
+    
+    Args:
+        server_script_path: Path to the server script (.py or .js)
+    &quot;&quot;&quot;
+    is_python = server_script_path.endswith('.py')
+    is_js = server_script_path.endswith('.js')
+    if not (is_python or is_js):
+        raise ValueError(&quot;Server script must be a .py or .js file&quot;)
+        
+    command = &quot;python&quot; if is_python else &quot;node&quot;
+    server_params = StdioServerParameters(
+        command=command,
+        args=[server_script_path],
+        env=None
+    )
+    
+    stdio_transport = await self.exit_stack.enter_async_context(stdio_client(server_params))
+    self.stdio, self.write = stdio_transport
+    self.session = await self.exit_stack.enter_async_context(ClientSession(self.stdio, self.write))
+    
+    await self.session.initialize()
+    
+    # List available tools
+    response = await self.session.list_tools()
+    tools = response.tools
+    print(&quot;\nConnected to server with tools:&quot;, [tool.name for tool in tools])
+```
+
+### Query Processing Logic
+
+Now let's add the core functionality for processing queries and handling tool calls:
+
+```python
+async def process_query(self, query: str) -&gt; str:
+    &quot;&quot;&quot;Process a query using Claude and available tools&quot;&quot;&quot;
+    messages = [
+        {
+            &quot;role&quot;: &quot;user&quot;,
+            &quot;content&quot;: query
+        }
+    ]
+
+    response = await self.session.list_tools()
+    available_tools = [{ 
+        &quot;name&quot;: tool.name,
+        &quot;description&quot;: tool.description,
+        &quot;input_schema&quot;: tool.inputSchema
+    } for tool in response.tools]
+
+    # Initial Claude API call
+    response = self.anthropic.messages.create(
+        model=&quot;claude-3-5-sonnet-20241022&quot;,
+        max_tokens=1000,
+        messages=messages,
+        tools=available_tools
+    )
+
+    # Process response and handle tool calls
+    tool_results = []
+    final_text = []
+
+    for content in response.content:
+        if content.type == 'text':
+            final_text.append(content.text)
+        elif content.type == 'tool_use':
+            tool_name = content.name
+            tool_args = content.input
+            
+            # Execute tool call
+            result = await self.session.call_tool(tool_name, tool_args)
+            tool_results.append({&quot;call&quot;: tool_name, &quot;result&quot;: result})
+            final_text.append(f&quot;[Calling tool {tool_name} with args {tool_args}]&quot;)
+
+            # Continue conversation with tool results
+            if hasattr(content, 'text') and content.text:
+                messages.append({
+                  &quot;role&quot;: &quot;assistant&quot;,
+                  &quot;content&quot;: content.text
+                })
+            messages.append({
+                &quot;role&quot;: &quot;user&quot;, 
+                &quot;content&quot;: result.content
+            })
+
+            # Get next response from Claude
+            response = self.anthropic.messages.create(
+                model=&quot;claude-3-5-sonnet-20241022&quot;,
+                max_tokens=1000,
+                messages=messages,
+            )
+
+            final_text.append(response.content[0].text)
+
+    return &quot;\n&quot;.join(final_text)
+```
+
+### Interactive Chat Interface
+
+Now we'll add the chat loop and cleanup functionality:
+
+```python
+async def chat_loop(self):
+    &quot;&quot;&quot;Run an interactive chat loop&quot;&quot;&quot;
+    print(&quot;\nMCP Client Started!&quot;)
+    print(&quot;Type your queries or 'quit' to exit.&quot;)
+    
+    while True:
+        try:
+            query = input(&quot;\nQuery: &quot;).strip()
+            
+            if query.lower() == 'quit':
+                break
+                
+            response = await self.process_query(query)
+            print(&quot;\n&quot; + response)
+                
+        except Exception as e:
+            print(f&quot;\nError: {str(e)}&quot;)
+
+async def cleanup(self):
+    &quot;&quot;&quot;Clean up resources&quot;&quot;&quot;
+    await self.exit_stack.aclose()
+```
+
+### Main Entry Point
+
+Finally, we'll add the main execution logic:
+
+```python
+async def main():
+    if len(sys.argv) &lt; 2:
+        print(&quot;Usage: python client.py &lt;path_to_server_script&gt;&quot;)
+        sys.exit(1)
+        
+    client = MCPClient()
+    try:
+        await client.connect_to_server(sys.argv[1])
+        await client.chat_loop()
+    finally:
+        await client.cleanup()
+
+if __name__ == &quot;__main__&quot;:
+    import sys
+    asyncio.run(main())
+```
+
+You can find the complete `client.py` file [here.](https://gist.github.com/zckly/f3f28ea731e096e53b39b47bf0a2d4b1)
+
+## Key Components Explained
+
+### 1. Client Initialization
+
+*   The `MCPClient` class initializes with session management and API clients
+*   Uses `AsyncExitStack` for proper resource management
+*   Configures the Anthropic client for Claude interactions
+
+### 2. Server Connection
+
+*   Supports both Python and Node.js servers
+*   Validates server script type
+*   Sets up proper communication channels
+*   Initializes the session and lists available tools
+
+### 3. Query Processing
+
+*   Maintains conversation context
+*   Handles Claude's responses and tool calls
+*   Manages the message flow between Claude and tools
+*   Combines results into a coherent response
+
+### 4. Interactive Interface
+
+*   Provides a simple command-line interface
+*   Handles user input and displays responses
+*   Includes basic error handling
+*   Allows graceful exit
+
+### 5. Resource Management
+
+*   Proper cleanup of resources
+*   Error handling for connection issues
+*   Graceful shutdown procedures
+
+## Common Customization Points
+
+1.  **Tool Handling**
+    *   Modify `process_query()` to handle specific tool types
+    *   Add custom error handling for tool calls
+    *   Implement tool-specific response formatting
+
+2.  **Response Processing**
+    *   Customize how tool results are formatted
+    *   Add response filtering or transformation
+    *   Implement custom logging
+
+3.  **User Interface**
+    *   Add a GUI or web interface
+    *   Implement rich console output
+    *   Add command history or auto-completion
+
+## Running the Client
+
+To run your client with any MCP server:
+
+```bash
+uv run client.py path/to/server.py # python server
+uv run client.py path/to/build/index.js # node server
+```
+
+&lt;Note&gt;
+  If you're continuing the weather tutorial from the server quickstart, your command might look something like this: `python client.py .../weather/src/weather/server.py`
+&lt;/Note&gt;
+
+The client will:
+
+1.  Connect to the specified server
+2.  List available tools
+3.  Start an interactive chat session where you can:
+    *   Enter queries
+    *   See tool executions
+    *   Get responses from Claude
+
+Here's an example of what it should look like if connected to the weather server from the server quickstart:
+
+&lt;Frame&gt;
+  &lt;img src=&quot;https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/client-claude-cli-python.png&quot; /&gt;
+&lt;/Frame&gt;
+
+## How It Works
+
+When you submit a query:
+
+1.  The client gets the list of available tools from the server
+2.  Your query is sent to Claude along with tool descriptions
+3.  Claude decides which tools (if any) to use
+4.  The client executes any requested tool calls through the server
+5.  Results are sent back to Claude
+6.  Claude provides a natural language response
+7.  The response is displayed to you
+
+## Best practices
+
+1.  **Error Handling**
+    *   Always wrap tool calls in try-catch blocks
+    *   Provide meaningful error messages
+    *   Gracefully handle connection issues
+
+2.  **Resource Management**
+    *   Use `AsyncExitStack` for proper cleanup
+    *   Close connections when done
+    *   Handle server disconnections
+
+3.  **Security**
+    *   Store API keys securely in `.env`
+    *   Validate server responses
+    *   Be cautious with tool permissions
+
+## Troubleshooting
+
+### Server Path Issues
+
+*   Double-check the path to your server script is correct
+*   Use the absolute path if the relative path isn't working
+*   For Windows users, make sure to use forward slashes (/) or escaped backslashes (\\) in the path
+*   Verify the server file has the correct extension (.py for Python or .js for Node.js)
+
+Example of correct path usage:
+
+```bash
+# Relative path
+uv run client.py ./server/weather.py
+
+# Absolute path
+uv run client.py /Users/username/projects/mcp-server/weather.py
+
+# Windows path (either format works)
+uv run client.py C:/projects/mcp-server/weather.py
+uv run client.py C:\\projects\\mcp-server\\weather.py
+```
+
+### Response Timing
+
+*   The first response might take up to 30 seconds to return
+*   This is normal and happens while:
+    *   The server initializes
+    *   Claude processes the query
+    *   Tools are being executed
+*   Subsequent responses are typically faster
+*   Don't interrupt the process during this initial waiting period
+
+### Common Error Messages
+
+If you see:
+
+*   `FileNotFoundError`: Check your server path
+*   `Connection refused`: Ensure the server is running and the path is correct
+*   `Tool execution failed`: Verify the tool's required environment variables are set
+*   `Timeout error`: Consider increasing the timeout in your client configuration
+</code></pre>
+  </Tab>
+</Tabs>
+<h2 id="next-steps">Next steps</h2>
+<CardGroup cols={2}>
+  <Card title="Example servers" icon="grid" href="/examples">
+    Check out our gallery of official MCP servers and implementations
+  </Card>
+  <Card title="Clients" icon="cubes" href="/clients">
+    View the list of clients that support MCP integrations
+  </Card>
+  <Card title="Building MCP with LLMs" icon="comments" href="/building-mcp-with-llms">
+    Learn how to use LLMs like Claude to speed up your MCP development
+  </Card>
+  <Card title="Core architecture" icon="sitemap" href="/docs/concepts/architecture">
+    Understand how MCP connects clients, servers, and LLMs
+  </Card>
+</CardGroup>
+<h1 id="for-server-developers">For Server Developers</h1>
+<p>Get started building your own server to use in Claude for Desktop and other clients.</p>
+<p>In this tutorial, we'll build a simple MCP weather server and connect it to a host, Claude for Desktop. We'll start with a basic setup, and then progress to more complex use cases.</p>
+<h3 id="what-well-be-building">What we'll be building</h3>
+<p>Many LLMs (including Claude) do not currently have the ability to fetch the forecast and severe weather alerts. Let's use MCP to solve that!</p>
+<p>We'll build a server that exposes two tools: <code>get-alerts</code> and <code>get-forecast</code>. Then we'll connect the server to an MCP host (in this case, Claude for Desktop):</p>
+<Frame>
+  <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/weather-alerts.png" />
+</Frame>
+<Frame>
+  <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/current-weather.png" />
+</Frame>
+<Note>
+  Servers can connect to any client. We've chosen Claude for Desktop here for simplicity, but we also have guides on [building your own client](/quickstart/client) as well as a [list of other clients here](/clients).
+</Note>
+<Accordion title="Why Claude for Desktop and not Claude.ai?">
+  Because servers are locally run, MCP currently only supports desktop hosts. Remote hosts are in active development.
+</Accordion>
+<h3 id="core-mcp-concepts">Core MCP Concepts</h3>
+<p>MCP servers can provide three main types of capabilities:</p>
+<ol>
+<li><strong>Resources</strong>: File-like data that can be read by clients (like API responses or file contents)</li>
+<li><strong>Tools</strong>: Functions that can be called by the LLM (with user approval)</li>
+<li><strong>Prompts</strong>: Pre-written templates that help users accomplish specific tasks</li>
+</ol>
+<p>This tutorial will primarily focus on tools.</p>
+<Tabs>
+  <Tab title="Python">
+    Let's get started with building our weather server! [You can find the complete code for what we'll be building here.](https://github.com/modelcontextprotocol/quickstart-resources/tree/main/weather-server-python)
+<pre><code>### Prerequisite knowledge
+
+This quickstart assumes you have familiarity with:
+
+*   Python
+*   LLMs like Claude
+
+### System requirements
+
+For Python, make sure you have Python 3.9 or higher installed.
+
+### Set up your environment
+
+First, let's install `uv` and set up our Python project and environment:
+
+&lt;CodeGroup&gt;
+  ```bash MacOS/Linux
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  ```
+
+  ```powershell Windows
+  powershell -ExecutionPolicy ByPass -c &quot;irm https://astral.sh/uv/install.ps1 | iex&quot;
+  ```
+&lt;/CodeGroup&gt;
+
+Make sure to restart your terminal afterwards to ensure that the `uv` command gets picked up.
+
+Now, let's create and set up our project:
+
+&lt;CodeGroup&gt;
+  ```bash MacOS/Linux
+  # Create a new directory for our project
+  uv init weather
+  cd weather
+
+  # Create virtual environment and activate it
+  uv venv
+  source .venv/bin/activate
+
+  # Install dependencies
+  uv add mcp httpx 
+
+  # Remove template file
+  rm hello.py
+
+  # Create our files
+  mkdir -p src/weather
+  touch src/weather/__init__.py
+  touch src/weather/server.py
+  ```
+
+  ```powershell Windows
+  # Create a new directory for our project
+  uv init weather
+  cd weather
+
+  # Create virtual environment and activate it
+  uv venv
+  .venv\Scripts\activate
+
+  # Install dependencies
+  uv add mcp httpx
+
+  # Clean up boilerplate code
+  rm hello.py
+
+  # Create our files
+  md src
+  md src\weather
+  new-item src\weather\__init__.py
+  new-item src\weather\server.py
+  ```
+&lt;/CodeGroup&gt;
+
+Add this code to `pyproject.toml`:
+
+```toml
+...rest of config
+
+[build-system]
+requires = [ &quot;hatchling&quot;,]
+build-backend = &quot;hatchling.build&quot;
+
+[project.scripts]
+weather = &quot;weather:main&quot;
+```
+
+Add this code to `__init__.py`:
+
+```python src/weather/__init__.py
+from . import server
+import asyncio
+
+def main():
+    &quot;&quot;&quot;Main entry point for the package.&quot;&quot;&quot;
+    asyncio.run(server.main())
+
+# Optionally expose other important items at package level
+__all__ = ['main', 'server']
+```
+
+Now let's dive into building your server.
+
+## Building your server
+
+### Importing packages
+
+Add these to the top of your `server.py`:
+
+```python
+from typing import Any
+import asyncio
+import httpx
+from mcp.server.models import InitializationOptions
+import mcp.types as types
+from mcp.server import NotificationOptions, Server
+import mcp.server.stdio
+```
+
+### Setting up the instance
+
+Then initialize the server instance and the base URL for the NWS API:
+
+```python
+NWS_API_BASE = &quot;https://api.weather.gov&quot;
+USER_AGENT = &quot;weather-app/1.0&quot;
+
+server = Server(&quot;weather&quot;)
+```
+
+### Implementing tool listing
+
+We need to tell clients what tools are available. The `list_tools()` decorator registers this handler:
+
+```python
+@server.list_tools()
+async def handle_list_tools() -&gt; list[types.Tool]:
+    &quot;&quot;&quot;
+    List available tools.
+    Each tool specifies its arguments using JSON Schema validation.
+    &quot;&quot;&quot;
+    return [
+        types.Tool(
+            name=&quot;get-alerts&quot;,
+            description=&quot;Get weather alerts for a state&quot;,
+            inputSchema={
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;properties&quot;: {
+                    &quot;state&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;Two-letter state code (e.g. CA, NY)&quot;,
+                    },
+                },
+                &quot;required&quot;: [&quot;state&quot;],
+            },
+        ),
+        types.Tool(
+            name=&quot;get-forecast&quot;,
+            description=&quot;Get weather forecast for a location&quot;,
+            inputSchema={
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;properties&quot;: {
+                    &quot;latitude&quot;: {
+                        &quot;type&quot;: &quot;number&quot;,
+                        &quot;description&quot;: &quot;Latitude of the location&quot;,
+                    },
+                    &quot;longitude&quot;: {
+                        &quot;type&quot;: &quot;number&quot;,
+                        &quot;description&quot;: &quot;Longitude of the location&quot;,
+                    },
+                },
+                &quot;required&quot;: [&quot;latitude&quot;, &quot;longitude&quot;],
+            },
+        ),
+    ]
+
+```
+
+This defines our two tools: `get-alerts` and `get-forecast`.
+
+### Helper functions
+
+Next, let's add our helper functions for querying and formatting the data from the National Weather Service API:
+
+```python
+async def make_nws_request(client: httpx.AsyncClient, url: str) -&gt; dict[str, Any] | None:
+    &quot;&quot;&quot;Make a request to the NWS API with proper error handling.&quot;&quot;&quot;
+    headers = {
+        &quot;User-Agent&quot;: USER_AGENT,
+        &quot;Accept&quot;: &quot;application/geo+json&quot;
+    }
+
+    try:
+        response = await client.get(url, headers=headers, timeout=30.0)
+        response.raise_for_status()
+        return response.json()
+    except Exception:
+        return None
+
+def format_alert(feature: dict) -&gt; str:
+    &quot;&quot;&quot;Format an alert feature into a concise string.&quot;&quot;&quot;
+    props = feature[&quot;properties&quot;]
+    return (
+        f&quot;Event: {props.get('event', 'Unknown')}\n&quot;
+        f&quot;Area: {props.get('areaDesc', 'Unknown')}\n&quot;
+        f&quot;Severity: {props.get('severity', 'Unknown')}\n&quot;
+        f&quot;Status: {props.get('status', 'Unknown')}\n&quot;
+        f&quot;Headline: {props.get('headline', 'No headline')}\n&quot;
+        &quot;---&quot;
+    )
+```
+
+### Implementing tool execution
+
+The tool execution handler is responsible for actually executing the logic of each tool. Let's add it:
+
+```python
+@server.call_tool()
+async def handle_call_tool(
+    name: str, arguments: dict | None
+) -&gt; list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
+    &quot;&quot;&quot;
+    Handle tool execution requests.
+    Tools can fetch weather data and notify clients of changes.
+    &quot;&quot;&quot;
+    if not arguments:
+        raise ValueError(&quot;Missing arguments&quot;)
+  
+    if name == &quot;get-alerts&quot;:
+        state = arguments.get(&quot;state&quot;)
+        if not state:
+            raise ValueError(&quot;Missing state parameter&quot;)
+
+        # Convert state to uppercase to ensure consistent format
+        state = state.upper()
+        if len(state) != 2:
+            raise ValueError(&quot;State must be a two-letter code (e.g. CA, NY)&quot;)
+
+        async with httpx.AsyncClient() as client:
+            alerts_url = f&quot;{NWS_API_BASE}/alerts?area={state}&quot;
+            alerts_data = await make_nws_request(client, alerts_url)
+
+            if not alerts_data:
+                return [types.TextContent(type=&quot;text&quot;, text=&quot;Failed to retrieve alerts data&quot;)]
+
+            features = alerts_data.get(&quot;features&quot;, [])
+            if not features:
+                return [types.TextContent(type=&quot;text&quot;, text=f&quot;No active alerts for {state}&quot;)]
+
+            # Format each alert into a concise string
+            formatted_alerts = [format_alert(feature) for feature in features[:20]] # only take the first 20 alerts
+            alerts_text = f&quot;Active alerts for {state}:\n\n&quot; + &quot;\n&quot;.join(formatted_alerts)
+
+            return [
+                types.TextContent(
+                    type=&quot;text&quot;,
+                    text=alerts_text
+                )
+            ]
+    elif name == &quot;get-forecast&quot;:
+        try:
+            latitude = float(arguments.get(&quot;latitude&quot;))
+            longitude = float(arguments.get(&quot;longitude&quot;))
+        except (TypeError, ValueError):
+            return [types.TextContent(
+                type=&quot;text&quot;,
+                text=&quot;Invalid coordinates. Please provide valid numbers for latitude and longitude.&quot;
+            )]
+            
+        # Basic coordinate validation
+        if not (-90 &lt;= latitude &lt;= 90) or not (-180 &lt;= longitude &lt;= 180):
+            return [types.TextContent(
+                type=&quot;text&quot;,
+                text=&quot;Invalid coordinates. Latitude must be between -90 and 90, longitude between -180 and 180.&quot;
+            )]
+
+        async with httpx.AsyncClient() as client:
+            # First get the grid point
+            lat_str = f&quot;{latitude}&quot;
+            lon_str = f&quot;{longitude}&quot;
+            points_url = f&quot;{NWS_API_BASE}/points/{lat_str},{lon_str}&quot;
+            points_data = await make_nws_request(client, points_url)
+
+            if not points_data:
+                return [types.TextContent(type=&quot;text&quot;, text=f&quot;Failed to retrieve grid point data for coordinates: {latitude}, {longitude}. This location may not be supported by the NWS API (only US locations are supported).&quot;)]
+
+            # Extract forecast URL from the response
+            properties = points_data.get(&quot;properties&quot;, {})
+            forecast_url = properties.get(&quot;forecast&quot;)
+            
+            if not forecast_url:
+                return [types.TextContent(type=&quot;text&quot;, text=&quot;Failed to get forecast URL from grid point data&quot;)]
+
+            # Get the forecast
+            forecast_data = await make_nws_request(client, forecast_url)
+            
+            if not forecast_data:
+                return [types.TextContent(type=&quot;text&quot;, text=&quot;Failed to retrieve forecast data&quot;)]
+
+            # Format the forecast periods
+            periods = forecast_data.get(&quot;properties&quot;, {}).get(&quot;periods&quot;, [])
+            if not periods:
+                return [types.TextContent(type=&quot;text&quot;, text=&quot;No forecast periods available&quot;)]
+
+            # Format each period into a concise string
+            formatted_forecast = []
+            for period in periods:
+                forecast_text = (
+                    f&quot;{period.get('name', 'Unknown')}:\n&quot;
+                    f&quot;Temperature: {period.get('temperature', 'Unknown')}°{period.get('temperatureUnit', 'F')}\n&quot;
+                    f&quot;Wind: {period.get('windSpeed', 'Unknown')} {period.get('windDirection', '')}\n&quot;
+                    f&quot;{period.get('shortForecast', 'No forecast available')}\n&quot;
+                    &quot;---&quot;
+                )
+                formatted_forecast.append(forecast_text)
+
+            forecast_text = f&quot;Forecast for {latitude}, {longitude}:\n\n&quot; + &quot;\n&quot;.join(formatted_forecast)
+
+            return [types.TextContent(
+                type=&quot;text&quot;,
+                text=forecast_text
+            )]
+    else:
+        raise ValueError(f&quot;Unknown tool: {name}&quot;)
+```
+
+### Running the server
+
+Finally, implement the main function to run the server:
+
+```python
+async def main():
+    # Run the server using stdin/stdout streams
+    async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
+        await server.run(
+            read_stream,
+            write_stream,
+            InitializationOptions(
+                server_name=&quot;weather&quot;,
+                server_version=&quot;0.1.0&quot;,
+                capabilities=server.get_capabilities(
+                    notification_options=NotificationOptions(),
+                    experimental_capabilities={},
+                ),
+            ),
+        )
+
+# This is needed if you'd like to connect to a custom client
+if __name__ == &quot;__main__&quot;:
+    asyncio.run(main())
+```
+
+Your server is complete! Run `uv run src/weather/server.py` to confirm that everything's working.
+
+Let's now test your server from an existing MCP host, Claude for Desktop.
+
+## Testing your server with Claude for Desktop
+
+&lt;Note&gt;
+  Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/quickstart/client) tutorial to build an MCP client that connects to the server we just built.
+&lt;/Note&gt;
+
+First, make sure you have Claude for Desktop installed. [You can install the latest version
+here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
+
+We'll need to configure Claude for Desktop for whichever MCP servers you want to use. To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor. Make sure to create the file if it doesn't exist.
+
+For example, if you have [VS Code](https://code.visualstudio.com/) installed:
+
+&lt;Tabs&gt;
+  &lt;Tab title=&quot;MacOS/Linux&quot;&gt;
+    ```bash
+    code ~/Library/Application\ Support/Claude/claude_desktop_config.json
+    ```
+  &lt;/Tab&gt;
+
+  &lt;Tab title=&quot;Windows&quot;&gt;
+    ```powershell
+    code $env:AppData\Claude\claude_desktop_config.json
+    ```
+  &lt;/Tab&gt;
+&lt;/Tabs&gt;
+
+You'll then add your servers in the `mcpServers` key. The MCP UI elements will only show up in Claude for Desktop if at least one server is properly configured.
+
+In this case, we'll add our single weather server like so:
+
+&lt;Tabs&gt;
+  &lt;Tab title=&quot;MacOS/Linux&quot;&gt;
+    ```json Python
+    {
+        &quot;mcpServers&quot;: {
+            &quot;weather&quot;: {
+                &quot;command&quot;: &quot;uv&quot;,
+                &quot;args&quot;: [
+                    &quot;--directory&quot;,
+                    &quot;/ABSOLUTE/PATH/TO/PARENT/FOLDER/weather&quot;,
+                    &quot;run&quot;,
+                    &quot;weather&quot;
+                ]
+            }
+        }
+    }
+    ```
+  &lt;/Tab&gt;
+
+  &lt;Tab title=&quot;Windows&quot;&gt;
+    ```json Python
+    {
+        &quot;mcpServers&quot;: {
+            &quot;weather&quot;: {
+                &quot;command&quot;: &quot;uv&quot;,
+                &quot;args&quot;: [
+                    &quot;--directory&quot;,
+                    &quot;C:\\ABSOLUTE\\PATH\\TO\\PARENT\\FOLDER\\weather&quot;,
+                    &quot;run&quot;,
+                    &quot;weather&quot;
+                ]
+            }
+        }
+    }
+    ```
+  &lt;/Tab&gt;
+&lt;/Tabs&gt;
+
+&lt;Note&gt;
+  Make sure you pass in the absolute path to your server.
+&lt;/Note&gt;
+
+This tells Claude for Desktop:
+
+1.  There's an MCP server named &quot;weather&quot;
+2.  To launch it by running `uv --directory /ABSOLUTE/PATH/TO/PARENT/FOLDER/weather run weather`
+
+Save the file, and restart **Claude for Desktop**.
+</code></pre>
+  </Tab>
+  <Tab title="Node">
+    Let's get started with building our weather server! [You can find the complete code for what we'll be building here.](https://github.com/modelcontextprotocol/quickstart-resources/tree/main/weather-server-typescript)
+<pre><code>### Prerequisite knowledge
+
+This quickstart assumes you have familiarity with:
+
+*   TypeScript
+*   LLMs like Claude
+
+### System requirements
+
+For TypeScript, make sure you have the latest version of Node installed.
+
+### Set up your environment
+
+First, let's install Node.js and npm if you haven't already. You can download them from [nodejs.org](https://nodejs.org/).
+Verify your Node.js installation:
+
+```bash
+node --version
+npm --version
+```
+
+For this tutorial, you'll need Node.js version 16 or higher.
+
+Now, let's create and set up our project:
+
+&lt;CodeGroup&gt;
+  ```bash MacOS/Linux
+  # Create a new directory for our project
+  mkdir weather
+  cd weather
+
+  # Initialize a new npm project
+  npm init -y
+
+  # Install dependencies
+  npm install @modelcontextprotocol/sdk zod
+  npm install -D @types/node typescript
+
+  # Create our files
+  mkdir src
+  touch src/index.ts
+  ```
+
+  ```powershell Windows
+  # Create a new directory for our project
+  md weather
+  cd weather
+
+  # Initialize a new npm project
+  npm init -y
+
+  # Install dependencies
+  npm install @modelcontextprotocol/sdk zod
+  npm install -D @types/node typescript
+
+  # Create our files
+  md src
+  new-item src\index.ts
+  ```
+&lt;/CodeGroup&gt;
+
+Update your package.json to add type: &quot;module&quot; and a build script:
+
+```json package.json
+{
+  &quot;type&quot;: &quot;module&quot;,
+  &quot;bin&quot;: {
+    &quot;weather&quot;: &quot;./build/index.js&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;tsc &amp;&amp; node -e \&quot;require('fs').chmodSync('build/index.js', '755')\&quot;&quot;,
+  },
+  &quot;files&quot;: [
+    &quot;build&quot;
+  ],
+}
+```
+
+Create a `tsconfig.json` in the root of your project:
+
+```json tsconfig.json
+{
+  &quot;compilerOptions&quot;: {
+    &quot;target&quot;: &quot;ES2022&quot;,
+    &quot;module&quot;: &quot;Node16&quot;,
+    &quot;moduleResolution&quot;: &quot;Node16&quot;,
+    &quot;outDir&quot;: &quot;./build&quot;,
+    &quot;rootDir&quot;: &quot;./src&quot;,
+    &quot;strict&quot;: true,
+    &quot;esModuleInterop&quot;: true,
+    &quot;skipLibCheck&quot;: true,
+    &quot;forceConsistentCasingInFileNames&quot;: true
+  },
+  &quot;include&quot;: [&quot;src/**/*&quot;],
+  &quot;exclude&quot;: [&quot;node_modules&quot;]
+}
+```
+
+Now let's dive into building your server.
+
+## Building your server
+
+### Importing packages
+
+Add these to the top of your `src/index.ts`:
+
+```typescript
+import { Server } from &quot;@modelcontextprotocol/sdk/server/index.js&quot;;
+import { StdioServerTransport } from &quot;@modelcontextprotocol/sdk/server/stdio.js&quot;;
+import {
+  CallToolRequestSchema,
+  ListToolsRequestSchema,
+} from &quot;@modelcontextprotocol/sdk/types.js&quot;;
+import { z } from &quot;zod&quot;;
+```
+
+### Setting up the instance
+
+Then initialize the NWS API base URL, validation schemas, and server instance:
+
+```typescript
+const NWS_API_BASE = &quot;https://api.weather.gov&quot;;
+const USER_AGENT = &quot;weather-app/1.0&quot;;
+
+// Define Zod schemas for validation
+const AlertsArgumentsSchema = z.object({
+  state: z.string().length(2),
+});
+
+const ForecastArgumentsSchema = z.object({
+  latitude: z.number().min(-90).max(90),
+  longitude: z.number().min(-180).max(180),
+});
+
+// Create server instance
+const server = new Server(
+  {
+    name: &quot;weather&quot;,
+    version: &quot;1.0.0&quot;,
+  },
+  {
+    capabilities: {
+      tools: {},
+    },
+  }
+);
+```
+
+### Implementing tool listing
+
+We need to tell clients what tools are available. This `server.setRequestHandler` call will register this list for us:
+
+```typescript
+// List available tools
+server.setRequestHandler(ListToolsRequestSchema, async () =&gt; {
+  return {
+    tools: [
+      {
+        name: &quot;get-alerts&quot;,
+        description: &quot;Get weather alerts for a state&quot;,
+        inputSchema: {
+          type: &quot;object&quot;,
+          properties: {
+            state: {
+              type: &quot;string&quot;,
+              description: &quot;Two-letter state code (e.g. CA, NY)&quot;,
+            },
+          },
+          required: [&quot;state&quot;],
+        },
+      },
+      {
+        name: &quot;get-forecast&quot;,
+        description: &quot;Get weather forecast for a location&quot;,
+        inputSchema: {
+          type: &quot;object&quot;,
+          properties: {
+            latitude: {
+              type: &quot;number&quot;,
+              description: &quot;Latitude of the location&quot;,
+            },
+            longitude: {
+              type: &quot;number&quot;,
+              description: &quot;Longitude of the location&quot;,
+            },
+          },
+          required: [&quot;latitude&quot;, &quot;longitude&quot;],
+        },
+      },
+    ],
+  };
+});
+```
+
+This defines our two tools: `get-alerts` and `get-forecast`.
+
+### Helper functions
+
+Next, let's add our helper functions for querying and formatting the data from the National Weather Service API:
+
+```typescript
+// Helper function for making NWS API requests
+async function makeNWSRequest&lt;T&gt;(url: string): Promise&lt;T | null&gt; {
+  const headers = {
+    &quot;User-Agent&quot;: USER_AGENT,
+    Accept: &quot;application/geo+json&quot;,
+  };
+
+  try {
+    const response = await fetch(url, { headers });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return (await response.json()) as T;
+  } catch (error) {
+    console.error(&quot;Error making NWS request:&quot;, error);
+    return null;
+  }
+}
+
+interface AlertFeature {
+  properties: {
+    event?: string;
+    areaDesc?: string;
+    severity?: string;
+    status?: string;
+    headline?: string;
+  };
+}
+
+// Format alert data
+function formatAlert(feature: AlertFeature): string {
+  const props = feature.properties;
+  return [
+    `Event: ${props.event || &quot;Unknown&quot;}`,
+    `Area: ${props.areaDesc || &quot;Unknown&quot;}`,
+    `Severity: ${props.severity || &quot;Unknown&quot;}`,
+    `Status: ${props.status || &quot;Unknown&quot;}`,
+    `Headline: ${props.headline || &quot;No headline&quot;}`,
+    &quot;---&quot;,
+  ].join(&quot;\n&quot;);
+}
+
+interface ForecastPeriod {
+  name?: string;
+  temperature?: number;
+  temperatureUnit?: string;
+  windSpeed?: string;
+  windDirection?: string;
+  shortForecast?: string;
+}
+
+interface AlertsResponse {
+  features: AlertFeature[];
+}
+
+interface PointsResponse {
+  properties: {
+    forecast?: string;
+  };
+}
+
+interface ForecastResponse {
+  properties: {
+    periods: ForecastPeriod[];
+  };
+}
+```
+
+### Implementing tool execution
+
+The tool execution handler is responsible for actually executing the logic of each tool. Let's add it:
+
+```typescript
+// Handle tool execution
+server.setRequestHandler(CallToolRequestSchema, async (request) =&gt; {
+  const { name, arguments: args } = request.params;
+
+  try {
+    if (name === &quot;get-alerts&quot;) {
+      const { state } = AlertsArgumentsSchema.parse(args);
+      const stateCode = state.toUpperCase();
+
+      const alertsUrl = `${NWS_API_BASE}/alerts?area=${stateCode}`;
+      const alertsData = await makeNWSRequest&lt;AlertsResponse&gt;(alertsUrl);
+
+      if (!alertsData) {
+        return {
+          content: [
+            {
+              type: &quot;text&quot;,
+              text: &quot;Failed to retrieve alerts data&quot;,
+            },
+          ],
+        };
+      }
+
+      const features = alertsData.features || [];
+      if (features.length === 0) {
+        return {
+          content: [
+            {
+              type: &quot;text&quot;,
+              text: `No active alerts for ${stateCode}`,
+            },
+          ],
+        };
+      }
+
+      const formattedAlerts = features.map(formatAlert).slice(0, 20) // only take the first 20 alerts;
+      const alertsText = `Active alerts for ${stateCode}:\n\n${formattedAlerts.join(
+        &quot;\n&quot;
+      )}`;
+
+      return {
+        content: [
+          {
+            type: &quot;text&quot;,
+            text: alertsText,
+          },
+        ],
+      };
+    } else if (name === &quot;get-forecast&quot;) {
+      const { latitude, longitude } = ForecastArgumentsSchema.parse(args);
+
+      // Get grid point data
+      const pointsUrl = `${NWS_API_BASE}/points/${latitude.toFixed(
+        4
+      )},${longitude.toFixed(4)}`;
+      const pointsData = await makeNWSRequest&lt;PointsResponse&gt;(pointsUrl);
+
+      if (!pointsData) {
+        return {
+          content: [
+            {
+              type: &quot;text&quot;,
+              text: `Failed to retrieve grid point data for coordinates: ${latitude}, ${longitude}. This location may not be supported by the NWS API (only US locations are supported).`,
+            },
+          ],
+        };
+      }
+
+      const forecastUrl = pointsData.properties?.forecast;
+      if (!forecastUrl) {
+        return {
+          content: [
+            {
+              type: &quot;text&quot;,
+              text: &quot;Failed to get forecast URL from grid point data&quot;,
+            },
+          ],
+        };
+      }
+
+      // Get forecast data
+      const forecastData = await makeNWSRequest&lt;ForecastResponse&gt;(forecastUrl);
+      if (!forecastData) {
+        return {
+          content: [
+            {
+              type: &quot;text&quot;,
+              text: &quot;Failed to retrieve forecast data&quot;,
+            },
+          ],
+        };
+      }
+
+      const periods = forecastData.properties?.periods || [];
+      if (periods.length === 0) {
+        return {
+          content: [
+            {
+              type: &quot;text&quot;,
+              text: &quot;No forecast periods available&quot;,
+            },
+          ],
+        };
+      }
+
+      // Format forecast periods
+      const formattedForecast = periods.map((period: ForecastPeriod) =&gt;
+        [
+          `${period.name || &quot;Unknown&quot;}:`,
+          `Temperature: ${period.temperature || &quot;Unknown&quot;}°${
+            period.temperatureUnit || &quot;F&quot;
+          }`,
+          `Wind: ${period.windSpeed || &quot;Unknown&quot;} ${
+            period.windDirection || &quot;&quot;
+          }`,
+          `${period.shortForecast || &quot;No forecast available&quot;}`,
+          &quot;---&quot;,
+        ].join(&quot;\n&quot;)
+      );
+
+      const forecastText = `Forecast for ${latitude}, ${longitude}:\n\n${formattedForecast.join(
+        &quot;\n&quot;
+      )}`;
+
+      return {
+        content: [
+          {
+            type: &quot;text&quot;,
+            text: forecastText,
+          },
+        ],
+      };
+    } else {
+      throw new Error(`Unknown tool: ${name}`);
+    }
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      throw new Error(
+        `Invalid arguments: ${error.errors
+          .map((e) =&gt; `${e.path.join(&quot;.&quot;)}: ${e.message}`)
+          .join(&quot;, &quot;)}`
+      );
+    }
+    throw error;
+  }
+});
+```
+
+### Running the server
+
+Finally, implement the main function to run the server:
+
+```typescript
+// Start the server
+async function main() {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+  console.error(&quot;Weather MCP Server running on stdio&quot;);
+}
+
+main().catch((error) =&gt; {
+  console.error(&quot;Fatal error in main():&quot;, error);
+  process.exit(1);
+});
+```
+
+Make sure to run `npm run build` to build your server! This is a very important step in getting your server to connect.
+
+Let's now test your server from an existing MCP host, Claude for Desktop.
+
+## Testing your server with Claude for Desktop
+
+&lt;Note&gt;
+  Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/quickstart/client) tutorial to build an MCP client that connects to the server we just built.
+&lt;/Note&gt;
+
+First, make sure you have Claude for Desktop installed. [You can install the latest version
+here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
+
+We'll need to configure Claude for Desktop for whichever MCP servers you want to use. To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor. Make sure to create the file if it doesn't exist.
+
+For example, if you have [VS Code](https://code.visualstudio.com/) installed:
+
+&lt;Tabs&gt;
+  &lt;Tab title=&quot;MacOS/Linux&quot;&gt;
+    ```bash
+    code ~/Library/Application\ Support/Claude/claude_desktop_config.json
+    ```
+  &lt;/Tab&gt;
+
+  &lt;Tab title=&quot;Windows&quot;&gt;
+    ```powershell
+    code $env:AppData\Claude\claude_desktop_config.json
+    ```
+  &lt;/Tab&gt;
+&lt;/Tabs&gt;
+
+You'll then add your servers in the `mcpServers` key. The MCP UI elements will only show up in Claude for Desktop if at least one server is properly configured.
+
+In this case, we'll add our single weather server like so:
+
+&lt;Tabs&gt;
+  &lt;Tab title=&quot;MacOS/Linux&quot;&gt;
+    &lt;CodeGroup&gt;
+      ```json Node 
+      {
+          &quot;mcpServers&quot;: {
+              &quot;weather&quot;: {
+                  &quot;command&quot;: &quot;node&quot;,
+                  &quot;args&quot;: [
+                      &quot;/ABSOLUTE/PATH/TO/PARENT/FOLDER/weather/build/index.js&quot;
+                  ]
+              }
+          }
+      }
+      ```
+    &lt;/CodeGroup&gt;
+  &lt;/Tab&gt;
+
+  &lt;Tab title=&quot;Windows&quot;&gt;
+    &lt;CodeGroup&gt;
+      ```json Node
+      {
+          &quot;mcpServers&quot;: {
+              &quot;weather&quot;: {
+                  &quot;command&quot;: &quot;node&quot;,
+                  &quot;args&quot;: [
+                      &quot;C:\\PATH\\TO\\PARENT\\FOLDER\\weather\\build\\index.js&quot;
+                  ]
+              }
+          }
+      }
+      ```
+    &lt;/CodeGroup&gt;
+  &lt;/Tab&gt;
+&lt;/Tabs&gt;
+
+This tells Claude for Desktop:
+
+1.  There's an MCP server named &quot;weather&quot;
+2.  Launch it by running `node /ABSOLUTE/PATH/TO/PARENT/FOLDER/weather/build/index.js`
+
+Save the file, and restart **Claude for Desktop**.
+</code></pre>
+  </Tab>
+</Tabs>
+<h3 id="test-with-commands">Test with commands</h3>
+<p>Let's make sure Claude for Desktop is picking up the two tools we've exposed in our <code>weather</code> server. You can do this by looking for the hammer &lt;img src=&quot;https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/claude-desktop-mcp-hammer-icon.svg&quot; style={{display: 'inline', margin: 0, height: '1.3em'}} /&gt; icon:</p>
+<Frame>
+  <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/visual-indicator-mcp-tools.png" />
+</Frame>
+<p>After clicking on the hammer icon, you should see two tools listed:</p>
+<Frame>
+  <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/available-mcp-tools.png" />
+</Frame>
+<p>If your server isn't being picked up by Claude for Desktop, proceed to the <a href="#troubleshooting">Troubleshooting</a> section for debugging tips.</p>
+<p>If the hammer icon has shown up, you can now test your server by running the following commands in Claude for Desktop:</p>
+<ul>
+<li>What's the weather in Sacramento?</li>
+<li>What are the active weather alerts in Texas?</li>
+</ul>
+<Frame>
+  <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/current-weather.png" />
+</Frame>
+<Frame>
+  <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/weather-alerts.png" />
+</Frame>
+<Note>
+  Since this is the US National Weather service, the queries will only work for US locations.
+</Note>
+<h2 id="whats-happening-under-the-hood">What's happening under the hood</h2>
+<p>When you ask a question:</p>
+<ol>
+<li>The client sends your question to Claude</li>
+<li>Claude analyzes the available tools and decides which one(s) to use</li>
+<li>The client executes the chosen tool(s) through the MCP server</li>
+<li>The results are sent back to Claude</li>
+<li>Claude formulates a natural language response</li>
+<li>The response is displayed to you!</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<AccordionGroup>
+  <Accordion title="Claude for Desktop Integration Issues">
+    **Getting logs from Claude for Desktop**
+<pre><code>Claude.app logging related to MCP is written to log files in `~/Library/Logs/Claude`:
+
+*   `mcp.log` will contain general logging about MCP connections and connection failures.
+*   Files named `mcp-server-SERVERNAME.log` will contain error (stderr) logging from the named server.
+
+You can run the following command to list recent logs and follow along with any new ones:
+
+```bash
+# Check Claude's logs for errors
+tail -n 20 -f ~/Library/Logs/Claude/mcp*.log
+```
+
+**Server not showing up in Claude**
+
+1.  Check your `claude_desktop_config.json` file syntax
+2.  Make sure the path to your project is absolute and not relative
+3.  Restart Claude for Desktop completely
+
+**Tool calls failing silently**
+
+If Claude attempts to use the tools but they fail:
+
+1.  Check Claude's logs for errors
+2.  Verify your server builds and runs without errors
+3.  Try restarting Claude for Desktop
+
+**None of this is working. What do I do?**
+
+Please refer to our [debugging guide](/docs/tools/debugging) for better debugging tools and more detailed guidance.
+</code></pre>
+  </Accordion>
+  <Accordion title="Weather API Issues">
+    **Error: Failed to retrieve grid point data**
+<pre><code>This usually means either:
+
+1.  The coordinates are outside the US
+2.  The NWS API is having issues
+3.  You're being rate limited
+
+Fix:
+
+*   Verify you're using US coordinates
+*   Add a small delay between requests
+*   Check the NWS API status page
+
+**Error: No active alerts for \[STATE]**
+
+This isn't an error - it just means there are no current weather alerts for that state. Try a different state or check during severe weather.
+</code></pre>
+  </Accordion>
+</AccordionGroup>
+<Note>
+  For more advanced troubleshooting, check out our guide on [Debugging MCP](/docs/tools/debugging)
+</Note>
+<h2 id="next-steps">Next steps</h2>
+<CardGroup cols={2}>
+  <Card title="Building a client" icon="outlet" href="/quickstart/client">
+    Learn how to build your own MCP client that can connect to your server
+  </Card>
+  <Card title="Example servers" icon="grid" href="/examples">
+    Check out our gallery of official MCP servers and implementations
+  </Card>
+  <Card title="Debugging Guide" icon="bug" href="/docs/tools/debugging">
+    Learn how to effectively debug MCP servers and integrations
+  </Card>
+  <Card title="Building MCP with LLMs" icon="comments" href="/building-mcp-with-llms">
+    Learn how to use LLMs like Claude to speed up your MCP development
+  </Card>
+</CardGroup>
+<h1 id="for-claude-desktop-users">For Claude Desktop Users</h1>
+<p>Get started using pre-built servers in Claude for Desktop.</p>
+<p>In this tutorial, you will extend <a href="https://claude.ai/download">Claude for Desktop</a> so that it can read from your computer's file system, write new files, move files, and even search files.</p>
+<Frame>
+  <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/quickstart-filesystem.png" />
+</Frame>
+<p>Don't worry — it will ask you for your permission before executing these actions!</p>
+<h2 id="1-download-claude-for-desktop">1. Download Claude for Desktop</h2>
+<p>Start by downloading <a href="https://claude.ai/download">Claude for Desktop</a>, choosing either macOS or Windows. (Linux is not yet supported for Claude for Desktop.)</p>
+<p>Follow the installation instructions.</p>
+<p>If you already have Claude for Desktop, make sure it's on the latest version by clicking on the Claude menu on your computer and selecting &quot;Check for Updates...&quot;</p>
+<Accordion title="Why Claude for Desktop and not Claude.ai?">
+  Because servers are locally run, MCP currently only supports desktop hosts. Remote hosts are in active development.
+</Accordion>
+<h2 id="2-add-the-filesystem-mcp-server">2. Add the Filesystem MCP Server</h2>
+<p>To add this filesystem functionality, we will be installing a pre-built <a href="https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem">Filesystem MCP Server</a> to Claude for Desktop. This is one of dozens of <a href="https://github.com/modelcontextprotocol/servers/tree/main">servers</a> created by Anthropic and the community.</p>
+<p>Get started by opening up the Claude menu on your computer and select &quot;Settings...&quot; Please note that these are not the Claude Account Settings found in the app window itself.</p>
+<p>This is what it should look like on a Mac:</p>
+<Frame style={{ textAlign: 'center' }}>
+  <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/quickstart-menu.png" width="400" />
+</Frame>
+<p>Click on &quot;Developer&quot; in the lefthand bar of the Settings pane, and then click on &quot;Edit Config&quot;:</p>
+<Frame>
+  <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/quickstart-developer.png" />
+</Frame>
+<p>This will create a configuration file at:</p>
+<ul>
+<li>macOS: <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li>
+<li>Windows: <code>%APPDATA%\Claude\claude_desktop_config.json</code></li>
+</ul>
+<p>if you don't already have one, and will display the file in your file system.</p>
+<p>Open up the configuration file in any text editor. Replace the file contents with this:</p>
+<Tabs>
+  <Tab title="MacOS/Linux">
+    ```json
+    {
+      "mcpServers": {
+        "filesystem": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@modelcontextprotocol/server-filesystem",
+            "/Users/username/Desktop",
+            "/Users/username/Downloads"
+          ]
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Windows">
+    ```json
+    {
+      "mcpServers": {
+        "filesystem": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@modelcontextprotocol/server-filesystem",
+            "C:\\Users\\username\\Desktop",
+            "C:\\Users\\username\\Downloads"
+          ]
+        }
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+<p>Make sure to replace <code>username</code> with your computer's username. The paths should point to valid directories that you want Claude to be able to access and modify. It's set up to work for Desktop and Downloads, but you can add more paths as well.</p>
+<p>You will also need <a href="https://nodejs.org">Node.js</a> on your computer for this to run properly. To verify you have Node installed, open the command line on your computer.</p>
+<ul>
+<li>On macOS, open the Terminal from your Applications folder</li>
+<li>On Windows, press Windows + R, type &quot;cmd&quot;, and press Enter</li>
+</ul>
+<p>Once in the command line, verify you have Node installed by entering in the following command:</p>
+<pre class="hljs"><code><div>node --version
+</div></code></pre>
+<p>If you get an error saying &quot;command not found&quot; or &quot;node is not recognized&quot;, download Node from <a href="https://nodejs.org/">nodejs.org</a>.</p>
+<Tip>
+  **How does the configuration file work?**
+<p>This configuration file tells Claude for Dekstop which MCP servers to start up every time you start the application. In this case, we have added one server called &quot;filesystem&quot; that will use the Node <code>npx</code> command to install and run <code>@modelcontextprotocol/server-filesystem</code>. This server, described <a href="https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem">here</a>, will let you access your file system in Claude for Desktop.
+</Tip></p>
+<h2 id="3-restart-claude">3. Restart Claude</h2>
+<p>After updating your configuration file, you need to restart Claude for Desktop.</p>
+<p>Upon restarting, you should see a hammer &lt;img src=&quot;https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/claude-desktop-mcp-hammer-icon.svg&quot; style={{display: 'inline', margin: 0, height: '1.3em'}} /&gt; icon in the bottom right corner of the input box:</p>
+<Frame>
+  <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/quickstart-hammer.png" />
+</Frame>
+<p>After clicking on the hammer icon, you should see the tools that come with the Filesystem MCP Server:</p>
+<Frame style={{ textAlign: 'center' }}>
+  <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/quickstart-tools.png" width="400" />
+</Frame>
+<p>If your server isn't being picked up by Claude for Desktop, proceed to the <a href="#troubleshooting">Troubleshooting</a> section for debugging tips.</p>
+<h2 id="4-try-it-out">4. Try it out!</h2>
+<p>You can now talk to Claude and ask it about your filesystem. It should know when to call the relevant tools.</p>
+<p>Things you might try asking Claude:</p>
+<ul>
+<li>Can you write a poem and save it to my desktop?</li>
+<li>What are some work-related files in my downloads folder?</li>
+<li>Can you take all the images on my desktop and move them to a new folder called &quot;Images&quot;?</li>
+</ul>
+<p>As needed, Claude will call the relevant tools and seek your approval before taking an action:</p>
+<Frame style={{ textAlign: 'center' }}>
+  <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/quickstart-approve.png" width="500" />
+</Frame>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<AccordionGroup>
+  <Accordion title="Server not showing up in Claude / hammer icon missing">
+    1.  Restart Claude for Desktop completely
+    2.  Check your `claude_desktop_config.json` file syntax
+    3.  Make sure the file paths included in `claude_desktop_config.json` are valid and that they are absolute and not relative
+    4.  Look at [logs](#getting-logs-from-claude-for-desktop) to see why the server is not connecting
+    5.  In your command line, try manually running the server (replacing `username` as you did in `claude_desktop_config.json`) to see if you get any errors:
+<pre><code>&lt;Tabs&gt;
+  &lt;Tab title=&quot;MacOS/Linux&quot;&gt;
+    ```bash
+    npx -y @modelcontextprotocol/server-filesystem /Users/username/Desktop /Users/username/Downloads`
+    ```
+  &lt;/Tab&gt;
+
+  &lt;Tab title=&quot;Windows&quot;&gt;
+    ```bash
+    npx -y @modelcontextprotocol/server-filesystem C:\Users\username\Desktop C:\Users\username\Downloads
+    ```
+  &lt;/Tab&gt;
+&lt;/Tabs&gt;
+</code></pre>
+  </Accordion>
+  <Accordion title="Getting logs from Claude for Desktop">
+    Claude.app logging related to MCP is written to log files in:
+<pre><code>*   macOS: `~/Library/Logs/Claude`
+
+*   Windows: `%APPDATA%\Claude\logs`
+
+*   `mcp.log` will contain general logging about MCP connections and connection failures.
+
+*   Files named `mcp-server-SERVERNAME.log` will contain error (stderr) logging from the named server.
+
+You can run the following command to list recent logs and follow along with any new ones (on Windows, it will only show recent logs):
+
+&lt;Tabs&gt;
+  &lt;Tab title=&quot;MacOS/Linux&quot;&gt;
+    ```bash
+    # Check Claude's logs for errors
+    tail -n 20 -f ~/Library/Logs/Claude/mcp*.log
+    ```
+  &lt;/Tab&gt;
+
+  &lt;Tab title=&quot;Windows&quot;&gt;
+    ```bash
+    type &quot;%APPDATA%\Claude\logs\mcp*.log&quot;
+    ```
+  &lt;/Tab&gt;
+&lt;/Tabs&gt;
+</code></pre>
+  </Accordion>
+  <Accordion title="Tool calls failing silently">
+    If Claude attempts to use the tools but they fail:
+<pre><code>1.  Check Claude's logs for errors
+2.  Verify your server builds and runs without errors
+3.  Try restarting Claude for Desktop
+</code></pre>
+  </Accordion>
+  <Accordion title="None of this is working. What do I do?">
+    Please refer to our [debugging guide](/docs/tools/debugging) for better debugging tools and more detailed guidance.
+  </Accordion>
+</AccordionGroup>
+<h2 id="next-steps">Next steps</h2>
+<CardGroup cols={2}>
+  <Card title="Explore other servers" icon="grid" href="/examples">
+    Check out our gallery of official MCP servers and implementations
+  </Card>
+  <Card title="Build your own server" icon="code" href="/quickstart/server">
+    Now build your own custom server to use in Claude for Desktop and other clients
+  </Card>
+</CardGroup>
+<h1 id="building-mcp-with-llms">Building MCP with LLMs</h1>
+<p>Speed up your MCP development using LLMs such as Claude!</p>
+<p>This guide will help you use LLMs to help you build custom Model Context Protocol (MCP) servers and clients. We'll be focusing on Claude for this tutorial, but you can do this with any frontier LLM.</p>
+<h2 id="preparing-the-documentation">Preparing the documentation</h2>
+<p>Before starting, gather the necessary documentation to help Claude understand MCP:</p>
+<ol>
+<li>Visit <a href="https://modelcontextprotocol.io/llms-full.txt">https://modelcontextprotocol.io/llms-full.txt</a> and copy the full documentation text</li>
+<li>Navigate to either the <a href="https://github.com/modelcontextprotocol/typescript-sdk">MCP TypeScript SDK</a> or <a href="https://github.com/modelcontextprotocol/python-sdk">Python SDK repository</a></li>
+<li>Copy the README files and other relevant documentation</li>
+<li>Paste these documents into your conversation with Claude</li>
+</ol>
+<h2 id="describing-your-server">Describing your server</h2>
+<p>Once you've provided the documentation, clearly describe to Claude what kind of server you want to build. Be specific about:</p>
+<ul>
+<li>What resources your server will expose</li>
+<li>What tools it will provide</li>
+<li>Any prompts it should offer</li>
+<li>What external systems it needs to interact with</li>
+</ul>
+<p>For example:</p>
+<pre class="hljs"><code><div>Build an MCP server that:
+- Connects to my company's PostgreSQL database
+- Exposes table schemas as resources
+- Provides tools for running read-only SQL queries
+- Includes prompts for common data analysis tasks
+</div></code></pre>
+<h2 id="working-with-claude">Working with Claude</h2>
+<p>When working with Claude on MCP servers:</p>
+<ol>
+<li>Start with the core functionality first, then iterate to add more features</li>
+<li>Ask Claude to explain any parts of the code you don't understand</li>
+<li>Request modifications or improvements as needed</li>
+<li>Have Claude help you test the server and handle edge cases</li>
+</ol>
+<p>Claude can help implement all the key MCP features:</p>
+<ul>
+<li>Resource management and exposure</li>
+<li>Tool definitions and implementations</li>
+<li>Prompt templates and handlers</li>
+<li>Error handling and logging</li>
+<li>Connection and transport setup</li>
+</ul>
+<h2 id="best-practices">Best practices</h2>
+<p>When building MCP servers with Claude:</p>
+<ul>
+<li>Break down complex servers into smaller pieces</li>
+<li>Test each component thoroughly before moving on</li>
+<li>Keep security in mind - validate inputs and limit access appropriately</li>
+<li>Document your code well for future maintenance</li>
+<li>Follow MCP protocol specifications carefully</li>
+</ul>
+<h2 id="next-steps">Next steps</h2>
+<p>After Claude helps you build your server:</p>
+<ol>
+<li>Review the generated code carefully</li>
+<li>Test the server with the MCP Inspector tool</li>
+<li>Connect it to Claude.app or other MCP clients</li>
+<li>Iterate based on real usage and feedback</li>
+</ol>
+<p>Remember that Claude can help you modify and improve your server as requirements change over time.</p>
+<p>Need more guidance? Just ask Claude specific questions about implementing MCP features or troubleshooting issues that arise.</p>
+
+</body>
+</html>

@@ -42,10 +42,10 @@ async def list_tools() -> List[types.Tool]:
         raise
 
 async def validate_computer_use_arguments(arguments: dict) -> None:
-    """Validate arguments for the custom_computer_use tool"""
+    """Validate arguments for the anthropic_computer_use tool"""
     required_action = arguments.get("action")
     if not required_action:
-        raise ValueError("Action parameter is required for custom_computer_use")
+        raise ValueError("Action parameter is required for anthropic_computer_use")
     
     valid_actions = [
         "key", "type", "mouse_move", "left_click", "left_click_drag",
@@ -72,7 +72,7 @@ async def call_tool(
         tool = TOOLS[name]
         logger.info(f"Executing tool: {name} with arguments: {arguments}")
         
-        if name == "custom_computer_use":
+        if name == "anthropic_computer_use":
             await validate_computer_use_arguments(arguments)
             action = arguments["action"]
             
@@ -87,15 +87,15 @@ async def call_tool(
             logger.info(f"Computer use action completed: {response_text}")
             return [types.TextContent(type="text", text=response_text)]
         
-        elif name == "custom_bash":
+        elif name == "anthropic_bash":
             command = arguments.get("command")
             if not command:
-                raise ValueError("Command parameter is required for custom_bash")
+                raise ValueError("Command parameter is required for anthropic_bash")
             # Implement bash command execution here
             response_text = f"Executed bash command: {command}"
             return [types.TextContent(type="text", text=response_text)]
             
-        elif name == "custom_text_editor":
+        elif name == "anthropic_text_editor":
             # Implement text editor actions here
             command = arguments.get("command")
             path = arguments.get("path")

@@ -1,0 +1,275 @@
+2025-02-17 23:05:42 [    INFO] Starting test execution (run_tests.py:32)
+2025-02-17 23:05:43 [    INFO] Started monitoring service: ScreenshotService (base.py:47)
+2025-02-17 23:05:43 [   ERROR] Error in monitoring loop: name 'resource' is not defined (base.py:83)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 66, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 93, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 123, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 105, in _get_resource_usage
+    "memory_mb": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024,
+                 ^^^^^^^^
+NameError: name 'resource' is not defined. Did you forget to import 'resource'
+2025-02-17 23:05:43 [   ERROR] Error in monitoring loop: name 'resource' is not defined (base.py:83)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 66, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 93, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 123, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 105, in _get_resource_usage
+    "memory_mb": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024,
+                 ^^^^^^^^
+NameError: name 'resource' is not defined. Did you forget to import 'resource'
+2025-02-17 23:05:44 [    INFO] Stopped monitoring service: ScreenshotService (base.py:59)
+2025-02-17 23:05:44 [    INFO] Stopped monitoring service: ScreenshotService (base.py:59)
+2025-02-17 23:05:44 [    INFO] Started monitoring service: NetworkService (base.py:47)
+2025-02-17 23:05:44 [   ERROR] Error in monitoring loop: name 'resource' is not defined (base.py:83)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 66, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 93, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/network/service.py", line 154, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 105, in _get_resource_usage
+    "memory_mb": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024,
+                 ^^^^^^^^
+NameError: name 'resource' is not defined. Did you forget to import 'resource'
+2025-02-17 23:05:44 [   ERROR] Error in monitoring loop: name 'resource' is not defined (base.py:83)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 66, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 93, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/network/service.py", line 154, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 105, in _get_resource_usage
+    "memory_mb": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024,
+                 ^^^^^^^^
+NameError: name 'resource' is not defined. Did you forget to import 'resource'
+2025-02-17 23:05:44 [    INFO] Stopped monitoring service: NetworkService (base.py:59)
+2025-02-17 23:05:44 [    INFO] Stopped monitoring service: NetworkService (base.py:59)
+2025-02-17 23:05:44 [    INFO] Started monitoring service: ClipboardService (base.py:47)
+2025-02-17 23:05:44 [   ERROR] Error in monitoring loop: name 'resource' is not defined (base.py:83)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 66, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 93, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/clipboard/service.py", line 155, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 105, in _get_resource_usage
+    "memory_mb": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024,
+                 ^^^^^^^^
+NameError: name 'resource' is not defined. Did you forget to import 'resource'
+2025-02-17 23:05:44 [   ERROR] Error in monitoring loop: name 'resource' is not defined (base.py:83)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 66, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 93, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/clipboard/service.py", line 155, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 105, in _get_resource_usage
+    "memory_mb": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024,
+                 ^^^^^^^^
+NameError: name 'resource' is not defined. Did you forget to import 'resource'
+2025-02-17 23:05:44 [   ERROR] Error in monitoring loop: name 'resource' is not defined (base.py:83)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 66, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 93, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/clipboard/service.py", line 155, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 105, in _get_resource_usage
+    "memory_mb": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024,
+                 ^^^^^^^^
+NameError: name 'resource' is not defined. Did you forget to import 'resource'
+2025-02-17 23:05:44 [   ERROR] Error in monitoring loop: name 'resource' is not defined (base.py:83)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 66, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 93, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/clipboard/service.py", line 155, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 105, in _get_resource_usage
+    "memory_mb": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024,
+                 ^^^^^^^^
+NameError: name 'resource' is not defined. Did you forget to import 'resource'
+2025-02-17 23:05:44 [   ERROR] Error in monitoring loop: name 'resource' is not defined (base.py:83)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 66, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 93, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/clipboard/service.py", line 155, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 105, in _get_resource_usage
+    "memory_mb": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024,
+                 ^^^^^^^^
+NameError: name 'resource' is not defined. Did you forget to import 'resource'
+2025-02-17 23:05:44 [   ERROR] Error in monitoring loop: name 'resource' is not defined (base.py:83)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 66, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 93, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/clipboard/service.py", line 155, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 105, in _get_resource_usage
+    "memory_mb": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024,
+                 ^^^^^^^^
+NameError: name 'resource' is not defined. Did you forget to import 'resource'
+2025-02-17 23:05:45 [    INFO] Stopped monitoring service: ClipboardService (base.py:59)
+2025-02-17 23:05:45 [    INFO] Stopped monitoring service: ClipboardService (base.py:59)
+2025-02-17 23:05:45 [    INFO] Stopped monitoring service: ClipboardService (base.py:59)
+2025-02-17 23:05:45 [   ERROR] monitoring_config must be a dictionary (workflows.py:35)
+2025-02-17 23:05:45 [   ERROR] enabled_services must be a list (workflows.py:40)
+2025-02-17 23:05:45 [   ERROR] Missing configuration for service: screenshot (workflows.py:47)
+2025-02-17 23:05:45 [   ERROR] Error initializing screenshot service: 'dict' object has no attribute 'output_dir' (workflows.py:100)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 96, in _initialize_services
+    service = service_class(service_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 55, in __init__
+    self._ensure_output_dir()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 60, in _ensure_output_dir
+    os.makedirs(self._config.output_dir, exist_ok=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'output_dir'
+2025-02-17 23:05:45 [   ERROR] Error executing workflow: 'dict' object has no attribute 'output_dir' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 96, in _initialize_services
+    service = service_class(service_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 55, in __init__
+    self._ensure_output_dir()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 60, in _ensure_output_dir
+    os.makedirs(self._config.output_dir, exist_ok=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'output_dir'
+2025-02-17 23:05:45 [   ERROR] Error initializing screenshot service: 'dict' object has no attribute 'output_dir' (workflows.py:100)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 96, in _initialize_services
+    service = service_class(service_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 55, in __init__
+    self._ensure_output_dir()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 60, in _ensure_output_dir
+    os.makedirs(self._config.output_dir, exist_ok=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'output_dir'
+2025-02-17 23:05:45 [   ERROR] Error executing workflow: 'dict' object has no attribute 'output_dir' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 96, in _initialize_services
+    service = service_class(service_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 55, in __init__
+    self._ensure_output_dir()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 60, in _ensure_output_dir
+    os.makedirs(self._config.output_dir, exist_ok=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'output_dir'
+2025-02-17 23:05:45 [   ERROR] Error initializing screenshot service: 'dict' object has no attribute 'output_dir' (workflows.py:100)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 96, in _initialize_services
+    service = service_class(service_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 55, in __init__
+    self._ensure_output_dir()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 60, in _ensure_output_dir
+    os.makedirs(self._config.output_dir, exist_ok=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'output_dir'
+2025-02-17 23:05:45 [   ERROR] Error executing workflow: 'dict' object has no attribute 'output_dir' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 96, in _initialize_services
+    service = service_class(service_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 55, in __init__
+    self._ensure_output_dir()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 60, in _ensure_output_dir
+    os.makedirs(self._config.output_dir, exist_ok=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'output_dir'
+2025-02-17 23:05:45 [   ERROR] Error initializing screenshot service: 'dict' object has no attribute 'output_dir' (workflows.py:100)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 96, in _initialize_services
+    service = service_class(service_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 55, in __init__
+    self._ensure_output_dir()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 60, in _ensure_output_dir
+    os.makedirs(self._config.output_dir, exist_ok=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'output_dir'
+2025-02-17 23:05:45 [   ERROR] Error executing workflow: 'dict' object has no attribute 'output_dir' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 96, in _initialize_services
+    service = service_class(service_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 55, in __init__
+    self._ensure_output_dir()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 60, in _ensure_output_dir
+    os.makedirs(self._config.output_dir, exist_ok=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'output_dir'
+2025-02-17 23:05:45 [   ERROR] Error initializing screenshot service: 'dict' object has no attribute 'output_dir' (workflows.py:100)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 96, in _initialize_services
+    service = service_class(service_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 55, in __init__
+    self._ensure_output_dir()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 60, in _ensure_output_dir
+    os.makedirs(self._config.output_dir, exist_ok=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'output_dir'
+2025-02-17 23:05:45 [   ERROR] Error executing workflow: 'dict' object has no attribute 'output_dir' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 96, in _initialize_services
+    service = service_class(service_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 55, in __init__
+    self._ensure_output_dir()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 60, in _ensure_output_dir
+    os.makedirs(self._config.output_dir, exist_ok=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'output_dir'
+2025-02-17 23:05:46 [   ERROR] Some tests failed. Check the log file: test_logs/test_run_20250217_230542.log (run_tests.py:41)

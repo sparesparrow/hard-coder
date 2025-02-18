@@ -1,0 +1,309 @@
+2025-02-17 23:06:49 [    INFO] Starting test execution (run_tests.py:32)
+2025-02-17 23:06:54 [    INFO] Started monitoring service: ScreenshotService (base.py:48)
+2025-02-17 23:06:54 [   ERROR] Error in monitoring loop: name 'psutil' is not defined (base.py:84)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 67, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 94, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 123, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 107, in _get_resource_usage
+    "cpu_percent": psutil.Process().cpu_percent()
+                   ^^^^^^
+NameError: name 'psutil' is not defined
+2025-02-17 23:06:54 [   ERROR] Error in monitoring loop: name 'psutil' is not defined (base.py:84)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 67, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 94, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/screenshot/service.py", line 123, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 107, in _get_resource_usage
+    "cpu_percent": psutil.Process().cpu_percent()
+                   ^^^^^^
+NameError: name 'psutil' is not defined
+2025-02-17 23:06:54 [    INFO] Stopped monitoring service: ScreenshotService (base.py:60)
+2025-02-17 23:06:55 [    INFO] Stopped monitoring service: ScreenshotService (base.py:60)
+2025-02-17 23:06:55 [    INFO] Started monitoring service: NetworkService (base.py:48)
+2025-02-17 23:06:55 [   ERROR] Error in monitoring loop: name 'psutil' is not defined (base.py:84)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 67, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 94, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/network/service.py", line 154, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 107, in _get_resource_usage
+    "cpu_percent": psutil.Process().cpu_percent()
+                   ^^^^^^
+NameError: name 'psutil' is not defined
+2025-02-17 23:06:55 [   ERROR] Error in monitoring loop: name 'psutil' is not defined (base.py:84)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 67, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 94, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/network/service.py", line 154, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 107, in _get_resource_usage
+    "cpu_percent": psutil.Process().cpu_percent()
+                   ^^^^^^
+NameError: name 'psutil' is not defined
+2025-02-17 23:06:55 [    INFO] Stopped monitoring service: NetworkService (base.py:60)
+2025-02-17 23:06:55 [    INFO] Stopped monitoring service: NetworkService (base.py:60)
+2025-02-17 23:06:55 [    INFO] Started monitoring service: ClipboardService (base.py:48)
+2025-02-17 23:06:55 [   ERROR] Error in monitoring loop: name 'psutil' is not defined (base.py:84)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 67, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 94, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/clipboard/service.py", line 155, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 107, in _get_resource_usage
+    "cpu_percent": psutil.Process().cpu_percent()
+                   ^^^^^^
+NameError: name 'psutil' is not defined
+2025-02-17 23:06:55 [   ERROR] Error in monitoring loop: name 'psutil' is not defined (base.py:84)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 67, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 94, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/clipboard/service.py", line 155, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 107, in _get_resource_usage
+    "cpu_percent": psutil.Process().cpu_percent()
+                   ^^^^^^
+NameError: name 'psutil' is not defined
+2025-02-17 23:06:55 [   ERROR] Error in monitoring loop: name 'psutil' is not defined (base.py:84)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 67, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 94, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/clipboard/service.py", line 155, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 107, in _get_resource_usage
+    "cpu_percent": psutil.Process().cpu_percent()
+                   ^^^^^^
+NameError: name 'psutil' is not defined
+2025-02-17 23:06:55 [   ERROR] Error in monitoring loop: name 'psutil' is not defined (base.py:84)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 67, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 94, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/clipboard/service.py", line 155, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 107, in _get_resource_usage
+    "cpu_percent": psutil.Process().cpu_percent()
+                   ^^^^^^
+NameError: name 'psutil' is not defined
+2025-02-17 23:06:56 [   ERROR] Error in monitoring loop: name 'psutil' is not defined (base.py:84)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 67, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 94, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/clipboard/service.py", line 155, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 107, in _get_resource_usage
+    "cpu_percent": psutil.Process().cpu_percent()
+                   ^^^^^^
+NameError: name 'psutil' is not defined
+2025-02-17 23:06:56 [   ERROR] Error in monitoring loop: name 'psutil' is not defined (base.py:84)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 67, in _monitoring_loop
+    await self._check_resource_usage()
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 94, in _check_resource_usage
+    current_usage = await self._get_resource_usage()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/clipboard/service.py", line 155, in _get_resource_usage
+    usage = await super()._get_resource_usage()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/services/monitoring/base.py", line 107, in _get_resource_usage
+    "cpu_percent": psutil.Process().cpu_percent()
+                   ^^^^^^
+NameError: name 'psutil' is not defined
+2025-02-17 23:06:56 [    INFO] Stopped monitoring service: ClipboardService (base.py:60)
+2025-02-17 23:06:56 [    INFO] Stopped monitoring service: ClipboardService (base.py:60)
+2025-02-17 23:06:56 [    INFO] Stopped monitoring service: ClipboardService (base.py:60)
+2025-02-17 23:06:56 [   ERROR] monitoring_config must be a dictionary (workflows.py:35)
+2025-02-17 23:06:56 [   ERROR] enabled_services must be a list (workflows.py:40)
+2025-02-17 23:06:56 [   ERROR] Missing configuration for service: screenshot (workflows.py:47)
+2025-02-17 23:06:56 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:56 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:56 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:56 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:56 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:56 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:56 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:56 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:56 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:56 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:57 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:57 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:57 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:57 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:57 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:57 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:57 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:57 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:57 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:57 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:57 [   ERROR] Error initializing screenshot service: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:102)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:57 [   ERROR] Error executing workflow: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval' (workflows.py:76)
+Traceback (most recent call last):
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 63, in execute
+    await self._initialize_services(config, enabled_services)
+  File "/home/sparrow/projects/hard-coder/Projects/SystemContextMonitor/core/cognitive/workflows.py", line 97, in _initialize_services
+    config_obj = config_class(**service_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ScreenshotConfig.__init__() got an unexpected keyword argument 'interval'
+2025-02-17 23:06:59 [   ERROR] Some tests failed. Check the log file: test_logs/test_run_20250217_230649.log (run_tests.py:41)

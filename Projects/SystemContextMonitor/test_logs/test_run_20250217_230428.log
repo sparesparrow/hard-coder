@@ -1,0 +1,2 @@
+2025-02-17 23:04:28 [    INFO] Starting test execution (run_tests.py:32)
+2025-02-17 23:04:31 [   ERROR] Some tests failed. Check the log file: test_logs/test_run_20250217_230428.log (run_tests.py:41)

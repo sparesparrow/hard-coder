@@ -1,0 +1,4 @@
+2025-02-17 22:58:25,181 - __main__ - INFO - Starting test execution
+2025-02-17 22:58:25,182 - __main__ - WARNING - pytest-cov not installed. Skipping coverage reporting.
+2025-02-17 22:58:25,182 - __main__ - INFO - Running tests with arguments: --verbose --capture=no --log-cli-level=INFO -s --asyncio-mode=auto --tb=short
+2025-02-17 22:58:25,338 - __main__ - ERROR - Some tests failed. Check the log file: test_logs/test_run_20250217_225825.log

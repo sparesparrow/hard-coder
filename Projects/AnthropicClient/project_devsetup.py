@@ -61,7 +61,7 @@ message = client.messages.create(
                 },
                 {
                     "type": "tool_use",
-                    "name": "custom_bash",
+                    "name": "anthropic_bash",
                     "id": "toolu_01PbZUsP7oDTZ5PtCwxXSwSF",
                     "input": {
                         "command": "mkdir -p web_scraper/src/{scraper,repository,models,utils} web_scraper/tests\ntouch web_scraper/src/scraper/{__init__.py,scraper.py,scraper_config.py}\ntouch web_scraper/src/repository/{__init__.py,base_repository.py,scrape_repository.py}\ntouch web_scraper/src/models/{__init__.py,scrape_data.py}\ntouch web_scraper/src/utils/{__init__.py,exceptions.py}\ntouch web_scraper/tests/{__init__.py,test_scraper.py,test_repository.py}\ntouch web_scraper/requirements.txt web_scraper/README.md"
@@ -88,7 +88,7 @@ message = client.messages.create(
                 },
                 {
                     "type": "tool_use",
-                    "name": "custom_text_editor",
+                    "name": "anthropic_text_editor",
                     "id": "toolu_01L2FLDVqWAMj2QGbLaqTSmH",
                     "input": {
                         "path": "/web_scraper/src/repository/base_repository.py",
@@ -117,7 +117,7 @@ message = client.messages.create(
                 },
                 {
                     "type": "tool_use",
-                    "name": "custom_text_editor",
+                    "name": "anthropic_text_editor",
                     "id": "toolu_019ktpvjYd161Ue2xydo5odW",
                     "input": {
                         "path": "/web_scraper/src/models/scrape_data.py",
@@ -146,7 +146,7 @@ message = client.messages.create(
                 },
                 {
                     "type": "tool_use",
-                    "name": "custom_text_editor",
+                    "name": "anthropic_text_editor",
                     "id": "toolu_01PpuQvnMZCW26VFR3LvNfKG",
                     "input": {
                         "path": "/web_scraper/src/scraper/scraper.py",
@@ -175,7 +175,7 @@ message = client.messages.create(
                 },
                 {
                     "type": "tool_use",
-                    "name": "custom_text_editor",
+                    "name": "anthropic_text_editor",
                     "id": "toolu_019CbkswJGrpa9KsrxXkxS8o",
                     "input": {
                         "path": "/web_scraper/requirements.txt",
@@ -231,7 +231,7 @@ message = client.messages.create(
                 },
                 {
                     "type": "tool_use",
-                    "name": "custom_text_editor",
+                    "name": "anthropic_text_editor",
                     "id": "toolu_01Tdfvfn3bBmCvmTzhVRD4Hd",
                     "input": {
                         "path": "/web_scraper/README.md",
@@ -260,7 +260,7 @@ message = client.messages.create(
                 },
                 {
                     "type": "tool_use",
-                    "name": "custom_bash",
+                    "name": "anthropic_bash",
                     "id": "toolu_0134pdREf5caoVt3RmJFMurM",
                     "input": {
                         "command": "ls -R web_scraper/"
@@ -287,7 +287,7 @@ message = client.messages.create(
                 },
                 {
                     "type": "tool_use",
-                    "name": "custom_text_editor",
+                    "name": "anthropic_text_editor",
                     "id": "toolu_01WwEhjRhso1y6V5fPxgM1LX",
                     "input": {
                         "path": "/web_scraper/src/scraper/scraper.py",

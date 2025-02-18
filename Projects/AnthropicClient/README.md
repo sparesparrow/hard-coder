@@ -170,17 +170,17 @@ stateDiagram-v2
 
 ## Tools
 
-### Bash Tool (`custom_bash.json`)
+### Bash Tool (`anthropic_bash.json`)
 - Execute shell commands in a persistent environment
 - Access to common Linux and Python packages
 - State persistence across command calls
 
-### Text Editor (`custom_text_editor.json`)
+### Text Editor (`anthropic_text_editor.json`)
 - View, create, and edit files
 - Support for line-based operations
 - File content manipulation with undo capability
 
-### Computer Use (`custom_computer_use.json`)
+### Computer Use (`anthropic_computer_use.json`)
 - GUI automation capabilities
 - Keyboard and mouse control
 - Screenshot functionality
@@ -237,7 +237,7 @@ message = await client.create_message(
 ```python
 # Use the bash tool
 result = await client.create_tool_message(
-    tool_name="custom_bash",
+    tool_name="anthropic_bash",
     tool_input={
         "command": "ls -la"
     }
@@ -245,7 +245,7 @@ result = await client.create_tool_message(
 
 # Use the text editor
 result = await client.create_tool_message(
-    tool_name="custom_text_editor",
+    tool_name="anthropic_text_editor",
     tool_input={
         "command": "view",
         "path": "/path/to/file.py"
