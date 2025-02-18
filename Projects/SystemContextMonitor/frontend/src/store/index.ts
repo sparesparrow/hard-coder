@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { SystemContext, WorkflowState, apiClient } from '../api/client';
+import { SystemContext, WorkflowStatus, apiClientInstance as apiClient } from '../api/client';
 
 interface AppState {
   // Context data
@@ -12,6 +12,8 @@ interface AppState {
   initializeApp: () => Promise<void>;
   updateContext: (update: Partial<SystemContext>) => void;
   executeWorkflow: (workflowId: string, context: Record<string, any>) => Promise<string>;
+  deleteWorkflow: (workflowId: string) => Promise<void>;
+  refreshContext: () => Promise<void>;
   clearError: () => void;
 }
 
@@ -64,14 +66,52 @@ export const useStore = create<AppState>()(
 
       executeWorkflow: async (workflowId: string, context: Record<string, any>) => {
         try {
+          set({ isLoading: true, error: null });
           const result = await apiClient.executeWorkflow({
             workflow_id: workflowId,
             context,
           });
+          
+          // Refresh context after workflow execution
+          const updatedContext = await apiClient.getCurrentContext();
+          set({ context: updatedContext, isLoading: false });
+          
           return result.execution_id;
         } catch (error) {
           set({
             error: error instanceof Error ? error : new Error('Failed to execute workflow'),
+            isLoading: false,
+          });
+          throw error;
+        }
+      },
+
+      deleteWorkflow: async (workflowId: string) => {
+        try {
+          set({ isLoading: true, error: null });
+          await apiClient.deleteWorkflow(workflowId);
+          
+          // Refresh context after deletion
+          const updatedContext = await apiClient.getCurrentContext();
+          set({ context: updatedContext, isLoading: false });
+        } catch (error) {
+          set({
+            error: error instanceof Error ? error : new Error('Failed to delete workflow'),
+            isLoading: false,
+          });
+          throw error;
+        }
+      },
+
+      refreshContext: async () => {
+        try {
+          set({ isLoading: true, error: null });
+          const context = await apiClient.getCurrentContext();
+          set({ context, isLoading: false });
+        } catch (error) {
+          set({
+            error: error instanceof Error ? error : new Error('Failed to refresh context'),
+            isLoading: false,
           });
           throw error;
         }

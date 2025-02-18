@@ -1,74 +1,52 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 import { io, Socket } from 'socket.io-client';
+
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 // Types
 export interface SystemContext {
-  screenshots: ScreenshotData[];
-  clipboard: ClipboardData[];
-  network: NetworkData[];
-  workflows: WorkflowState[];
+  screenshots: any[];
+  clipboard: any[];
+  network: any[];
+  workflows: any[];
 }
 
-export interface ScreenshotData {
-  timestamp: string;
-  image_data: string;
-  dimensions: [number, number];
-}
-
-export interface ClipboardData {
-  timestamp: string;
-  content: string;
-}
-
-export interface NetworkData {
-  timestamp: string;
-  type: 'request' | 'response' | 'error';
-  data: {
-    method?: string;
-    url?: string;
-    status?: number;
-    headers?: Record<string, string>;
-    body?: Record<string, unknown>;
-    error?: {
-      message: string;
-      code?: string;
-    };
-  };
-}
-
-export interface WorkflowState {
-  workflow_id: string;
+export interface WorkflowResponse {
+  execution_id: string;
   status: string;
-  start_time: string;
-  end_time?: string;
-  results?: any;
+}
+
+export interface WorkflowStatus {
+  id: string;
+  status: string;
+  result?: any;
   error?: string;
 }
 
 export interface WorkflowExecution {
   workflow_id: string;
-  context: Record<string, any>;
+  context: Record<string, unknown>;
 }
 
 export interface WorkflowList {
   available_workflows: string[];
-  active_workflows: WorkflowState[];
+  active_workflows: WorkflowStatus[];
 }
 
+export const apiClient = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 class APIClient {
-  private readonly api: AxiosInstance;
+  private readonly api: typeof apiClient;
   private socket: Socket | null = null;
   private contextUpdateHandlers: Array<(context: Partial<SystemContext>) => void> = [];
 
-  constructor(baseURL: string = 'http://localhost:8000') {
-    // Initialize axios instance
-    this.api = axios.create({
-      baseURL,
-      timeout: 10000,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  constructor() {
+    this.api = apiClient;
 
     // Add response interceptor for error handling
     this.api.interceptors.response.use(
@@ -128,26 +106,54 @@ class APIClient {
 
   // REST API methods
   public async getCurrentContext(): Promise<SystemContext> {
-    const response = await this.api.get<SystemContext>('/api/context');
-    return response.data;
+    try {
+      const response: AxiosResponse<SystemContext> = await this.api.get('/api/context');
+      return response.data;
+    } catch (error) {
+      throw error instanceof AxiosError
+        ? new Error(error.response?.data?.message || 'Failed to get system context')
+        : error;
+    }
   }
 
-  public async executeWorkflow(execution: WorkflowExecution): Promise<{ execution_id: string; status: string }> {
-    const response = await this.api.post('/api/workflows/execute', execution);
-    return response.data;
+  public async executeWorkflow(execution: WorkflowExecution): Promise<WorkflowResponse> {
+    try {
+      const response: AxiosResponse<WorkflowResponse> = await this.api.post('/api/workflows/execute', execution);
+      return response.data;
+    } catch (error) {
+      throw error instanceof AxiosError 
+        ? new Error(error.response?.data?.message || 'Failed to execute workflow')
+        : error;
+    }
   }
 
-  public async getWorkflowStatus(executionId: string): Promise<WorkflowState> {
-    const response = await this.api.get(`/api/workflows/${executionId}/status`);
-    return response.data;
+  public async getWorkflowStatus(executionId: string): Promise<WorkflowStatus> {
+    try {
+      const response: AxiosResponse<WorkflowStatus> = await this.api.get(`/api/workflows/${executionId}/status`);
+      return response.data;
+    } catch (error) {
+      throw error instanceof AxiosError
+        ? new Error(error.response?.data?.message || 'Failed to get workflow status')
+        : error;
+    }
   }
 
   public async listWorkflows(): Promise<WorkflowList> {
     const response = await this.api.get('/api/workflows');
     return response.data;
   }
+
+  public async deleteWorkflow(workflowId: string): Promise<void> {
+    try {
+      await this.api.delete(`/api/workflows/${workflowId}`);
+    } catch (error) {
+      throw error instanceof AxiosError
+        ? new Error(error.response?.data?.message || 'Failed to delete workflow')
+        : error;
+    }
+  }
 }
 
 // Create and export singleton instance
-export const apiClient = new APIClient();
-export default apiClient; 
+export const apiClientInstance = new APIClient();
+export default apiClientInstance; 

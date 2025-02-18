@@ -7,6 +7,10 @@ import logging
 import json
 from datetime import datetime, UTC
 from pydantic import BaseModel
+import redis
+import sqlalchemy
+from sqlalchemy import text
+import structlog
 
 from core.cognitive.orchestrator import CognitiveOrchestrator, WorkflowContext
 from core.cognitive.workflows import SystemMonitoringWorkflow
@@ -35,7 +39,7 @@ app.mount("/ws", socket_app)
 # Initialize components
 orchestrator = CognitiveOrchestrator()
 transport = TransportFactory.create_transport(TransportType.HTTP)
-logger = logging.getLogger(__name__)
+logger = structlog.get_logger()
 
 # Pydantic models for API
 class ContextUpdate(BaseModel):
@@ -181,6 +185,40 @@ async def list_workflows() -> Dict[str, Any]:
     except Exception as e:
         logger.error(f"Error listing workflows: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for container orchestration."""
+    try:
+        # Check database connection
+        from services.api.database import engine
+        with engine.connect() as connection:
+            connection.execute(text("SELECT 1"))
+
+        # Check Redis connection
+        from services.api.redis import redis_client
+        redis_client.ping()
+
+        return {
+            "status": "healthy",
+            "database": "connected",
+            "redis": "connected"
+        }
+    except sqlalchemy.exc.SQLAlchemyError as e:
+        logger.error("Database health check failed", error=str(e))
+        raise HTTPException(status_code=503, detail="Database connection failed")
+    except redis.RedisError as e:
+        logger.error("Redis health check failed", error=str(e))
+        raise HTTPException(status_code=503, detail="Redis connection failed")
+    except Exception as e:
+        logger.error("Health check failed", error=str(e))
+        raise HTTPException(status_code=503, detail="Service unhealthy")
+
+# Import and include routers
+from services.api.routers import tools, monitoring
+
+app.include_router(tools.router, prefix="/api/tools", tags=["tools"])
+app.include_router(monitoring.router, prefix="/api/monitoring", tags=["monitoring"])
 
 if __name__ == "__main__":
     import uvicorn

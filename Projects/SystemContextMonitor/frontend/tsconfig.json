@@ -15,11 +15,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["*"]
     }
   },
-  "include": ["src", "dashboard", "qr-display", "__tests__"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 } 

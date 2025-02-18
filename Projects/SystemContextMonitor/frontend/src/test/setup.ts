@@ -1,38 +1,52 @@
 import '@testing-library/jest-dom';
-import { vi, type SpyInstance } from 'vitest';
 
 // Mock WebSocket
-global.WebSocket = vi.fn().mockImplementation(() => ({
-  close: vi.fn(),
-  send: vi.fn(),
-  addEventListener: vi.fn(),
-  removeEventListener: vi.fn(),
-}));
+type MockFunction = ReturnType<typeof jest.fn>;
+interface MockWebSocketStatic extends MockFunction {
+  CLOSED: number;
+  CLOSING: number;
+  CONNECTING: number;
+  OPEN: number;
+}
+
+const MockWebSocket = jest.fn().mockImplementation(() => ({
+  close: jest.fn(),
+  send: jest.fn(),
+  addEventListener: jest.fn(),
+  removeEventListener: jest.fn(),
+})) as MockWebSocketStatic;
+
+MockWebSocket.CLOSED = 3;
+MockWebSocket.CLOSING = 2;
+MockWebSocket.CONNECTING = 0;
+MockWebSocket.OPEN = 1;
+
+global.WebSocket = MockWebSocket as unknown as typeof WebSocket;
 
 // Mock ResizeObserver
-global.ResizeObserver = vi.fn().mockImplementation(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
+global.ResizeObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
 }));
 
 // Mock requestAnimationFrame
-global.requestAnimationFrame = vi.fn((callback: FrameRequestCallback) => {
+global.requestAnimationFrame = jest.fn((callback: FrameRequestCallback) => {
   setTimeout(callback, 0);
   return 0;
 });
 
 // Mock cancelAnimationFrame
-global.cancelAnimationFrame = vi.fn();
+global.cancelAnimationFrame = jest.fn();
 
 // Mock matchMedia
-global.matchMedia = vi.fn().mockImplementation((query: string) => ({
+global.matchMedia = jest.fn().mockImplementation((query: string) => ({
   matches: false,
   media: query,
   onchange: null,
-  addListener: vi.fn(),
-  removeListener: vi.fn(),
-  addEventListener: vi.fn(),
-  removeEventListener: vi.fn(),
-  dispatchEvent: vi.fn(),
+  addListener: jest.fn(),
+  removeListener: jest.fn(),
+  addEventListener: jest.fn(),
+  removeEventListener: jest.fn(),
+  dispatchEvent: jest.fn(),
 })); 

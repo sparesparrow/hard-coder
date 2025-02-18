@@ -1,68 +1,82 @@
-# Use multi-stage build for optimized image size
-# Stage 1: Build frontend
-FROM node:16-alpine as frontend-builder
-WORKDIR /app/frontend
+# Build backend
+FROM python:3.11-slim AS backend-builder
 
-# Copy frontend dependencies
-COPY frontend/package*.json ./
-RUN npm install
-
-# Copy frontend source
-COPY frontend/ ./
-
-# Build frontend
-RUN npm run build
-
-# Stage 2: Build backend
-FROM python:3.9-slim as backend-builder
-WORKDIR /app
-
-# Install Poetry
-RUN pip install poetry
-
-# Copy backend dependencies
-COPY pyproject.toml poetry.lock ./
-RUN poetry config virtualenvs.create false \
-    && poetry install --no-dev --no-interaction --no-ansi
-
-# Stage 3: Final image
-FROM python:3.9-slim
 WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libx11-6 \
-    libxext6 \
-    libxrender1 \
-    libxinerama1 \
-    libxi6 \
-    libxrandr2 \
-    libxcursor1 \
-    libxss1 \
+    build-essential \
+    curl \
+    libpq-dev \
+    python3-dev \
+    python3-pip \
+    python3-setuptools \
+    python3-wheel \
+    gcc \
+    libjpeg-dev \
+    zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy backend dependencies from builder
-COPY --from=backend-builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
-COPY --from=backend-builder /usr/local/bin /usr/local/bin
+# Install Python dependencies
+COPY services/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy frontend build
-COPY --from=frontend-builder /app/frontend/dist /app/frontend/dist
+# Copy backend code
+COPY services/ ./services/
+COPY tests/ ./tests/
+COPY alembic.ini .
+COPY alembic/ ./alembic/
 
-# Copy application code
-COPY core/ /app/core/
-COPY services/ /app/services/
-COPY tests/ /app/tests/
+# Set Python path
+ENV PYTHONPATH=/app
 
-# Create non-root user
-RUN useradd -m -u 1000 appuser
-USER appuser
+# Build frontend
+FROM node:18-alpine AS frontend-builder
 
-# Set environment variables
+WORKDIR /app
+
+COPY frontend/package*.json ./
+RUN npm ci
+
+COPY frontend/ ./
+RUN npm run build
+
+# Runtime image for frontend
+FROM nginx:alpine AS frontend-runtime
+
+COPY --from=frontend-builder /app/build /usr/share/nginx/html
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Install curl for healthcheck
+RUN apk add --no-cache curl
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:80/ || exit 1
+
+# Runtime image for backend
+FROM python:3.11-slim AS backend-runtime
+
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    libjpeg62-turbo \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy installed packages and code from builder
+COPY --from=backend-builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
+COPY --from=backend-builder /app/services/ ./services/
+COPY --from=backend-builder /app/alembic.ini .
+COPY --from=backend-builder /app/alembic/ ./alembic/
+
 ENV PYTHONPATH=/app
 ENV PORT=8000
 
-# Expose port
 EXPOSE 8000
 
-# Start application
-CMD ["uvicorn", "services.context.api:app", "--host", "0.0.0.0", "--port", "8000"] 
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+CMD ["python", "-m", "uvicorn", "services.api.main:app", "--host", "0.0.0.0", "--port", "8000"] 

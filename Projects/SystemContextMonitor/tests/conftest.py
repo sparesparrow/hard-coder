@@ -1,8 +1,23 @@
+"""
+Shared test fixtures for the System Context Monitor.
+"""
+
 import pytest
 import asyncio
 import os
 from typing import Dict, Any
 from datetime import datetime
+from uuid import uuid4
+import redis
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
+
+from services.api.core.config import settings
+from services.api.mcp.tools import Tool
+from services.api.models.messages import (
+    ProtocolVersion,
+    MessageType
+)
 
 @pytest.fixture(scope="session")
 def event_loop():
@@ -110,4 +125,98 @@ def mock_metrics(mocker):
         "counter": mocker.Mock(),
         "histogram": mocker.Mock(),
         "gauge": mocker.Mock()
+    }
+
+@pytest.fixture(scope="session", autouse=True)
+def setup_test_environment():
+    """Set up test environment."""
+    # Use test database
+    settings.DATABASE_URL = settings.DATABASE_URL.replace(
+        "systemcontext",
+        "systemcontext_test"
+    )
+    
+    # Use test Redis database
+    settings.REDIS_URL = settings.REDIS_URL.replace(
+        "redis://localhost:6379/0",
+        "redis://localhost:6379/1"
+    )
+    
+    # Reconnect Redis client
+    settings.redis_client = redis.from_url(
+        settings.REDIS_URL,
+        decode_responses=True
+    )
+    
+    yield
+    
+    # Clean up
+    settings.redis_client.flushdb()
+
+@pytest.fixture
+def test_app():
+    """Create test FastAPI application."""
+    app = FastAPI()
+    return app
+
+@pytest.fixture
+def test_client(test_app):
+    """Create test client."""
+    return TestClient(test_app)
+
+@pytest.fixture
+def valid_api_key():
+    """Get valid API key for testing."""
+    return "mcp_test_key"
+
+@pytest.fixture
+def test_tool():
+    """Create test tool."""
+    return Tool(
+        name="test_tool",
+        description="A test tool",
+        version="1.0.0",
+        capabilities={
+            "required_params": ["param1"],
+            "param_types": {"param1": "str"}
+        }
+    )
+
+@pytest.fixture
+def valid_request():
+    """Create valid request message."""
+    return {
+        "protocol_version": ProtocolVersion.V2_0,
+        "message_type": MessageType.REQUEST,
+        "message_id": str(uuid4()),
+        "timestamp": datetime.utcnow().isoformat(),
+        "method": "test_tool",
+        "params": {
+            "tool": "test_tool",
+            "params": {"param1": "test_value"}
+        }
+    }
+
+@pytest.fixture
+def valid_response():
+    """Create valid response message."""
+    return {
+        "protocol_version": ProtocolVersion.V2_0,
+        "message_type": MessageType.RESPONSE,
+        "message_id": str(uuid4()),
+        "timestamp": datetime.utcnow().isoformat(),
+        "request_id": str(uuid4()),
+        "result": {"status": "success"}
+    }
+
+@pytest.fixture
+def valid_event():
+    """Create valid event message."""
+    return {
+        "protocol_version": ProtocolVersion.V2_0,
+        "message_type": MessageType.EVENT,
+        "message_id": str(uuid4()),
+        "timestamp": datetime.utcnow().isoformat(),
+        "event_type": "test_event",
+        "data": {"event": "data"}
     } 

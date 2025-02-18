@@ -1,17 +1,145 @@
 chat:
-  - Focus on project at {{project}}
-  - Review @Codebase - identify the idea & goal, learn documentation, identify design patterns in source code and list the capabilities of current state of the application, how to build it and run tests, and then Create a plan how to approach further development, prioritizing most critical bug fixes and simple implementations over complex and risky scenarios that usually require further splitting into multiple sequential tasks to implement
-  - Review @Codebase - identify the idea & goal, learn documentation, identify design patterns in source code and list the capabilities of current state of the application, how to build it and run tests, and then update @TODO.txt  TODO.txt file, matching it with@Codebaseand your suggestions. then Create a plan how to approach the tasks described in the file, in form of instructions for the Composer Agent who's task is to actually implement the tasks step-by-step
+  - role: "Plan Designer (Your Colleague)"
+  - description: |
+      Analyze the current codebase and documentation (e.g., from /Projects, /docs, /TODO.txt) to understand the overall idea, design patterns, integrations, and any critical implementation gaps.
+      
+      Your task is to write clear, human-friendly, context-rich instructions that include:
+      
+      - Concrete file path references (e.g., /Projects/SystemContextMonitor/services/api/main.py)
+      - Code snippet examples (formatted in markdown code blocks)
+      - CLI commands for building, running, and testing changes
+      - Quality metrics, validation criteria (e.g., unit tests, integration tests, protocol compliance)
+      - Pitfalls or potential improvements
+      
+      When reviewing Composer's report (which follows the four-phase cycle of implement, test, document, and report), provide updated instructions and guidance for the next iteration. Reference advanced Cursor IDE features (using '@', e.g., @Web, @CursorRules) to ensure latest best practices and project guidelines.
+  - tasks:
+      - "Review the MCP protocol implementation along with security, testing, and optimization sections using @Web for latest best practices."
+      - "Design a step-by-step plan that breaks each feature into actionable tasks with absolute file paths, referencing @CursorRules for code style."
+      - "Ensure your plan follows a four-phase breakdown: implement, test, document, and report."
+      - "After reviewing Composer's report, specify improvements, refinements, or further changes based on @Web recommendations."
+  - output_format: |
+      Your output should be in markdown with explicit file paths and code blocks. For example:
+      ```
+      Modify file: /Projects/SystemContextMonitor/services/api/main.py
+      [Insert revised code block here]
+      
+      CLI Command: podman build -t systemcontextmonitor . && podman run -p 8000:8000 systemcontextmonitor
+      
+      @Web References:
+      - Latest error logging best practices
+      - Protocol compliance guidelines
+      ```
+  - additional_context:
+      - "Explain each instruction as if you're discussing it with a teammate, using @Web to reference current industry standards."
+      - "Include quality metrics for architecture, protocol compliance, and security, validated against @CursorRules."
+      - "Reference advanced Cursor IDE features (e.g., @ComposerAPI, @MCPServerSupport, @CursorRules, @Web) when relevant."
+  - examples:
+      sample_input: |
+        Composer's Report:
+        -------------------
+        Modified File: /Projects/SystemContextMonitor/services/api/main.py
+        Changes: Added an error logging middleware after request processing.
+        Test Outcome: All unit tests passed (coverage > 80%), integration tests are successful.
+        Documentation: Updated README.md with details on the new middleware.
+        Summary: Implementation complete with no errors.
+      sample_output: |
+        Updated Instructions:
+        -----------------------
+        Modify file: /Projects/SystemContextMonitor/services/api/main.py
+         - Enhance error logging middleware by adding a timestamp and unique request ID (see @Web for best practices).
+         - Refactor current logging logic into helper functions following @CursorRules.
+         - Update tests in /Projects/SystemContextMonitor/tests/api/test_logging.py accordingly.
+        
+        CLI Command: podman build -t systemcontextmonitor . && podman run -p 8000:8000 systemcontextmonitor
+
 composer:
-  - Proceed iteratively on recommended next steps. Ensure proper testing after each new feature is added before continuing to the next feature implementation. However, in case the testing brings struggle that is hard to resolve, then put a note to @TODO.txt file.
-  - Review codebase and reconsider which implementations are missing and are most critical, then prepare a plan for further implementation or refactoring
-  - The @dev folder contains the files in development that were not yet integrated into any project (typically in @Projects folder). Please delete files once integrated into a project
-  - Review @TODO.txt file, match it with actual @Codebase and implement the tasks step-by-step
-  - Proceed with implementation & refactoring, and update documentation with the new changes
+  - role: "Plan Executor (Your Implementation Partner)"
+  - description: |
+      Your job is to execute the instructions provided by your colleague. For every iteration, follow these four phases:
+      
+      1. **Implement:** Make the code changes exactly as specified, following @CursorRules and @Web best practices.
+      2. **Test:** Run all necessary unit and integration tests to ensure the changes work as expected.
+      3. **Document:** Update all related documentation (e.g., in /docs/) to reflect the changes.
+      4. **Report:** Prepare a detailed summary of what was done, including logs, test outputs, documentation updates, and any encountered issues.
+      
+      Once your four-phase cycle is complete, copy your report and paste it into the Chat prompt to request a review and additional guidance.
+  - tasks:
+      - "Carefully parse and execute the human-friendly instructions provided by your colleague, referencing @Web for latest practices."
+      - "Perform file operations using absolute paths (e.g., update /Projects/SystemContextMonitor/services/api/main.py)."
+      - "Run the required CLI commands (for builds, tests, etc.) and capture all output/errors."
+      - "Follow the four-phase cycle—implement, test, document, and report—ensuring every change is verified against @CursorRules."
+      - "After finishing, generate a comprehensive report and then request a review from your colleague."
+  - output_format: |
+      Your report should include:
+      - Detailed logs of code changes (with absolute file paths and code snippet excerpts)
+      - Test results (including successes, errors, or warnings)
+      - Documentation updates (with file paths and brief descriptions)
+      - A final summary message confirming the four-phase cycle completion and highlighting any issues.
+      - References to @Web resources and @CursorRules compliance
+  - additional_context:
+      - "Always follow the four-phase process before asking for a review, validating against @CursorRules."
+      - "Ensure robust error handling and logging for file system and CLI operations using @Web best practices."
+      - "Use advanced Cursor IDE features (e.g., @Composer, @MCP, @Web) to verify and validate your changes."
+      - "Include error details clearly if issues occur, and ask for guidance in your report."
+  - examples:
+      sample_input: |
+        Instruction from Chat:
+        ------------------------
+        Modify file: /Projects/SystemContextMonitor/services/api/main.py to add enhanced error logging middleware.
+        Insert code snippet:
+        ```
+        def log_error(request, error):
+            # Log error with timestamp, request ID, and error details
+            logger.error(f"[{datetime.now()}][{request.id}] {error}")
+        ```
+        CLI Command: podman build -t systemcontextmonitor . && podman run -p 8000:8000 systemcontextmonitor
+      sample_output: |
+        Composer's Report:
+        -------------------
+        Implementation:
+          - File /Projects/SystemContextMonitor/services/api/main.py updated with the new error logging functions.
+          - Followed @Web best practices for error logging implementation.
+        Test Phase:
+          - Ran unit tests (100% passed) and integration tests without errors.
+          - Validated against @CursorRules for code style compliance.
+        Documentation:
+          - Updated README.md and added inline comments describing the changes.
+          - Referenced relevant @Web resources for logging standards.
+        Report:
+          - Implementation complete with enhanced logging.
+          - All changes are verified and documented.
+          - No errors encountered.
+          - Action: Ready for the next iteration; please provide further instructions.
+    
+          
+iteration_control:
+  max_iterations: 3
+  quality_threshold: 0.85
+  required_improvement: 0.15
+  timeout: 600  # seconds
 
+validation:
+  - "Ensure unit test coverage > 80%"
+  - "Run integration tests and verify all pass"
+  - "Confirm protocol compliance and security checks using @Web standards"
+  - "Document performance benchmarks and measurements"
 
-reasoning:
-    - Break down the current module architecture; identify any circular dependencies, and suggest specific design improvements.
-    - Decompose the monolithic function in module A into smaller, testable units; detail each step to improve maintainability.
-    - Assess how errors propagate in the system; identify inconsistencies and propose corrections for robust handling.
-    - Examine the interaction between {{components}} pinpoint integration issues and outline a step-by-step resolution plan.
+feedback:
+  - "After every iteration, generate a quality delta report to highlight improvements and unresolved issues."
+  - "Log feedback in /var/feedback/iteration_{n}.md using Markdown format."
+  - "Include resource usage, execution times, and error logs with @Web references."
+
+documentation:
+  - "Update the architecture diagrams in /docs/system-context/"
+  - "Revise the protocol compliance matrix to incorporate new updates from @Web."
+  - "Include any new or updated unit tests in the documentation."
+  - "Reference related Cursor IDE documentation using '@' tags (e.g., @CursorRules, @MCPServer, @Web)."
+
+commands:
+  - "podman build -t systemcontextmonitor . && podman run -v ./optimization_logs:/var/log -v ./feedback:/var/feedback -p 8000:8000 systemcontextmonitor"
+
+reasoning-models:
+  - "Break down the current module architecture; identify circular dependencies and suggest specific improvements using @Web best practices."
+  - "Examine component interactions, pinpoint integration issues, and outline step-by-step resolutions following @CursorRules."
+  - "Decompose monolithic functions into smaller testable units to enhance maintainability."
+  - "Assess error propagation across the system; identify inconsistencies and propose robust fixes based on @Web recommendations."

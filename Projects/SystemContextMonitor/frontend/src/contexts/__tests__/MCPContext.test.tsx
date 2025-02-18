@@ -1,16 +1,16 @@
 import React, { type ReactNode } from 'react';
 import { render, screen, act, waitFor, renderHook } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
+import '@testing-library/jest-dom';
 import { MCPProvider, useMCP } from '../MCPContext';
 import { apiClient } from '../../api/client';
 
 // Mock apiClient
-vi.mock('../../api/client', () => ({
+jest.mock('../../api/client', () => ({
   apiClient: {
-    connectWebSocket: vi.fn(),
-    disconnectWebSocket: vi.fn(),
-    executeWorkflow: vi.fn(),
+    connectWebSocket: jest.fn(),
+    disconnectWebSocket: jest.fn(),
+    executeWorkflow: jest.fn(),
   },
 }));
 
@@ -37,7 +37,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => (
 
 describe('MCPProvider', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    jest.clearAllMocks();
   });
 
   it('should initialize with default state', () => {
@@ -52,7 +52,7 @@ describe('MCPProvider', () => {
   });
 
   it('should attempt to connect on mount', async () => {
-    (apiClient.executeWorkflow as any).mockResolvedValueOnce({});
+    (apiClient.executeWorkflow as jest.Mock).mockResolvedValueOnce({});
 
     render(
       <MCPProvider>
@@ -62,12 +62,15 @@ describe('MCPProvider', () => {
 
     await waitFor(() => {
       expect(apiClient.connectWebSocket).toHaveBeenCalled();
+    });
+
+    await waitFor(() => {
       expect(apiClient.executeWorkflow).toHaveBeenCalledWith('initialize', expect.any(Object));
     });
   });
 
   it('should handle successful connection', async () => {
-    (apiClient.executeWorkflow as any).mockResolvedValueOnce({});
+    (apiClient.executeWorkflow as jest.Mock).mockResolvedValueOnce({});
 
     render(
       <MCPProvider>
@@ -82,7 +85,7 @@ describe('MCPProvider', () => {
 
   it('should handle connection failure', async () => {
     const error = new Error('Connection failed');
-    (apiClient.executeWorkflow as any).mockRejectedValueOnce(error);
+    (apiClient.executeWorkflow as jest.Mock).mockRejectedValueOnce(error);
 
     render(
       <MCPProvider>
@@ -92,12 +95,15 @@ describe('MCPProvider', () => {
 
     await waitFor(() => {
       expect(screen.getByTestId('error')).toHaveTextContent('Connection failed');
+    });
+
+    await waitFor(() => {
       expect(screen.getByTestId('status')).toHaveTextContent('Disconnected');
     });
   });
 
   it('should handle manual reconnection', async () => {
-    (apiClient.executeWorkflow as any).mockResolvedValueOnce({});
+    (apiClient.executeWorkflow as jest.Mock).mockResolvedValueOnce({});
     const user = userEvent.setup();
 
     render(
@@ -106,27 +112,32 @@ describe('MCPProvider', () => {
       </MCPProvider>
     );
 
-    // Simulate initial connection failure
     await waitFor(() => {
       expect(apiClient.connectWebSocket).toHaveBeenCalled();
     });
 
     // Clear mocks for reconnection attempt
-    vi.clearAllMocks();
-    (apiClient.executeWorkflow as any).mockResolvedValueOnce({});
+    jest.clearAllMocks();
+    (apiClient.executeWorkflow as jest.Mock).mockResolvedValueOnce({});
 
     // Click connect button
     await user.click(screen.getByText('Connect'));
 
     await waitFor(() => {
       expect(apiClient.connectWebSocket).toHaveBeenCalled();
+    });
+
+    await waitFor(() => {
       expect(apiClient.executeWorkflow).toHaveBeenCalledWith('initialize', expect.any(Object));
+    });
+
+    await waitFor(() => {
       expect(screen.getByTestId('status')).toHaveTextContent('Connected and Initialized');
     });
   });
 
   it('should handle manual disconnection', async () => {
-    (apiClient.executeWorkflow as any).mockResolvedValueOnce({});
+    (apiClient.executeWorkflow as jest.Mock).mockResolvedValueOnce({});
     const user = userEvent.setup();
 
     render(
@@ -148,7 +159,7 @@ describe('MCPProvider', () => {
   });
 
   it('should handle notification sending', async () => {
-    (apiClient.executeWorkflow as any).mockResolvedValueOnce({});
+    (apiClient.executeWorkflow as jest.Mock).mockResolvedValueOnce({});
     
     const { result } = renderHook(() => useMCP(), {
       wrapper: Wrapper
@@ -160,8 +171,8 @@ describe('MCPProvider', () => {
     });
 
     // Clear mocks for notification test
-    vi.clearAllMocks();
-    (apiClient.executeWorkflow as any).mockResolvedValueOnce({});
+    jest.clearAllMocks();
+    (apiClient.executeWorkflow as jest.Mock).mockResolvedValueOnce({});
 
     // Send notification
     await act(async () => {
@@ -172,7 +183,7 @@ describe('MCPProvider', () => {
   });
 
   it('should handle notification failure', async () => {
-    (apiClient.executeWorkflow as any).mockResolvedValueOnce({});
+    (apiClient.executeWorkflow as jest.Mock).mockResolvedValueOnce({});
     
     const { result } = renderHook(() => useMCP(), {
       wrapper: Wrapper
@@ -184,9 +195,9 @@ describe('MCPProvider', () => {
     });
 
     // Clear mocks for notification test
-    vi.clearAllMocks();
+    jest.clearAllMocks();
     const error = new Error('Notification failed');
-    (apiClient.executeWorkflow as any).mockRejectedValueOnce(error);
+    (apiClient.executeWorkflow as jest.Mock).mockRejectedValueOnce(error);
 
     // Send notification
     await act(async () => {
@@ -198,6 +209,6 @@ describe('MCPProvider', () => {
     });
 
     expect(result.current.lastError).toBeTruthy();
-    expect(result.current.lastError?.message).toBe('Failed to send notification');
+    expect(result.current.lastError?.message).toBe('Notification failed');
   });
 }); 

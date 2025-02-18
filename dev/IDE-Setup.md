@@ -1,3 +1,107 @@
+# Audio-Interactive Notifications in Cursor IDE
+
+To set up audio-interactive notifications in Cursor IDE (a fork of VSCode), follow these steps using the extension API:
+
+1. **Create a Basic Extension**
+```bash
+npm install -g yo generator-code
+yo code
+# Select "New Extension (TypeScript)"
+```
+
+2. **Install Sound Package**
+```bash
+npm install play-sound
+```
+
+3. **Extension Code** (`src/extension.ts`)
+```typescript
+import * as vscode from 'vscode';
+const play = require('play-sound')({});
+
+export function activate(context: vscode.ExtensionContext) {
+    let disposable = vscode.commands.registerCommand('audio-notifications.showAlert', async () => {
+        // Play sound
+        play.play('./sound.mp3', (err: Error) => {
+            if (err) console.error("Error playing sound:", err);
+        });
+
+        // Show interactive notification
+        const selection = await vscode.window.showInformationMessage(
+            'Build Complete!',
+            'Open Logs',
+            'Dismiss'
+        );
+
+        if (selection === 'Open Logs') {
+            vscode.commands.executeCommand('workbench.action.output.toggleOutput');
+        }
+    });
+
+    context.subscriptions.push(disposable);
+}
+```
+
+4. **Add Sound File**
+- Place an MP3 file named `sound.mp3` in your extension root
+- Update `package.json` to include it in files:
+```json
+"files": [
+    "src",
+    "sound.mp3"
+]
+```
+
+5. **Configure package.json**
+```json
+{
+    "activationEvents": [
+        "onCommand:audio-notifications.showAlert"
+    ],
+    "contributes": {
+        "commands": [{
+            "command": "audio-notifications.showAlert",
+            "title": "Show Audio Notification"
+        }]
+    }
+}
+```
+
+6. **Test in Cursor**
+- Press `Ctrl+Shift+P` and run "Show Audio Notification"
+- You should hear the sound and see interactive buttons
+
+**To automate notifications** (e.g., on build completion), add this to your extension:
+```typescript
+vscode.tasks.onDidEndTaskProcess(e => {
+    if (e.execution.task.definition.type === 'npm' && e.exitCode === 0) {
+        vscode.commands.executeCommand('audio-notifications.showAlert');
+    }
+});
+```
+
+**Key Considerations:**
+1. Package the extension as VSIX or copy files to:
+   - Windows: `%USERPROFILE%\.cursor\extensions`
+   - Mac/Linux: `~/.cursor/extensions`
+
+2. For system-wide audio compatibility:
+```bash
+# Linux systems may require:
+sudo apt-get install alsa-utils
+```
+
+3. Use web-friendly audio formats (MP3/WAV) for cross-platform support
+
+You can create context-aware notifications by hooking into various Cursor IDE events like:
+- File changes
+- Build completion
+- Test results
+- Git operations
+
+The interactive buttons can execute any VSCode/Cursor command or custom logic.
+
+
 ## Writing .cursorrules and Notepads for Projects in Cursor IDE
 
 This guide provides detailed instructions and examples for writing effective `.cursorrules` files and utilizing Notepads in Cursor IDE to enhance your development workflow. It also demonstrates how these relate to other essential files such as `project_template.py`, `project_devsetup.py`, and `project_templates.json`.

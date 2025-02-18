@@ -1,230 +1,110 @@
 # System Context Monitor
 
-A comprehensive system monitoring solution that combines real-time monitoring data with advanced cognitive workflows. This project integrates monitoring capabilities with context-aware processing, providing a modern and intelligent approach to system observation and analysis.
+A comprehensive system monitoring solution with cognitive workflows and enhanced security.
 
 ## Features
 
-- **Real-time Monitoring**
-  - Screenshot capture and analysis
-  - Clipboard monitoring
-  - Network activity tracking
-  - System metrics collection
-
-- **Cognitive Processing**
-  - Context-aware workflow orchestration
-  - Intelligent data aggregation
-  - Pattern recognition and analysis
-  - Adaptive monitoring based on context
-
-- **Modern UI**
-  - Real-time dashboard updates
-  - Interactive workflow management
-  - Context visualization
-  - QR code-based context sharing
-
-- **Security & Resource Management**
-  - Secure data handling
-  - Resource usage monitoring
-  - Rate limiting and throttling
-  - Access control and validation
-
-## System Architecture
-
-```mermaid
-graph TD
-    subgraph "Frontend Layer"
-        UI[Dashboard UI]
-        WM[Workflow Manager]
-        CV[Context Viewer]
-        MP[Monitoring Panel]
-    end
-
-    subgraph "Core Processing"
-        CO[Cognitive Orchestrator]
-        WE[Workflow Engine]
-        subgraph "Monitoring Services"
-            SS[Screenshot Service]
-            NS[Network Service]
-            CS[Clipboard Service]
-        end
-        RM[Resource Manager]
-        MM[Metrics Manager]
-    end
-
-    subgraph "Data Management"
-        DB[(Context Store)]
-        MC[Memory Cache]
-        MQ[Message Queue]
-    end
-
-    UI --> WM
-    UI --> CV
-    UI --> MP
-    
-    WM --> CO
-    CO --> WE
-    WE --> SS & NS & CS
-    WE --> RM
-    WE --> MM
-    
-    SS & NS & CS --> MQ
-    MQ --> DB
-    DB --> MC
-    MC --> CO
-
-    style UI fill:#2ecc71,stroke:#27ae60
-    style CO fill:#e74c3c,stroke:#c0392b
-    style WE fill:#3498db,stroke:#2980b9
-    style RM fill:#f1c40f,stroke:#f39c12
-    style MM fill:#9b59b6,stroke:#8e44ad
-```
-
-## Architecture
-
-The system is built with a modular architecture following agentic design patterns:
-
-```
-SystemContextMonitor/
-├── core/                    # Core system components
-│   ├── agents/             # Agent composers and state managers
-│   ├── cognitive/          # Cognitive processing tools
-│   └── workflows/          # Predefined workflows
-├── services/               # Service implementations
-│   ├── monitoring/         # Monitoring services
-│   └── context/           # Context management
-├── frontend/              # React-based UI
-└── infrastructure/        # Deployment configs
-```
-
-## Prerequisites
-
-- Python 3.9+
-- Node.js 16+
-- Poetry (Python dependency management)
-- npm or yarn (Node.js package management)
+- Enhanced security with API key validation and rate limiting
+- Comprehensive protocol validation for MCP messages
+- Real-time monitoring through WebSocket connections
+- Tool registry with validation and metrics collection
+- Redis-based rate limiting and caching
+- Structured logging with context tracking
+- Extensive test coverage
 
 ## Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/system-context-monitor.git
-   cd system-context-monitor
-   ```
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/system-context-monitor.git
+cd system-context-monitor
+```
 
-2. **Install Python dependencies**
-   ```bash
-   poetry install
-   ```
+2. Install dependencies with Poetry:
+```bash
+poetry install
+```
 
-3. **Install frontend dependencies**
-   ```bash
-   cd frontend
-   npm install
-   ```
+Or with pip:
+```bash
+pip install -r services/requirements.txt
+```
 
-4. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your configuration
-   ```
+3. Set up environment variables:
+```bash
+cp .env.example .env
+# Edit .env with your configuration
+```
 
-## Development Setup
+4. Start Redis and PostgreSQL:
+```bash
+docker-compose up -d redis db
+```
 
-1. **Start the backend server**
-   ```bash
-   poetry shell
-   python -m services.context.api
-   ```
+5. Run database migrations:
+```bash
+poetry run alembic upgrade head
+```
 
-2. **Start the frontend development server**
-   ```bash
-   cd frontend
-   npm run dev
-   ```
+## Development
 
-3. **Access the application**
-   - Backend API: http://localhost:8000
-   - Frontend: http://localhost:5173
-   - API Documentation: http://localhost:8000/docs
+1. Start the development server:
+```bash
+poetry run uvicorn services.api.main:app --reload
+```
 
-## Usage
+2. Run tests:
+```bash
+poetry run pytest tests/
+```
 
-### Starting Monitoring
-
-1. Launch the application
-2. Navigate to the dashboard
-3. Configure monitoring settings:
-   - Screenshot interval
-   - Network capture rules
-   - Clipboard monitoring preferences
-
-### Managing Workflows
-
-1. Access the Workflow Manager
-2. Create new workflows or select existing ones
-3. Monitor workflow execution in real-time
-4. View detailed results and analytics
-
-### Accessing Context
-
-1. Use the Context Viewer to explore current system state
-2. Scan QR codes to share context across devices
-3. Export context data for external analysis
+3. Run linting:
+```bash
+poetry run black services/
+poetry run isort services/
+poetry run mypy services/
+```
 
 ## API Documentation
 
-The system provides a comprehensive REST API and WebSocket interface:
+Once running, visit:
+- OpenAPI documentation: http://localhost:8000/docs
+- ReDoc documentation: http://localhost:8000/redoc
 
-### REST Endpoints
+## Architecture
 
-- `GET /api/context` - Retrieve current system context
-- `POST /api/context` - Update system context
-- `POST /api/workflows` - Execute cognitive workflow
-- `GET /api/workflows/{id}` - Get workflow state
+The System Context Monitor is built with:
+- FastAPI for high-performance API endpoints
+- WebSocket support for real-time monitoring
+- Redis for rate limiting and caching
+- PostgreSQL for persistent storage
+- Structured logging with context tracking
+- Comprehensive test suite
 
-### WebSocket Events
+### Security Features
 
-- `context_update` - Real-time context updates
-- `workflow_state` - Workflow execution updates
-- `monitoring_data` - Live monitoring data
+- API key validation
+- Rate limiting with Redis
+- Protocol validation for all messages
+- Security headers
+- CORS configuration
+- Input validation with Pydantic
 
-## Security Considerations
+### Monitoring Features
 
-1. **Data Protection**
-   - All sensitive data is encrypted
-   - Secure WebSocket connections
-   - Rate limiting on API endpoints
-
-2. **Access Control**
-   - Role-based access control
-   - API key authentication
-   - Session management
-
-3. **Resource Management**
-   - Monitoring rate limits
-   - Storage quotas
-   - CPU/Memory restrictions
+- Real-time system metrics
+- Tool execution metrics
+- Error tracking and categorization
+- Performance monitoring
+- Resource usage tracking
 
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## Testing
-
-Run the test suites:
-
-```bash
-# Backend tests
-poetry run pytest
-
-# Frontend tests
-cd frontend
-npm test
-```
+3. Make your changes
+4. Run tests and linting
+5. Submit a pull request
 
 ## License
 
@@ -232,14 +112,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- Built with FastAPI and React
-- Uses Material-UI for frontend components
-- Implements agentic design patterns
-- Security standards based on OWASP guidelines
-
-
-
-
+- Material-UI for the component library
+- FastAPI for the backend framework
+- Docker for containerization
+- The open-source community for various tools and libraries
 
 Below is the new `diagrams.md` file containing the requested Mermaid diagrams. All diagrams have been created following the Mermaid Diagram Generator standards (mermaid-generator.mdc), including proper syntax validation, incremental building, and style management.
 
